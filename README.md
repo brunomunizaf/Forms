@@ -17,88 +17,69 @@ To install Forms using [Swift Package Manager](https://github.com/apple/swift-pa
 or you can add the following dependency to your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/brunomunizaf/Forms.git", from: "0.1.0")
+.package(url: "https://github.com/brunomunizaf/Forms.git", from: "0.1.3")
 ```
 
 ## Creating a Form
 
+You can instantiate a `FormView` programatically or use it as a custom class for a UIView on either a storyboard or a xib and connect it through an `@IBOutlet`.
+
 ```swift
-let titleItem = FormTextItem(
+import Forms
+import UIKit
+
+final class ViewController: UIViewController {
+  @IBOutlet weak var formView: FormView!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    formView.add(
+      FormTextItem(
+       text: "Personal details"
+    ))
+}
+```
+
+Each `FormItem` can be customized to look however you like
+
+```swift
+FormTextItem(
   text: "Create a new password",
   font: UIFont(name: "Helvetica-bold", size: 35)!,
   color: .black,
   spacingAfter: 15
 )
 
-let paragraphStyle = NSMutableParagraphStyle()
-paragraphStyle.lineSpacing = 4
-
-let subtitleItem = FormTextItem(
+FormTextItem(
   text: "Your new password must be unique therefore different than the previously used.",
   attributes: [
     .font: UIFont(name: "Helvetica", size: 13)!,
     .foregroundColor: UIColor.gray,
-    .kern: 0.1,
-    .paragraphStyle: paragraphStyle
+    .kern: 0.1
   ],
   spacingAfter: 30
 )
+```
 
-let checkboxItem = FormCheckboxItem(
-  title: "Accept terms & conditions",
-  titleFont: UIFont(name: "Helvetica-bold", size: 16)!,
-  titleColor: .black,
-  subtitle: "Terms and conditions may apply. For your safety, please ... etc etc",
-  subtitleFont: UIFont(name: "Helvetica-light", size: 13)!,
-  subtitleColor: .lightGray,
-  checkedColor: .systemGreen,
-  uncheckedColor: .clear,
-  borderWidth: 1.5,
-  borderColor: .lightGray,
-  cornerRadius: 12,
-  isSelected: false,
-  spacingAfter: 25
-)
+You can also easily listen for taps on instances of `FormButtonItem` since it is a subclass of `UIControl`
 
-let inputFieldItem = FormInputItem(
-  title: "Street Address",
-  titleFont: UIFont(name: "Helvetica-bold", size: 15)!,
-  titleColor: .black,
-  placeholder: "ex: 5912 5th Avenue, New York, NY",
-  font: UIFont(name: "Helvetica", size: 15)!,
-  cornerRadius: 10,
-  borderWidth: 1,
-  borderColor: .lightGray
-)
+```swift
+let buttonItem = FormButtonItem(title: "Continue")
+buttonItem.addTarget(self, action: #selector(didTapOnButton), for: .touchUpInside)
 
-let spacingItem = FormSpacingItem()
+@objc func didTapOnButton() {
+  // TODO: ...
+}
+```
 
-let buttonItem = FormButtonItem(
-  title: "Continue",
-  font: UIFont(name: "Helvetica-bold", size: 18)!,
-  textColor: .white,
-  enabledColor: .systemTeal,
-  disabledColor: .lightGray,
-  borderWidth: 2,
-  borderColor: .darkGray,
-  cornerRadius: 30,
-  isActive: true
-)
+When it comes to `FormCheckboxItem`, to be notified of whenever the state changes, implement an optional closure:
 
-let formView = Form(
-  elements: [
-    titleItem,
-    subtitleItem,
-    inputFieldItem,
-    spacingItem,
-    checkboxItem,
-    buttonItem
-  ]
-)
-
-view.addSubview(formView)
-formView.translatesAutoresizingMaskIntoConstraints = false
-// Setup constraints...
+```swift
+let checkboxItem = FormCheckboxItem(title: "Accept terms & conditions")
+checkboxItem.didSelect = {
+  // TODO: ...
+}
 ```
 
 ## Contributing
