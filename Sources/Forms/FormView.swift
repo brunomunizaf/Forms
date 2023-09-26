@@ -14,7 +14,7 @@ public protocol FormItem: UIView {
 }
 
 public final class FormView: UIView {
-  private(set) var elements: [FormItem]
+  private(set) var elements = [FormItem]()
   private(set) var stackView = UIStackView()
 
   public init(elements: [FormItem]) {
@@ -40,4 +40,10 @@ public final class FormView: UIView {
   }
 
   required init?(coder: NSCoder) { nil }
+
+  public func add<T>(_ element: T) where T: FormItem {
+    elements.append(element)
+    stackView.addArrangedSubview(element)
+    stackView.setCustomSpacing(element.spacingAfter, after: element)
+  }
 }
