@@ -1,4 +1,7 @@
 # Forms
+<img align="right" width="300" height="auto" src="Example/screenshot.png">
+
+
 [![SwiftPM](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat)](https://swift.org/package-manager/)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fbrunomunizaf%2FForms%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/brunomunizaf/Forms)
