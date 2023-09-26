@@ -17,7 +17,7 @@ To install Forms using [Swift Package Manager](https://github.com/apple/swift-pa
 or you can add the following dependency to your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/brunomunizaf/Forms.git", from: "0.1.3")
+.package(url: "https://github.com/brunomunizaf/Forms.git", from: "0.1.4")
 ```
 
 ## Creating a Form
@@ -41,7 +41,7 @@ final class ViewController: UIViewController {
 }
 ```
 
-Each `FormItem` can be customized to look however you like
+Each `FormItem` can be customized to look however you need
 
 ```swift
 FormTextItem(
@@ -79,6 +79,67 @@ When it comes to `FormCheckboxItem`, to be notified of whenever the state change
 let checkboxItem = FormCheckboxItem(title: "Accept terms & conditions")
 checkboxItem.didSelect = {
   // TODO: ...
+}
+```
+
+If you're trying to validate the content inside of a text field, the `FormInputField` is perfect for this. All you have to do is to implement the `didChange` closure in order to be notified anytime the content changes.
+
+
+```swift
+let inputItem = FormInputItem(title: "Street Address")
+inputItem.didChange = {
+  // TODO: ...
+}
+```
+
+Also, about the `FormInputItem`, it conforms to a protocol called `FormInputType`, which means we can access the value that the user inserted by simply accessing its `.value` property.
+
+## Custom items
+
+In the example project, you can find a few examples of using custom implementations of UIView\`s that conform to the `FormItem` protocol. Most of the examples you'll find here are related to validations - which are very common when it comes to forms such as in registration flows.
+
+```swift
+final class MinimumFormInputItem: FormInputItem, Validatable {
+  var isValid: Bool {
+    if let value {
+      return !value.isEmpty
+    } else {
+      return false
+    }
+  }
+}
+
+final class RegexFormInputItem: FormInputItem, Validatable {
+  var isValid: Bool {
+    guard let value else { return false }
+
+    let regexPattern = "^[0-9]+$"
+    do {
+      let regex = try NSRegularExpression(pattern: regexPattern)
+      let range = NSRange(value.startIndex..., in: value)
+      let isMatch = regex.firstMatch(in: value, options: [], range: range) != nil
+      return isMatch
+    } catch {
+      return false
+    }
+  }
+}
+
+final class RequiredFormCheckboxItem: FormCheckboxItem, Validatable {
+  var isValid: Bool { isSelected }
+}
+
+```
+
+The `Validatable` protocol simply gives us a `isValid` boolean property that has its own implementation on whoever conforms to it. Meaning you can have different kinds of rules for different inputs.
+
+Thanks to this protocol, we can map through the items in a form to validate all of them and do things like enabled/disable a continue button for example.
+
+```swift
+public var isValid: Bool {
+  elements
+    .compactMap { $0 as? Validatable }
+    .allSatisfy { $0.isValid }
 }
 ```
 
