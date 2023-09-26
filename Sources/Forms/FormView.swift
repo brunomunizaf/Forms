@@ -1,21 +1,14 @@
 import UIKit
 
-public enum FormItemType {
-  case text
-  case input
-  case button
-  case spacing
-  case checkbox
-}
-
-public protocol FormItem: UIView {
-  var type: FormItemType { get }
-  var spacingAfter: CGFloat { get }
-}
-
 public final class FormView: UIView {
-  private(set) var elements = [FormItem]()
-  private(set) var stackView = UIStackView()
+  private var elements = [FormItem]()
+  private let stackView = UIStackView()
+
+  public var isValid: Bool {
+    elements
+      .compactMap { $0 as? Validatable }
+      .allSatisfy { $0.isValid }
+  }
 
   public init(elements: [FormItem]) {
     self.elements = elements
@@ -33,10 +26,10 @@ public final class FormView: UIView {
     setupStackView()
   }
 
-  public func add<T>(_ element: T) where T: FormItem {
-    elements.append(element)
-    stackView.addArrangedSubview(element)
-    stackView.setCustomSpacing(element.spacingAfter, after: element)
+  public func add<T>(_ item: T) where T: FormItem {
+    elements.append(item)
+    stackView.addArrangedSubview(item)
+    stackView.setCustomSpacing(item.spacingAfter, after: item)
   }
 
   private func setupStackView() {

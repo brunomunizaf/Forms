@@ -1,11 +1,13 @@
 import UIKit
 
 public final class FormSpacingItem: UIView, FormItem {
-  public var type: FormItemType { .spacing }
+  public let spacingAfter: CGFloat
 
-  public var spacingAfter: CGFloat { 0 }
-
-  public init(fixedHeight: CGFloat? = nil) {
+  public init(
+    fixedHeight: CGFloat? = nil,
+    spacingAfter: CGFloat = 0
+  ) {
+    self.spacingAfter = spacingAfter
     super.init(frame: .zero)
 
     translatesAutoresizingMaskIntoConstraints = false

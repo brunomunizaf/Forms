@@ -1,17 +1,15 @@
 import UIKit
 
-public final class FormCheckboxItem: UIView, FormItem {
-  public var type: FormItemType { .checkbox }
+open class FormCheckboxItem: UIView, FormItem {
+  private let emptyColor: UIColor
+  private let filledColor: UIColor
+  private let titleLabel = UILabel()
+  private let controlView = UIControl()
+  private let subtitleLabel = UILabel()
+  private let internalStackView = UIStackView()
+  private let externalStackView = UIStackView()
 
-  private(set) var emptyColor: UIColor
-  private(set) var filledColor: UIColor
-  private(set) var titleLabel = UILabel()
-  private(set) var controlView = UIControl()
-  private(set) var subtitleLabel = UILabel()
-  private(set) var internalStackView = UIStackView()
-  private(set) var externalStackView = UIStackView()
-
-  public var spacingAfter: CGFloat
+  public let spacingAfter: CGFloat
 
   public var isSelected: Bool {
     get { controlView.isSelected }
@@ -63,7 +61,7 @@ public final class FormCheckboxItem: UIView, FormItem {
     controlView.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
   }
 
-  required init?(coder: NSCoder) { nil }
+  required public init?(coder: NSCoder) { nil }
 
   private func setupSubviews() {
     titleLabel.numberOfLines = 0

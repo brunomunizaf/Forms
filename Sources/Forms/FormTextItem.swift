@@ -1,11 +1,9 @@
 import UIKit
 
 public final class FormTextItem: UIView, FormItem {
-  public var type: FormItemType { .text }
+  private let textLabel = UILabel()
 
-  public var spacingAfter: CGFloat
-
-  private(set) var textLabel = UILabel()
+  public let spacingAfter: CGFloat
 
   public init(
     text: String,

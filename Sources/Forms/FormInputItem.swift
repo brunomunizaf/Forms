@@ -1,14 +1,18 @@
 import UIKit
 
-public final class FormInputItem: UIView, FormItem {
-  public var type: FormItemType { .input }
+open class FormInputItem: UIView, FormInputType {
+  private let titleLabel = UILabel()
+  private let containerView = UIView()
+  private let stackView = UIStackView()
+  private let textField = UITextField()
 
-  private(set) var titleLabel = UILabel()
-  private(set) var containerView = UIView()
-  private(set) var stackView = UIStackView()
-  private(set) var textField = UITextField()
+  public let spacingAfter: CGFloat
 
-  public var spacingAfter: CGFloat { 10 }
+  public var value: String? {
+    textField.text
+  }
+
+  public var didChange: (() -> Void)?
 
   public init(
     title: String? = nil,
@@ -20,7 +24,8 @@ public final class FormInputItem: UIView, FormItem {
     textColor: UIColor = .black,
     cornerRadius: CGFloat = 0.0,
     borderWidth: CGFloat = 0.0,
-    borderColor: UIColor = .clear
+    borderColor: UIColor = .clear,
+    spacingAfter: CGFloat = 10
   ) {
     titleLabel.text = title
     titleLabel.font = titleFont
@@ -37,12 +42,15 @@ public final class FormInputItem: UIView, FormItem {
     containerView.layer.borderWidth = borderWidth
     containerView.layer.cornerRadius = cornerRadius
     containerView.layer.borderColor = borderColor.cgColor
+    self.spacingAfter = spacingAfter
 
     super.init(frame: .zero)
+
+    textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     setupSubviews()
   }
 
-  required init?(coder: NSCoder) { nil }
+  required public init?(coder: NSCoder) { nil }
 
   private func setupSubviews() {
     titleLabel.numberOfLines = 0
@@ -65,5 +73,9 @@ public final class FormInputItem: UIView, FormItem {
     textField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10).isActive = true
     textField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10).isActive = true
     textField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12).isActive = true
+  }
+
+  @objc private func textFieldDidChange() {
+    didChange?()
   }
 }

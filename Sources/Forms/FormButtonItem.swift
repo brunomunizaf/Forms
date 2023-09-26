@@ -1,17 +1,19 @@
 import UIKit
 
-public final class FormButtonItem: UIControl, FormItem {
-  public var type: FormItemType { .button }
+open class FormButtonItem: UIControl, FormItem {
+  private let titleLabel = UILabel()
+  private let enabledColor: UIColor
+  private let disabledColor: UIColor
 
-  public var spacingAfter: CGFloat
+  public let spacingAfter: CGFloat
 
-  public var isActive: Bool {
-    didSet { backgroundColor = isActive ? enabledColor : disabledColor }
+  open override var isEnabled: Bool {
+    get { super.isEnabled }
+    set {
+      super.isEnabled = newValue
+      backgroundColor = newValue ? enabledColor : disabledColor
+    }
   }
-
-  private(set) var titleLabel = UILabel()
-  private(set) var enabledColor: UIColor
-  private(set) var disabledColor: UIColor
 
   public init(
     title: String,
@@ -22,14 +24,13 @@ public final class FormButtonItem: UIControl, FormItem {
     borderWidth: CGFloat = 1.5,
     borderColor: UIColor = .clear,
     cornerRadius: CGFloat = 10.0,
-    isActive: Bool = true,
-    spaceAfter: CGFloat = 0
+    spacingAfter: CGFloat = 0,
+    shouldBeEnabled: Bool = true
   ) {
-    self.isActive = isActive
     self.titleLabel.font = font
     self.titleLabel.text = title
     self.titleLabel.textColor = textColor
-    self.spacingAfter = spaceAfter
+    self.spacingAfter = spacingAfter
     self.enabledColor = enabledColor
     self.disabledColor = disabledColor
 
@@ -38,7 +39,7 @@ public final class FormButtonItem: UIControl, FormItem {
     layer.borderWidth = borderWidth
     layer.cornerRadius = cornerRadius
     layer.borderColor = borderColor.cgColor
-    backgroundColor = isActive ? enabledColor : disabledColor
+    self.isEnabled = shouldBeEnabled
 
     addSubview(titleLabel)
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -50,5 +51,5 @@ public final class FormButtonItem: UIControl, FormItem {
     titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
   }
   
-  required init?(coder: NSCoder) { nil }
+  required public init?(coder: NSCoder) { nil }
 }
