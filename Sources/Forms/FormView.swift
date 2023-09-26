@@ -13,7 +13,7 @@ public protocol FormItem: UIView {
   var spacingAfter: CGFloat { get }
 }
 
-public final class Form: UIView {
+public final class FormView: UIView {
   private(set) var elements: [FormItem]
   private(set) var stackView = UIStackView()
 

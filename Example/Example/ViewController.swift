@@ -67,7 +67,7 @@ final class ViewController: UIViewController {
       isActive: true
     )
 
-    let formView = Form(
+    let formView = FormView(
       elements: [
         titleItem,
         subtitleItem,
