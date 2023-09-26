@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		321225C92AC33A5600DBE7E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321225C72AC33A5600DBE7E9 /* Main.storyboard */; };
 		321225CB2AC33A5700DBE7E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321225CA2AC33A5700DBE7E9 /* Assets.xcassets */; };
 		321225CE2AC33A5700DBE7E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321225CC2AC33A5700DBE7E9 /* LaunchScreen.storyboard */; };
+		322B458E2AC33BEB001917DE /* Forms in Frameworks */ = {isa = PBXBuildFile; productRef = 322B458D2AC33BEB001917DE /* Forms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				322B458E2AC33BEB001917DE /* Forms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,9 @@
 			dependencies = (
 			);
 			name = Example;
+			packageProductDependencies = (
+				322B458D2AC33BEB001917DE /* Forms */,
+			);
 			productName = Example;
 			productReference = 321225BE2AC33A5600DBE7E9 /* Example.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +116,9 @@
 				Base,
 			);
 			mainGroup = 321225B52AC33A5600DBE7E9;
+			packageReferences = (
+				322B458C2AC33BEB001917DE /* XCLocalSwiftPackageReference ".." */,
+			);
 			productRefGroup = 321225BF2AC33A5600DBE7E9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -365,6 +373,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		322B458C2AC33BEB001917DE /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		322B458D2AC33BEB001917DE /* Forms */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Forms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 321225B62AC33A5600DBE7E9 /* Project object */;
 }
