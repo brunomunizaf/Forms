@@ -1,7 +1,7 @@
 import UIKit
 
 public final class FormTextItem: UIView, FormItem {
-  private let textLabel = UILabel()
+  private(set) var textLabel = UILabel()
 
   public let spacingAfter: CGFloat
 
