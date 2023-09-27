@@ -20,7 +20,7 @@ To install Forms using [Swift Package Manager](https://github.com/apple/swift-pa
 or you can add the following dependency to your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/brunomunizaf/Forms.git", from: "0.1.4")
+.package(url: "https://github.com/brunomunizaf/Forms.git", from: "0.1.5")
 ```
 
 ## Creating a Form
