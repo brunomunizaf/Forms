@@ -1,10 +1,10 @@
 import UIKit
 
 open class FormInputItem: UIView, FormInputType {
-  private let titleLabel = UILabel()
   private let containerView = UIView()
   private let stackView = UIStackView()
-  private let textField = UITextField()
+  private(set) var titleLabel = UILabel()
+  private(set) var textField = UITextField()
 
   public let spacingAfter: CGFloat
 

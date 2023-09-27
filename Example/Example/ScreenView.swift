@@ -11,6 +11,8 @@ final class ScreenView: UIView {
   var numbersInputItem: RegexFormInputItem!
   var buttonItem: FormButtonItem!
 
+  let scrollView = UIScrollView()
+
   init() {
     super.init(frame: .zero)
     backgroundColor = .white
@@ -29,15 +31,31 @@ final class ScreenView: UIView {
     formView.add(checkboxItem)
     formView.add(buttonItem)
 
-    addSubview(formView)
+    addSubview(scrollView)
+    scrollView.addSubview(formView)
+
+    scrollView.keyboardDismissMode = .interactive
+    scrollView.translatesAutoresizingMaskIntoConstraints = false
     formView.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      formView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-      formView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-      formView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-      formView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+      scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+      scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+      formView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+      formView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+      formView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+      formView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
+      formView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
     ])
+
+    let heightConstraint = formView.heightAnchor.constraint(
+      equalTo: scrollView.heightAnchor, constant: -50
+    )
+    heightConstraint.priority = .defaultLow
+    heightConstraint.isActive = true
   }
 
   required init?(coder: NSCoder) { nil }
