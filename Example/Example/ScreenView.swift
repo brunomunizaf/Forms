@@ -47,9 +47,15 @@ final class ScreenView: UIView {
       formView.topAnchor.constraint(equalTo: scrollView.topAnchor),
       formView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
       formView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-      formView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -10),
-      formView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40)
+      formView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
+      formView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
     ])
+
+    let heightConstraint = formView.heightAnchor.constraint(
+      equalTo: scrollView.heightAnchor, constant: -50
+    )
+    heightConstraint.priority = .defaultLow
+    heightConstraint.isActive = true
   }
 
   required init?(coder: NSCoder) { nil }
