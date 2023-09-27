@@ -1,8 +1,8 @@
 import UIKit
 
 public final class FormView: UIView {
-  private var elements = [FormItem]()
-  private let stackView = UIStackView()
+  private(set) var elements = [FormItem]()
+  private(set) var stackView = UIStackView()
 
   public var isValid: Bool {
     elements
@@ -19,6 +19,8 @@ public final class FormView: UIView {
       stackView.addArrangedSubview($0)
       stackView.setCustomSpacing($0.spacingAfter, after: $0)
     }
+
+    setContentCompressionResistancePriority(.required, for: .vertical)
   }
 
   required init?(coder aDecoder: NSCoder) {

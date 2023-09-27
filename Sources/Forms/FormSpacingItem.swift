@@ -13,6 +13,7 @@ public final class FormSpacingItem: UIView, FormItem {
     translatesAutoresizingMaskIntoConstraints = false
     setContentHuggingPriority(.defaultLow, for: .vertical)
     setContentHuggingPriority(.defaultLow, for: .horizontal)
+    setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
     if let fixedHeight {
       heightAnchor.constraint(
