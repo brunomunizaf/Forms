@@ -54,7 +54,7 @@ final class FormTextItemTests: XCTestCase {
   }
 
   func testSubviewSetup() {
-    let item = FormTextItem(text: "Test")
+    let item = FormTextItem.mock("Test")
 
     XCTAssertTrue(
       item.subviews.contains(item.textLabel),
@@ -67,7 +67,7 @@ final class FormTextItemTests: XCTestCase {
   }
 
   func testConstraintsSetup() {
-    let item = FormTextItem(text: "Test")
+    let item = FormTextItem.mock("Test")
     let constraints = item.constraints
     XCTAssert(
       constraints.contains {
@@ -77,7 +77,7 @@ final class FormTextItemTests: XCTestCase {
   }
 
   func testNumberOfLinesProperty() {
-    let item = FormTextItem(text: "Test")
+    let item = FormTextItem.mock("Test")
     XCTAssertEqual(
       item.textLabel.numberOfLines, 0,
       "numberOfLines should be 0 to allow multiple lines"
@@ -85,7 +85,7 @@ final class FormTextItemTests: XCTestCase {
   }
 
   func testInitWithZeroSpacingAfter() {
-    let item = FormTextItem(text: "Test", spacingAfter: 0)
+    let item = FormTextItem.mock("Test", 0)
     XCTAssertEqual(
       item.spacingAfter, 0,
       "spacingAfter should be initialized to 0 when provided"
@@ -93,7 +93,7 @@ final class FormTextItemTests: XCTestCase {
   }
 
   func testInitWithEmptyString() {
-    let item = FormTextItem(text: "")
+    let item = FormTextItem.mock("")
     XCTAssertEqual(
       item.textLabel.text, "",
       "Text should be initialized to an empty string when provided"
@@ -101,7 +101,7 @@ final class FormTextItemTests: XCTestCase {
   }
 
   func testConstraintsAreActive() {
-    let item = FormTextItem(text: "Test")
+    let item = FormTextItem.mock("Test")
     item.layoutIfNeeded()
 
     for constraint in item.constraints {
@@ -113,5 +113,19 @@ final class FormTextItemTests: XCTestCase {
     let archiver = NSKeyedArchiver(requiringSecureCoding: false)
     let item = FormTextItem(coder: archiver)
     XCTAssertNil(item, "Initialization using NSCoder should return nil")
+  }
+}
+
+private extension FormTextItem {
+  static func mock(
+    _ string: String,
+    _ spacingAfter: CGFloat = 10
+  ) -> FormTextItem {
+    FormTextItem(
+      text: string,
+      font: .systemFont(ofSize: 12),
+      color: .black,
+      spacingAfter: spacingAfter
+    )
   }
 }

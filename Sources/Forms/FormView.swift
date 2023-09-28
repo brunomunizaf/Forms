@@ -6,7 +6,7 @@ open class FormView: UIView {
   private var elements = [FormItem]()
 
   /// A `UIStackView` to manage the layout of `FormItem`s.
-  private let stackView = UIStackView()
+  private(set) var stackView = UIStackView()
 
   /// A Boolean value indicating whether all validatable `FormItem`s are valid.
   public var isValid: Bool {

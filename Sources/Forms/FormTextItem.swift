@@ -3,7 +3,7 @@ import UIKit
 /// `FormTextItem` represents a text item in a form. It is a customizable `UIView`
 /// with a label and conforms to the `FormItem` protocol.
 open class FormTextItem: UIView, FormItem {
-  private let textLabel = UILabel()
+  private(set) var textLabel = UILabel()
 
   /// The space after the text item in the form.
   public let spacingAfter: CGFloat

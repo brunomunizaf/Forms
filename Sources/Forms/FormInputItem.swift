@@ -3,10 +3,10 @@ import UIKit
 /// `FormInputItem` represents a text input item in a form. It is a customizable UIView
 /// with a title and a text field and conforms to the `FormInputType` protocol.
 open class FormInputItem: UIView, FormInputType {
-  private let titleLabel = UILabel()
   private let containerView = UIView()
   private let stackView = UIStackView()
-  private let textField = UITextField()
+  private(set) var titleLabel = UILabel()
+  private(set) var textField = UITextField()
 
   /// The space after the input item in the form.
   public let spacingAfter: CGFloat
@@ -33,7 +33,7 @@ open class FormInputItem: UIView, FormInputType {
   ///   - borderColor: The color of the border of the container view.
   ///   - spacingAfter: The space after the input item in the form.
   public init(
-    title: String,
+    title: String? = nil,
     titleFont: UIFont = .boldSystemFont(ofSize: 14),
     titleColor: UIColor = .black,
     initialText: String? = nil,
