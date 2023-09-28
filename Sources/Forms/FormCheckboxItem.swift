@@ -1,5 +1,7 @@
 import UIKit
 
+/// `FormCheckboxItem` represents a checkbox item in a form. It is a customizable UIView
+/// that can be selected or deselected and conforms to the `FormItem` protocol.
 open class FormCheckboxItem: UIView, FormItem {
   private let emptyColor: UIColor
   private let filledColor: UIColor
@@ -9,8 +11,10 @@ open class FormCheckboxItem: UIView, FormItem {
   private let internalStackView = UIStackView()
   private let externalStackView = UIStackView()
 
+  /// The space after the checkbox item in the form.
   public let spacingAfter: CGFloat
 
+  /// Indicates whether the checkbox is selected or not.
   public var isSelected: Bool {
     get { controlView.isSelected }
     set {
@@ -19,8 +23,24 @@ open class FormCheckboxItem: UIView, FormItem {
     }
   }
 
-  public var didSelect: (() -> Void)? 
+  /// A closure that is invoked when the checkbox is tapped.
+  public var didSelect: (() -> Void)?
 
+  /// Initializes a new instance of `FormCheckboxItem`.
+  /// - Parameters:
+  ///   - title: The title of the checkbox item.
+  ///   - titleFont: The font of the title label.
+  ///   - titleColor: The text color of the title label.
+  ///   - subtitle: The subtitle of the checkbox item.
+  ///   - subtitleFont: The font of the subtitle label.
+  ///   - subtitleColor: The text color of the subtitle label.
+  ///   - checkedColor: The background color when the checkbox is selected.
+  ///   - uncheckedColor: The background color when the checkbox is not selected.
+  ///   - borderWidth: The width of the border of the checkbox.
+  ///   - borderColor: The color of the border of the checkbox.
+  ///   - cornerRadius: The corner radius of the checkbox.
+  ///   - isSelected: The initial state of the checkbox item.
+  ///   - spacingAfter: The space after the checkbox item in the form.
   public init(
     title: String,
     titleFont: UIFont = .boldSystemFont(ofSize: 14),
@@ -57,6 +77,12 @@ open class FormCheckboxItem: UIView, FormItem {
 
     super.init(frame: .zero)
     setupSubviews()
+
+    // Improving accessibility
+    titleLabel.accessibilityLabel = title
+    titleLabel.accessibilityTraits = .header
+    controlView.accessibilityLabel = "Checkbox"
+    controlView.accessibilityTraits = .button
 
     controlView.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
   }

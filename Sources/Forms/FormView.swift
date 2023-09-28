@@ -1,15 +1,20 @@
 import UIKit
 
-public final class FormView: UIView {
-  private(set) var elements = [FormItem]()
+/// A `UIView` subclass representing a form containing multiple `FormItem`s arranged vertically.
+open class FormView: UIView {
+  /// An array holding the `FormItem`s.
+  private var elements = [FormItem]()
+
+  /// A `UIStackView` to manage the layout of `FormItem`s.
   private(set) var stackView = UIStackView()
 
+  /// A Boolean value indicating whether all validatable `FormItem`s are valid.
   public var isValid: Bool {
-    elements
-      .compactMap { $0 as? Validatable }
-      .allSatisfy { $0.isValid }
+    elements.compactMap { $0 as? Validatable }.allSatisfy { $0.isValid }
   }
 
+  /// Initializes a new `FormView` with the given `FormItem`s.
+  /// - Parameter elements: An array of `FormItem`s to be added to the form.
   public init(elements: [FormItem]) {
     self.elements = elements
     super.init(frame: .zero)
@@ -19,32 +24,30 @@ public final class FormView: UIView {
       stackView.addArrangedSubview($0)
       stackView.setCustomSpacing($0.spacingAfter, after: $0)
     }
-
-    setContentCompressionResistancePriority(.required, for: .vertical)
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setupStackView()
   }
 
+  /// Adds a new `FormItem` to the `FormView`.
+  /// - Parameter item: The `FormItem` to be added.
   public func add<T>(_ item: T) where T: FormItem {
     elements.append(item)
     stackView.addArrangedSubview(item)
     stackView.setCustomSpacing(item.spacingAfter, after: item)
   }
 
+  /// Configures the `UIStackView` and adds it to the `FormView`.
   private func setupStackView() {
     stackView.axis = .vertical
-    stackView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(stackView)
 
-    NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: topAnchor),
-      stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-      stackView.widthAnchor.constraint(equalTo: widthAnchor),
-    ])
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    stackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+    stackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+    stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
   }
 }
