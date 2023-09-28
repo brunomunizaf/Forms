@@ -1,7 +1,10 @@
 import Forms
 import UIKit
 
+/// `ScreenView` is a `UIView` subclass that sets up and manages various `FormItem`s`,
+/// including text items, a checkbox item, input items, and a button item within a scroll view.
 final class ScreenView: UIView {
+  // MARK: - Properties
   var formView = FormView(elements: [])
   var titleItem: FormTextItem!
   var subtitleItem: FormTextItem!
@@ -10,56 +13,25 @@ final class ScreenView: UIView {
   var requiredInputItem: MinimumFormInputItem!
   var numbersInputItem: RegexFormInputItem!
   var buttonItem: FormButtonItem!
-
   let scrollView = UIScrollView()
 
+  // MARK: - Initializers
   init() {
     super.init(frame: .zero)
     backgroundColor = .white
-
     setupTextItems()
     setupCheckboxItem()
     setupInputItems()
     setupButtonItem()
-
-    formView.add(titleItem)
-    formView.add(subtitleItem)
-    formView.add(inputItem)
-    formView.add(requiredInputItem)
-    formView.add(numbersInputItem)
-    formView.add(FormSpacingItem())
-    formView.add(checkboxItem)
-    formView.add(buttonItem)
-
-    addSubview(scrollView)
-    scrollView.addSubview(formView)
-
-    scrollView.keyboardDismissMode = .interactive
-    scrollView.translatesAutoresizingMaskIntoConstraints = false
-    formView.translatesAutoresizingMaskIntoConstraints = false
-
-    NSLayoutConstraint.activate([
-      scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-      scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-      formView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-      formView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-      formView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-      formView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
-      formView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
-    ])
-
-    let heightConstraint = formView.heightAnchor.constraint(
-      equalTo: scrollView.heightAnchor, constant: -50
-    )
-    heightConstraint.priority = .defaultLow
-    heightConstraint.isActive = true
+    setupFormView()
+    setupScrollView()
+    setupConstraints()
   }
 
   required init?(coder: NSCoder) { nil }
 
+  // MARK: - Setup Methods
+  // Setup text items with appropriate attributes.
   private func setupTextItems() {
     titleItem = FormTextItem(
       text: "Create a new password",
@@ -83,6 +55,7 @@ final class ScreenView: UIView {
     )
   }
 
+  // Setup a checkbox item with appropriate attributes.
   private func setupCheckboxItem() {
     checkboxItem = RequiredFormCheckboxItem(
       title: "Accept terms & conditions",
@@ -101,6 +74,7 @@ final class ScreenView: UIView {
     )
   }
 
+  // Setup input items with appropriate attributes and placeholders.
   private func setupInputItems() {
     inputItem = FormInputItem(
       title: "Street Address",
@@ -112,7 +86,6 @@ final class ScreenView: UIView {
       borderWidth: 1,
       borderColor: .lightGray
     )
-
     requiredInputItem = MinimumFormInputItem(
       title: "Full name",
       titleFont: UIFont(name: "Helvetica-bold", size: 15)!,
@@ -123,7 +96,6 @@ final class ScreenView: UIView {
       borderWidth: 1,
       borderColor: .lightGray
     )
-
     numbersInputItem = RegexFormInputItem(
       title: "Phone number",
       titleFont: UIFont(name: "Helvetica-bold", size: 15)!,
@@ -136,6 +108,7 @@ final class ScreenView: UIView {
     )
   }
 
+  // Setup button item with appropriate attributes.
   private func setupButtonItem() {
     buttonItem = FormButtonItem(
       title: "Continue",
@@ -148,5 +121,46 @@ final class ScreenView: UIView {
       cornerRadius: 30,
       shouldBeEnabled: false
     )
+  }
+
+  // Setup form view and add form items to it.
+  private func setupFormView() {
+    formView.add(titleItem)
+    formView.add(subtitleItem)
+    formView.add(inputItem)
+    formView.add(requiredInputItem)
+    formView.add(numbersInputItem)
+    formView.add(FormSpacingItem())
+    formView.add(checkboxItem)
+    formView.add(buttonItem)
+  }
+
+  // Setup scroll view and add form view to it.
+  private func setupScrollView() {
+    addSubview(scrollView)
+    scrollView.addSubview(formView)
+    scrollView.keyboardDismissMode = .interactive
+  }
+
+  // Setup constraints for layouting subviews properly.
+  private func setupConstraints() {
+    scrollView.translatesAutoresizingMaskIntoConstraints = false
+    formView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+      scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      formView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+      formView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+      formView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+      formView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
+      formView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
+    ])
+    let heightConstraint = formView.heightAnchor.constraint(
+      equalTo: scrollView.heightAnchor, constant: -50
+    )
+    heightConstraint.priority = .defaultLow
+    heightConstraint.isActive = true
   }
 }
