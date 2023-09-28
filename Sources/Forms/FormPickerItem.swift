@@ -1,10 +1,14 @@
 import UIKit
 
+/// `FormPickerItem` represents a form component for
+/// selecting a single combination from a list of options.
 open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerViewDelegate {
   private(set) var pickerView = UIPickerView()
 
+  /// Array of options to be displayed in the picker.
   private let options: [[String]]
 
+  /// The currently selected option in the picker.
   private var selectedOption: String? {
     didSet {
       guard let selectedOption = selectedOption else { return }
@@ -15,8 +19,13 @@ open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerVie
     }
   }
 
+  /// The space after the input item in the form.
   public let spacingAfter: CGFloat
 
+  /// Creates a new instance of `FormPickerItem`.
+  /// - Parameters:
+  ///   - options: The array of strings to be displayed as options in the picker.
+  ///   - selectedOption: The initially selected option in the picker.
   public init(
     options: [[String]],
     selectedOption: String?,
@@ -35,6 +44,7 @@ open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerVie
 
   required public init?(coder: NSCoder) { nil }
 
+  /// Sets up the user interface components.
   private func setupSubviews() {
     addSubview(pickerView)
     pickerView.translatesAutoresizingMaskIntoConstraints = false
