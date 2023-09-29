@@ -1,3 +1,4 @@
+import Combine
 import UIKit
 
 /// `FormInputItem` represents a text input item in a form. It is a customizable UIView
@@ -7,6 +8,11 @@ open class FormInputItem: UIView, FormInputType {
   private let stackView = UIStackView()
   private(set) var titleLabel = UILabel()
   private(set) var textField = UITextField()
+
+  /// An `AnyPublisher` that publishes the `text` from UITextField.
+  public var textPublisher: AnyPublisher<String?, Never> {
+    textField.textPublisher.eraseToAnyPublisher()
+  }
 
   /// The space after the input item in the form.
   public let spacingAfter: CGFloat

@@ -49,6 +49,7 @@ final class ViewController: UIViewController {
       .buttonItem
       .isEnabledPublisher
       .removeDuplicates() // To avoid spamming the console
+      .receive(on: DispatchQueue.main)
       .sink { print($0 ? "FormButtonItem: 👍🏻" : "FormButtonItem: 👎🏻") }
       .store(in: &cancellables)
 
@@ -58,16 +59,30 @@ final class ViewController: UIViewController {
       .checkboxItem
       .isSelectedPublisher
       .removeDuplicates() // To avoid spamming the console
+      .receive(on: DispatchQueue.main)
       .sink { print($0 ? "FormCheckboxItem: ✅" : "FormCheckboxItem: ⬜️") }
       .store(in: &cancellables)
 
-    /// Subscribes to `tapPublisher` from custom extension
-    /// located at `CombinePublisher.swift`.
+    /// Subscribes to `didTapPublisher` from custom extension
+    /// located at `UIControl+Publishers.swift`.
     screenView
       .buttonItem
-      .tapPublisher
+      .didTapPublisher
+      .receive(on: DispatchQueue.main)
       .sink { print("Tapped on FormButtonItem. <> This observation was set using Publishers! 🫡") }
       .store(in: &cancellables)
+
+    /// Subscribes to `textPublisher` from custom extension
+    /// located at `UITextField+Publishers.swift`
+    screenView
+      .inputItem
+      .textPublisher
+      .receive(on: DispatchQueue.main)
+      .sink {
+        if let text = $0 {
+          print("Typed at 'inputItem' using Combine = \(text)")
+        }
+      }.store(in: &cancellables)
   }
 
   /// Sets up observers for keyboard notifications.

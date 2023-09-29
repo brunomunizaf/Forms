@@ -21,6 +21,11 @@ open class FormButtonItem: UIControl, FormItem {
     }
   }
 
+  /// An `AnyPublisher` that publishes the tap action of the button.
+  public var didTapPublisher: AnyPublisher<Void, Never> {
+    tapPublisher.eraseToAnyPublisher()
+  }
+
   /// An `AnyPublisher` that publishes the `isEnabled` state of the button.
   public var isEnabledPublisher: AnyPublisher<Bool, Never> {
     isEnabledSubject.eraseToAnyPublisher()
