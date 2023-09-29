@@ -15,6 +15,7 @@
 		321225CE2AC33A5700DBE7E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321225CC2AC33A5700DBE7E9 /* LaunchScreen.storyboard */; };
 		322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */; };
 		322B458E2AC33BEB001917DE /* Forms in Frameworks */ = {isa = PBXBuildFile; productRef = 322B458D2AC33BEB001917DE /* Forms */; };
+		32AA7E782AC677BC001B4853 /* CombinePublishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA7E772AC677BC001B4853 /* CombinePublishers.swift */; };
 		32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CFCA612AC367D900539B60 /* ScreenView.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		321225CD2AC33A5700DBE7E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		321225CF2AC33A5700DBE7E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableFormItems.swift; sourceTree = "<group>"; };
+		32AA7E772AC677BC001B4853 /* CombinePublishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinePublishers.swift; sourceTree = "<group>"; };
 		32CFCA612AC367D900539B60 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +73,7 @@
 				321225CF2AC33A5700DBE7E9 /* Info.plist */,
 				322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */,
 				32CFCA612AC367D900539B60 /* ScreenView.swift */,
+				32AA7E772AC677BC001B4853 /* CombinePublishers.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				321225C22AC33A5600DBE7E9 /* AppDelegate.swift in Sources */,
 				32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */,
 				322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */,
+				32AA7E782AC677BC001B4853 /* CombinePublishers.swift in Sources */,
 				321225C42AC33A5600DBE7E9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

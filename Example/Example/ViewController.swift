@@ -60,6 +60,14 @@ final class ViewController: UIViewController {
       .removeDuplicates() // To avoid spamming the console
       .sink { print($0 ? "FormCheckboxItem: ✅" : "FormCheckboxItem: ⬜️") }
       .store(in: &cancellables)
+
+    /// Subscribes to `tapPublisher` from custom extension
+    /// located at `CombinePublisher.swift`.
+    screenView
+      .buttonItem
+      .tapPublisher
+      .sink { print("Tapped on FormButtonItem. <> This observation was set using Publishers! 🫡") }
+      .store(in: &cancellables)
   }
 
   /// Sets up observers for keyboard notifications.
@@ -79,19 +87,19 @@ final class ViewController: UIViewController {
   private func setupActions() {
     screenView.inputItem.didChange = { [weak self] in
       if let text = $0 {
-        print("'inputItem' = \(text)")
+        print(">>> 'inputItem' = \(text)")
       }
       self?.validateForm()
     }
     screenView.numbersInputItem.didChange = { [weak self] in
       if let text = $0 {
-        print("'numbersInputItem' = \(text)")
+        print(">>> 'numbersInputItem' = \(text)")
       }
       self?.validateForm()
     }
     screenView.requiredInputItem.didChange = { [weak self] in
       if let text = $0 {
-        print("'requiredInputItem' = \(text)")
+        print(">>> 'requiredInputItem' = \(text)")
       }
       self?.validateForm()
     }
@@ -113,9 +121,7 @@ final class ViewController: UIViewController {
 
   /// Handles the button tap event and performs the associated actions.
   @objc func didTapButton() {
-    print("1_\(screenView.inputItem.value ?? "nil")")
-    print("2_\(screenView.requiredInputItem.value ?? "nil")")
-    print("3_\(screenView.numbersInputItem.value ?? "nil")")
+    print("Tapped on FormButtonItem! <> This observation was set using Selectors. 🤷🏻‍♂️")
   }
 
   /// Adjusts the scrollView’s content inset when the keyboard appears or disappears.

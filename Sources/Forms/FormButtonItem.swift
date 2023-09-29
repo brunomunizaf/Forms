@@ -66,6 +66,7 @@ open class FormButtonItem: UIControl, FormItem {
     self.isEnabledSubject = CurrentValueSubject<Bool, Never>(shouldBeEnabled)
 
     super.init(frame: .zero)
+    self.isEnabled = shouldBeEnabled
 
     layer.borderWidth = borderWidth
     layer.cornerRadius = cornerRadius
