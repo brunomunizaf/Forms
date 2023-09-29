@@ -1,5 +1,5 @@
-import UIKit
 import Combine
+import UIKit
 
 /// `FormButtonItem` represents a button item in a form. It is a customizable UIControl
 /// with a title and conforms to the `FormItem` protocol. It can be enabled or disabled,
@@ -26,7 +26,7 @@ open class FormButtonItem: UIControl, FormItem {
     isEnabledSubject.eraseToAnyPublisher()
   }
 
-  /// A subject that receives the state of isEnabled from the button.
+  /// A subject that receives the state of `isEnabled` from the button.
   private let isEnabledSubject: CurrentValueSubject<Bool, Never>
 
   /// A cancellable object that represents a type-erasing

@@ -41,15 +41,24 @@ final class ViewController: UIViewController {
     setupKeyboardObservers()
   }
 
+  /// The subscriptions are stored in the `cancellables` set to keep them alive.
   private func setupSubscriptions() {
-    /// Subscribes to the `isEnabledPublisher` of the `FormButtonItem` in `screenView`.
-    /// When the `isEnabled` state of `FormButtonItem` changes, it receives a signal with the value
-    /// The subscription is stored in the `cancellables` set to keep it alive.
+    /// Subscribes to `isEnabledPublisher` from `FormButtonItem`.
+    /// When `isEnabled` state changes, it receives a signal with the value
     screenView
       .buttonItem
       .isEnabledPublisher
       .removeDuplicates() // To avoid spamming the console
       .sink { print($0 ? "FormButtonItem: 👍🏻" : "FormButtonItem: 👎🏻") }
+      .store(in: &cancellables)
+
+    /// Subscribes to `isSelectedPublisher` from `FormCheckboxItem`.
+    /// When `isSelected` state changes, it receives a signal with the value
+    screenView
+      .checkboxItem
+      .isSelectedPublisher
+      .removeDuplicates() // To avoid spamming the console
+      .sink { print($0 ? "FormCheckboxItem: ✅" : "FormCheckboxItem: ⬜️") }
       .store(in: &cancellables)
   }
 

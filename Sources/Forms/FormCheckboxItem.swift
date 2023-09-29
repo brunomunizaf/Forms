@@ -1,3 +1,4 @@
+import Combine
 import UIKit
 
 /// `FormCheckboxItem` represents a checkbox item in a form. It is a customizable UIView
@@ -11,6 +12,18 @@ open class FormCheckboxItem: UIView, FormItem {
   private let internalStackView = UIStackView()
   private let externalStackView = UIStackView()
 
+  /// An `AnyPublisher` that publishes the `isSelected` state of the component.
+  public var isSelectedPublisher: AnyPublisher<Bool, Never> {
+    isSelectedSubject.eraseToAnyPublisher()
+  }
+
+  /// A subject that receives the state of `isSelected` from the component.
+  private let isSelectedSubject: CurrentValueSubject<Bool, Never>
+
+  /// A cancellable object that represents a type-erasing
+  /// reference-holding container that stores the produced cancellables.
+  private var cancellables: Set<AnyCancellable> = []
+
   /// The space after the checkbox item in the form.
   public let spacingAfter: CGFloat
 
@@ -19,7 +32,7 @@ open class FormCheckboxItem: UIView, FormItem {
     get { controlView.isSelected }
     set {
       controlView.isSelected = newValue
-      controlView.backgroundColor = newValue ? filledColor : emptyColor
+      isSelectedSubject.send(newValue)
     }
   }
 
@@ -41,6 +54,7 @@ open class FormCheckboxItem: UIView, FormItem {
   ///   - cornerRadius: The corner radius of the checkbox.
   ///   - isSelected: The initial state of the checkbox item.
   ///   - spacingAfter: The space after the checkbox item in the form.
+  ///   - shouldBeSelected: The initial state of the component item.
   public init(
     title: String,
     titleFont: UIFont = .boldSystemFont(ofSize: 14),
@@ -54,7 +68,8 @@ open class FormCheckboxItem: UIView, FormItem {
     borderColor: UIColor = .black,
     cornerRadius: CGFloat = 10.0,
     isSelected: Bool = false,
-    spacingAfter: CGFloat = 10
+    spacingAfter: CGFloat = 10,
+    shouldBeSelected: Bool = false
   ) {
     titleLabel.text = title
     titleLabel.font = titleFont
@@ -72,6 +87,7 @@ open class FormCheckboxItem: UIView, FormItem {
     controlView.layer.cornerRadius = cornerRadius
     controlView.layer.borderColor = borderColor.cgColor
     controlView.backgroundColor = isSelected ? filledColor : emptyColor
+    isSelectedSubject = CurrentValueSubject<Bool, Never>(shouldBeSelected)
 
     self.spacingAfter = spacingAfter
 
@@ -85,6 +101,11 @@ open class FormCheckboxItem: UIView, FormItem {
     controlView.accessibilityTraits = .button
 
     controlView.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
+
+    // Observe changes to the isSelectedSubject
+    isSelectedSubject.sink { [unowned self] isSelected in
+      controlView.backgroundColor = isSelected ? filledColor : emptyColor
+    }.store(in: &cancellables)
   }
 
   required public init?(coder: NSCoder) { nil }
