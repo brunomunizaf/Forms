@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 /// `FormButtonItem` represents a button item in a form. It is a customizable UIControl
 /// with a title and conforms to the `FormItem` protocol. It can be enabled or disabled,
@@ -16,9 +17,21 @@ open class FormButtonItem: UIControl, FormItem {
     get { super.isEnabled }
     set {
       super.isEnabled = newValue
-      backgroundColor = newValue ? enabledColor : disabledColor
+      isEnabledSubject.send(newValue)
     }
   }
+
+  /// An `AnyPublisher` that publishes the `isEnabled` state of the button.
+  public var isEnabledPublisher: AnyPublisher<Bool, Never> {
+    isEnabledSubject.eraseToAnyPublisher()
+  }
+
+  /// A subject that receives the state of isEnabled from the button.
+  private let isEnabledSubject: CurrentValueSubject<Bool, Never>
+
+  /// A cancellable object that represents a type-erasing
+  /// reference-holding container that stores the produced cancellables.
+  private var cancellables: Set<AnyCancellable> = []
 
   /// Initializes a new instance of `FormButtonItem`.
   /// - Parameters:
@@ -50,13 +63,13 @@ open class FormButtonItem: UIControl, FormItem {
     self.spacingAfter = spacingAfter
     self.enabledColor = enabledColor
     self.disabledColor = disabledColor
+    self.isEnabledSubject = CurrentValueSubject<Bool, Never>(shouldBeEnabled)
 
     super.init(frame: .zero)
 
     layer.borderWidth = borderWidth
     layer.cornerRadius = cornerRadius
     layer.borderColor = borderColor.cgColor
-    self.isEnabled = shouldBeEnabled
 
     addSubview(titleLabel)
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +79,11 @@ open class FormButtonItem: UIControl, FormItem {
     titleLabel.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 10).isActive = true
     titleLabel.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
     titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+
+    // Observe changes to the isEnabledSubject
+    isEnabledSubject.sink { [unowned self] isEnabled in
+      backgroundColor = isEnabled ? enabledColor : disabledColor
+    }.store(in: &cancellables)
 
     // Improving accessibility
     titleLabel.accessibilityLabel = title

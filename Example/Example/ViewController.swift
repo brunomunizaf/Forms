@@ -1,3 +1,4 @@
+import Combine
 import Forms
 import UIKit
 
@@ -8,6 +9,10 @@ final class ViewController: UIViewController {
 
   /// A lazy initialized `ScreenView` object.
   lazy var screenView = ScreenView()
+
+  /// A cancellable object that represents a type-erasing
+  /// reference-holding container that stores the produced cancellables.
+  private var cancellables = Set<AnyCancellable>()
 
   // MARK: - Lifecycle
 
