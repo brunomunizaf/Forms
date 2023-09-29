@@ -17,7 +17,7 @@ open class FormInputItem: UIView, FormInputType {
   }
 
   /// A closure that is invoked when the text in the text field changes.
-  public var didChange: (() -> Void)?
+  public var didChange: ((String?) -> Void)?
 
   /// Initializes a new instance of `FormInputItem`.
   /// - Parameters:
@@ -43,7 +43,8 @@ open class FormInputItem: UIView, FormInputType {
     cornerRadius: CGFloat = 10.0,
     borderWidth: CGFloat = 1.5,
     borderColor: UIColor = .clear,
-    spacingAfter: CGFloat = 10
+    spacingAfter: CGFloat = 10,
+    didChange: ((String?) -> Void)? = nil
   ) {
     titleLabel.text = title
     titleLabel.font = titleFont
@@ -58,6 +59,7 @@ open class FormInputItem: UIView, FormInputType {
     containerView.layer.borderWidth = borderWidth
     containerView.layer.borderColor = borderColor.cgColor
 
+    self.didChange = didChange
     self.spacingAfter = spacingAfter
 
     super.init(frame: .zero)
@@ -95,6 +97,6 @@ open class FormInputItem: UIView, FormInputType {
   }
 
   @objc private func textFieldDidChange() {
-    didChange?()
+    didChange?(textField.text)
   }
 }

@@ -49,7 +49,7 @@ final class ViewController: UIViewController {
       .buttonItem
       .isEnabledPublisher
       .removeDuplicates() // To avoid spamming the console
-      .sink { print($0 ? "👍🏻" : "👎🏻") }
+      .sink { print($0 ? "FormButtonItem: 👍🏻" : "FormButtonItem: 👎🏻") }
       .store(in: &cancellables)
   }
 
@@ -68,17 +68,35 @@ final class ViewController: UIViewController {
 
   /// Sets up target-action for buttons and other UI components.
   private func setupActions() {
-    screenView.inputItem.didChange = { [weak self] in self?.validate() }
-    screenView.checkboxItem.didSelect = { [weak self] in self?.validate() }
-    screenView.numbersInputItem.didChange = { [weak self] in self?.validate() }
-    screenView.requiredInputItem.didChange = { [weak self] in self?.validate() }
+    screenView.inputItem.didChange = { [weak self] in
+      if let text = $0 {
+        print("'inputItem' = \(text)")
+      }
+      self?.validateForm()
+    }
+    screenView.numbersInputItem.didChange = { [weak self] in
+      if let text = $0 {
+        print("'numbersInputItem' = \(text)")
+      }
+      self?.validateForm()
+    }
+    screenView.requiredInputItem.didChange = { [weak self] in
+      if let text = $0 {
+        print("'requiredInputItem' = \(text)")
+      }
+      self?.validateForm()
+    }
+
+    screenView.checkboxItem.didSelect = { [weak self] in
+      self?.validateForm()
+    }
     screenView.buttonItem.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
   }
 
   // MARK: - Validation
 
   /// Validates the form and updates the UI accordingly.
-  func validate() {
+  func validateForm() {
     screenView.buttonItem.isEnabled = screenView.formView.isValid
   }
 
