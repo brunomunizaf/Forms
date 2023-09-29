@@ -8,10 +8,11 @@ final class ScreenView: UIView {
   var formView = FormView(elements: [])
   var titleItem: FormTextItem!
   var subtitleItem: FormTextItem!
-  var checkboxItem: RequiredFormCheckboxItem!
   var inputItem: FormInputItem!
   var requiredInputItem: MinimumFormInputItem!
   var numbersInputItem: RegexFormInputItem!
+  var pickerItem: FormPickerItem!
+  var checkboxItem: RequiredFormCheckboxItem!
   var buttonItem: FormButtonItem!
   let scrollView = UIScrollView()
 
@@ -106,6 +107,15 @@ final class ScreenView: UIView {
       borderWidth: 1,
       borderColor: .lightGray
     )
+    pickerItem = FormPickerItem(
+      options: [
+        ["1", "2", "3", "4"],
+        ["5", "6", "7", "8"],
+        ["9", "10", "11", "12"],
+        ["13", "14", "15", "16"]
+      ],
+      selectedOption: nil
+    )
   }
 
   // Setup button item with appropriate attributes.
@@ -130,6 +140,7 @@ final class ScreenView: UIView {
     formView.add(inputItem)
     formView.add(requiredInputItem)
     formView.add(numbersInputItem)
+    formView.add(pickerItem)
     formView.add(FormSpacingItem())
     formView.add(checkboxItem)
     formView.add(buttonItem)
