@@ -35,8 +35,26 @@ final class ViewController: UIViewController {
 
   // MARK: - Setup
 
-  /// Sets up observers for keyboard notifications.
+  /// Sets up observers and subscriptions
   private func setupObservers() {
+    setupSubscriptions()
+    setupKeyboardObservers()
+  }
+
+  private func setupSubscriptions() {
+    /// Subscribes to the `isEnabledPublisher` of the `FormButtonItem` in `screenView`.
+    /// When the `isEnabled` state of `FormButtonItem` changes, it receives a signal with the value
+    /// The subscription is stored in the `cancellables` set to keep it alive.
+    screenView
+      .buttonItem
+      .isEnabledPublisher
+      .removeDuplicates() // To avoid spamming the console
+      .sink { print($0 ? "👍🏻" : "👎🏻") }
+      .store(in: &cancellables)
+  }
+
+  /// Sets up observers for keyboard notifications.
+  private func setupKeyboardObservers() {
     let notificationCenter = NotificationCenter.default
     notificationCenter.addObserver(
       self, selector: #selector(adjustForKeyboard),
