@@ -14,7 +14,7 @@ final class ScreenView: UIView {
   var pickerItem: FormPickerItem!
   var switchItem: FormSwitchItem!
   var checkboxItem: RequiredFormCheckboxItem!
-  var buttonItem: FormButtonItem!
+  let buttonItem = FormButtonItem(configuration: .modernElegant)
   let scrollView = UIScrollView()
 
   // MARK: - Initializers
@@ -26,7 +26,6 @@ final class ScreenView: UIView {
     setupInputItems()
     setupSwitchItems()
     setupPickerItems()
-    setupButtonItem()
     setupFormView()
     setupScrollView()
     setupConstraints()
@@ -139,21 +138,6 @@ final class ScreenView: UIView {
         ["13", "14", "15", "16"]
       ],
       selectedOption: nil
-    )
-  }
-
-  // Setup button item with appropriate attributes.
-  private func setupButtonItem() {
-    buttonItem = FormButtonItem(
-      title: "Continue",
-      font: UIFont(name: "Helvetica-bold", size: 18)!,
-      textColor: .white,
-      enabledColor: .systemTeal,
-      disabledColor: .lightGray,
-      borderWidth: 2,
-      borderColor: .darkGray,
-      cornerRadius: 30,
-      shouldBeEnabled: false
     )
   }
 

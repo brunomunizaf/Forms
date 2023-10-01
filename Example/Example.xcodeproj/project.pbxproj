@@ -16,6 +16,7 @@
 		322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */; };
 		322B458E2AC33BEB001917DE /* Forms in Frameworks */ = {isa = PBXBuildFile; productRef = 322B458D2AC33BEB001917DE /* Forms */; };
 		32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CFCA612AC367D900539B60 /* ScreenView.swift */; };
+		32F960572ACA060E004B3265 /* FormButtonItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		321225CF2AC33A5700DBE7E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableFormItems.swift; sourceTree = "<group>"; };
 		32CFCA612AC367D900539B60 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
+		32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormButtonItem+Configuration.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				321225CF2AC33A5700DBE7E9 /* Info.plist */,
 				322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */,
 				32CFCA612AC367D900539B60 /* ScreenView.swift */,
+				32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 				321225C62AC33A5600DBE7E9 /* ViewController.swift in Sources */,
 				321225C22AC33A5600DBE7E9 /* AppDelegate.swift in Sources */,
 				32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */,
+				32F960572ACA060E004B3265 /* FormButtonItem+Configuration.swift in Sources */,
 				322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */,
 				321225C42AC33A5600DBE7E9 /* SceneDelegate.swift in Sources */,
 			);
