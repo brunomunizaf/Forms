@@ -42,7 +42,9 @@ open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerVie
     pickerView.dataSource = self
   }
 
-  required public init?(coder: NSCoder) { nil }
+  required public init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   /// Sets up the user interface components.
   private func setupSubviews() {
