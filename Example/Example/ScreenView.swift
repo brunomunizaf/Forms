@@ -12,7 +12,7 @@ final class ScreenView: UIView {
   var requiredInputItem: MinimumFormInputItem!
   var numbersInputItem: RegexFormInputItem!
   var pickerItem: FormPickerItem!
-  var switchItem: FormSwitchItem!
+  let switchItem = FormSwitchItem(configuration: .elegantModern)
   var checkboxItem: RequiredFormCheckboxItem!
   let buttonItem = FormButtonItem(configuration: .modernElegant)
   let scrollView = UIScrollView()
@@ -24,7 +24,6 @@ final class ScreenView: UIView {
     setupTextItems()
     setupCheckboxItem()
     setupInputItems()
-    setupSwitchItems()
     setupPickerItems()
     setupFormView()
     setupScrollView()
@@ -111,19 +110,6 @@ final class ScreenView: UIView {
       cornerRadius: 10,
       borderWidth: 1,
       borderColor: .lightGray,
-      spacingAfter: 25
-    )
-  }
-
-  // Setup switch items with appropriate attributes.
-  private func setupSwitchItems() {
-    switchItem = FormSwitchItem(
-      title: "Subscribe to updates",
-      titleFont: UIFont(name: "Helvetica-bold", size: 16)!,
-      titleColor: .black,
-      subtitle: "Subscribing to weekly updates from CISA.gov and NSA/CIA",
-      subtitleFont: UIFont(name: "Helvetica-light", size: 13)!,
-      subtitleColor: .lightGray,
       spacingAfter: 25
     )
   }
