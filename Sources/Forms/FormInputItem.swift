@@ -11,7 +11,7 @@ open class FormInputItem: UIView, FormInputType {
 
   /// An `AnyPublisher` that publishes the `text` from UITextField.
   public var textPublisher: AnyPublisher<String?, Never> {
-    textField.textPublisher.eraseToAnyPublisher()
+    textField.editingChanged.eraseToAnyPublisher()
   }
 
   /// The space after the input item in the form.
@@ -44,6 +44,9 @@ open class FormInputItem: UIView, FormInputType {
     titleColor: UIColor = .black,
     initialText: String? = nil,
     placeholder: String? = nil,
+    isSecure: Bool = false,
+    autocorrectionType: UITextAutocorrectionType = .default,
+    autocapitalizationType: UITextAutocapitalizationType = .sentences,
     font: UIFont = .systemFont(ofSize: 14),
     textColor: UIColor = .black,
     cornerRadius: CGFloat = 10.0,
@@ -56,10 +59,13 @@ open class FormInputItem: UIView, FormInputType {
     titleLabel.font = titleFont
     titleLabel.textColor = titleColor
 
-    textField.text = initialText
-    textField.placeholder = placeholder
     textField.font = font
+    textField.text = initialText
     textField.textColor = textColor
+    textField.placeholder = placeholder
+    textField.isSecureTextEntry = isSecure
+    textField.autocorrectionType = autocorrectionType
+    textField.autocapitalizationType = autocapitalizationType
 
     containerView.layer.cornerRadius = cornerRadius
     containerView.layer.borderWidth = borderWidth

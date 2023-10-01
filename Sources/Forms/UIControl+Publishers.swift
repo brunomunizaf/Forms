@@ -2,12 +2,22 @@ import Combine
 import UIKit
 
 extension UIControl {
-  /// A publisher emitting tap events from this control.
-  var tapPublisher: AnyPublisher<Void, Never> {
+  /// A publisher emitting `.touchUpInside` events from this control.
+  public var touchUpInsidePublisher: AnyPublisher<Void, Never> {
     Publishers
       .ControlTarget(
         control: self,
         events: .touchUpInside
+      )
+      .eraseToAnyPublisher()
+  }
+
+  /// A publisher emitting `.valueChanged` events from this control.
+  public var valueChangedPublisher: AnyPublisher<Void, Never> {
+    Publishers
+      .ControlTarget(
+        control: self,
+        events: .valueChanged
       )
       .eraseToAnyPublisher()
   }

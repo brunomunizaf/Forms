@@ -63,16 +63,16 @@ final class ViewController: UIViewController {
       .sink { print($0 ? "FormCheckboxItem: ✅" : "FormCheckboxItem: ⬜️") }
       .store(in: &cancellables)
 
-    /// Subscribes to `didTapPublisher` from custom extension
+    /// Subscribes to `.touchUpInsidePublisher` from custom extension
     /// located at `UIControl+Publishers.swift`.
     screenView
       .buttonItem
-      .didTapPublisher
+      .touchUpInsidePublisher
       .receive(on: DispatchQueue.main)
       .sink { print("Tapped on FormButtonItem. <> This observation was set using Publishers! 🫡") }
       .store(in: &cancellables)
 
-    /// Subscribes to `textPublisher` from custom extension
+    /// Subscribes to `.editingChanged` from custom extension
     /// located at `UITextField+Publishers.swift`
     screenView
       .inputItem
@@ -83,6 +83,15 @@ final class ViewController: UIViewController {
           print("Typed at 'inputItem' using Combine = \(text)")
         }
       }.store(in: &cancellables)
+
+    /// Subscribes to `.valueChangedPublisher` from custom extension
+    /// located at `UIControl+Publishers.swift`
+    screenView
+      .switchItem
+      .isOnPublisher
+      .receive(on: DispatchQueue.main)
+      .sink { _ in print("Toggled FormSwitchItem. <> This observation was set using Publishers! 🎉") }
+      .store(in: &cancellables)
   }
 
   /// Sets up observers for keyboard notifications.
@@ -118,9 +127,11 @@ final class ViewController: UIViewController {
       }
       self?.validateForm()
     }
-
     screenView.checkboxItem.didSelect = { [weak self] in
       self?.validateForm()
+    }
+    screenView.switchItem.didToggle = { _ in
+      print("Toggled FormSwitchItem! <> This observation was set using closures. 🤷🏻‍♂️")
     }
     screenView.buttonItem.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
   }

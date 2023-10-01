@@ -2,8 +2,8 @@ import Combine
 import UIKit
 
 extension UITextField {
-  /// A publisher emitting text change events from this text field.
-  var textPublisher: AnyPublisher<String?, Never> {
+  /// A publisher emitting `.editingChanged` events from this text field.
+  public var editingChanged: AnyPublisher<String?, Never> {
     Publishers.TextFieldPublisher(
       textField: self
     ).eraseToAnyPublisher()

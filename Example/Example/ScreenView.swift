@@ -12,6 +12,7 @@ final class ScreenView: UIView {
   var requiredInputItem: MinimumFormInputItem!
   var numbersInputItem: RegexFormInputItem!
   var pickerItem: FormPickerItem!
+  var switchItem: FormSwitchItem!
   var checkboxItem: RequiredFormCheckboxItem!
   var buttonItem: FormButtonItem!
   let scrollView = UIScrollView()
@@ -23,6 +24,8 @@ final class ScreenView: UIView {
     setupTextItems()
     setupCheckboxItem()
     setupInputItems()
+    setupSwitchItems()
+    setupPickerItems()
     setupButtonItem()
     setupFormView()
     setupScrollView()
@@ -82,6 +85,9 @@ final class ScreenView: UIView {
       titleFont: UIFont(name: "Helvetica-bold", size: 15)!,
       titleColor: .black,
       placeholder: "ex: 5912 5th Avenue, New York, NY",
+      isSecure: false,
+      autocorrectionType: .no,
+      autocapitalizationType: .none,
       font: UIFont(name: "Helvetica", size: 15)!,
       cornerRadius: 10,
       borderWidth: 1,
@@ -105,8 +111,26 @@ final class ScreenView: UIView {
       font: UIFont(name: "Helvetica", size: 15)!,
       cornerRadius: 10,
       borderWidth: 1,
-      borderColor: .lightGray
+      borderColor: .lightGray,
+      spacingAfter: 25
     )
+  }
+
+  // Setup switch items with appropriate attributes.
+  private func setupSwitchItems() {
+    switchItem = FormSwitchItem(
+      title: "Subscribe to updates",
+      titleFont: UIFont(name: "Helvetica-bold", size: 16)!,
+      titleColor: .black,
+      subtitle: "Subscribing to weekly updates from CISA.gov and NSA/CIA",
+      subtitleFont: UIFont(name: "Helvetica-light", size: 13)!,
+      subtitleColor: .lightGray,
+      spacingAfter: 25
+    )
+  }
+
+  // Setup picker items with appropriate attributes.
+  private func setupPickerItems() {
     pickerItem = FormPickerItem(
       options: [
         ["1", "2", "3", "4"],
@@ -140,6 +164,7 @@ final class ScreenView: UIView {
     formView.add(inputItem)
     formView.add(requiredInputItem)
     formView.add(numbersInputItem)
+    formView.add(switchItem)
     formView.add(pickerItem)
     formView.add(FormSpacingItem())
     formView.add(checkboxItem)
