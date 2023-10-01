@@ -1,9 +1,84 @@
 import Combine
 import UIKit
 
-/// `FormCheckboxItem` represents a checkbox item in a form. It is a customizable UIView
-/// that can be selected or deselected and conforms to the `FormItem` protocol.
+/// `FormCheckboxItem` represents a checkbox item within a form-based interface.
+///
+/// This class serves as a customizable and interactive component, allowing users
+/// to make binary choices in form-based UIs. As a subclass of `UIView`, `FormCheckboxItem`
+/// provides extensive customization options.
+///
+/// - Note: This class conforms to the `FormItem` protocol.
 open class FormCheckboxItem: UIView, FormItem {
+
+  /// A structure used to configure a `FormCheckboxItem`.
+  ///
+  /// It holds all the customizable parameters, which include visual attributes
+  /// and spacing information for the checkbox item in the form.
+  public struct Configuration {
+    let title: String
+    let titleFont: UIFont
+    let titleColor: UIColor
+    let subtitle: String?
+    let subtitleFont: UIFont
+    let subtitleColor: UIColor
+    let checkedColor: UIColor
+    let uncheckedColor: UIColor
+    let borderWidth: CGFloat
+    let borderColor: UIColor
+    let cornerRadius: CGFloat
+    let isSelected: Bool
+    let spacingAfter: CGFloat
+    let shouldBeSelected: Bool
+
+    /// Initializes a new instance of `FormCheckboxItem.Configuration`.
+    /// - Parameters:
+    ///   - title: The title of the checkbox item.
+    ///   - titleFont: The font of the title label.
+    ///   - titleColor: The text color of the title label.
+    ///   - subtitle: The subtitle of the checkbox item.
+    ///   - subtitleFont: The font of the subtitle label.
+    ///   - subtitleColor: The text color of the subtitle label.
+    ///   - checkedColor: The background color when the checkbox is selected.
+    ///   - uncheckedColor: The background color when the checkbox is not selected.
+    ///   - borderWidth: The width of the border of the checkbox.
+    ///   - borderColor: The color of the border of the checkbox.
+    ///   - cornerRadius: The corner radius of the checkbox.
+    ///   - isSelected: The initial state of the checkbox item.
+    ///   - spacingAfter: The space after the checkbox item in the form.
+    ///   - shouldBeSelected: The initial state of the component item.
+    public init(
+      title: String,
+      titleFont: UIFont,
+      titleColor: UIColor,
+      subtitle: String?,
+      subtitleFont: UIFont,
+      subtitleColor: UIColor,
+      checkedColor: UIColor,
+      uncheckedColor: UIColor,
+      borderWidth: CGFloat,
+      borderColor: UIColor,
+      cornerRadius: CGFloat,
+      isSelected: Bool,
+      spacingAfter: CGFloat,
+      shouldBeSelected: Bool
+    ) {
+      self.title = title
+      self.titleFont = titleFont
+      self.titleColor = titleColor
+      self.subtitle = subtitle
+      self.subtitleFont = subtitleFont
+      self.subtitleColor = subtitleColor
+      self.checkedColor = checkedColor
+      self.uncheckedColor = uncheckedColor
+      self.borderWidth = borderWidth
+      self.borderColor = borderColor
+      self.cornerRadius = cornerRadius
+      self.isSelected = isSelected
+      self.spacingAfter = spacingAfter
+      self.shouldBeSelected = shouldBeSelected
+    }
+  }
+
   private let emptyColor: UIColor
   private let filledColor: UIColor
   private let titleLabel = UILabel()
@@ -41,65 +116,31 @@ open class FormCheckboxItem: UIView, FormItem {
 
   /// Initializes a new instance of `FormCheckboxItem`.
   /// - Parameters:
-  ///   - title: The title of the checkbox item.
-  ///   - titleFont: The font of the title label.
-  ///   - titleColor: The text color of the title label.
-  ///   - subtitle: The subtitle of the checkbox item.
-  ///   - subtitleFont: The font of the subtitle label.
-  ///   - subtitleColor: The text color of the subtitle label.
-  ///   - checkedColor: The background color when the checkbox is selected.
-  ///   - uncheckedColor: The background color when the checkbox is not selected.
-  ///   - borderWidth: The width of the border of the checkbox.
-  ///   - borderColor: The color of the border of the checkbox.
-  ///   - cornerRadius: The corner radius of the checkbox.
-  ///   - isSelected: The initial state of the checkbox item.
-  ///   - spacingAfter: The space after the checkbox item in the form.
-  ///   - shouldBeSelected: The initial state of the component item.
-  public init(
-    title: String,
-    titleFont: UIFont = .boldSystemFont(ofSize: 14),
-    titleColor: UIColor = .black,
-    subtitle: String? = nil,
-    subtitleFont: UIFont = .systemFont(ofSize: 12),
-    subtitleColor: UIColor = .black,
-    checkedColor: UIColor = .green,
-    uncheckedColor: UIColor = .white,
-    borderWidth: CGFloat = 1.5,
-    borderColor: UIColor = .black,
-    cornerRadius: CGFloat = 10.0,
-    isSelected: Bool = false,
-    spacingAfter: CGFloat = 10,
-    shouldBeSelected: Bool = false
-  ) {
-    titleLabel.text = title
-    titleLabel.font = titleFont
+  ///   - configuration: The model containing all the attributes of the checkbox item.
+  public init(configuration: Configuration) {
+    titleLabel.text = configuration.title
+    titleLabel.font = configuration.titleFont
     titleLabel.numberOfLines = 0
-    titleLabel.textColor = titleColor
-    subtitleLabel.text = subtitle
+    titleLabel.textColor = configuration.titleColor
+    subtitleLabel.text = configuration.subtitle
     subtitleLabel.numberOfLines = 0
-    subtitleLabel.font = subtitleFont
-    subtitleLabel.textColor = subtitleColor
-    filledColor = checkedColor
-    emptyColor = uncheckedColor
-    controlView.isSelected = isSelected
-    controlView.layer.borderWidth = borderWidth
-    controlView.layer.cornerRadius = cornerRadius
-    controlView.layer.borderColor = borderColor.cgColor
-    controlView.backgroundColor = isSelected ? filledColor : emptyColor
-    isSelectedSubject = CurrentValueSubject<Bool, Never>(shouldBeSelected)
-
-    self.spacingAfter = spacingAfter
+    subtitleLabel.font = configuration.subtitleFont
+    subtitleLabel.textColor = configuration.subtitleColor
+    filledColor = configuration.checkedColor
+    emptyColor = configuration.uncheckedColor
+    controlView.isSelected = configuration.isSelected
+    controlView.layer.borderWidth = configuration.borderWidth
+    controlView.layer.cornerRadius = configuration.cornerRadius
+    controlView.layer.borderColor = configuration.borderColor.cgColor
+    controlView.backgroundColor = configuration.isSelected ? filledColor : emptyColor
+    isSelectedSubject = CurrentValueSubject<Bool, Never>(configuration.shouldBeSelected)
+    spacingAfter = configuration.spacingAfter
 
     super.init(frame: .zero)
+
     setupViews()
     setupAccessibility()
-
-    controlView.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
-
-    // Observe changes to the isSelectedSubject
-    isSelectedSubject.sink { [unowned self] isSelected in
-      controlView.backgroundColor = isSelected ? filledColor : emptyColor
-    }.store(in: &cancellables)
+    setupObservers()
   }
 
   required public init?(coder: NSCoder) {
@@ -137,6 +178,16 @@ open class FormCheckboxItem: UIView, FormItem {
     internalStackView.setCustomSpacing(5, after: titleLabel)
   }
 
+  private func setupObservers() {
+    controlView.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
+
+    // Observe changes to the isSelectedSubject
+    isSelectedSubject.sink { [unowned self] isSelected in
+      controlView.backgroundColor = isSelected ? filledColor : emptyColor
+    }.store(in: &cancellables)
+  }
+
+  /// Sets up accessibility properties for the control.
   private func setupAccessibility() {
     titleLabel.accessibilityLabel = titleLabel.text
     titleLabel.accessibilityTraits = .header

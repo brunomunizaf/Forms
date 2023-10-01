@@ -13,7 +13,7 @@ final class ScreenView: UIView {
   var numbersInputItem: RegexFormInputItem!
   var pickerItem: FormPickerItem!
   let switchItem = FormSwitchItem(configuration: .elegantModern)
-  var checkboxItem: RequiredFormCheckboxItem!
+  let checkboxItem = RequiredFormCheckboxItem(configuration: .modernVibrant)
   let buttonItem = FormButtonItem(configuration: .modernElegant)
   let scrollView = UIScrollView()
 
@@ -22,7 +22,6 @@ final class ScreenView: UIView {
     super.init(frame: .zero)
     backgroundColor = .white
     setupTextItems()
-    setupCheckboxItem()
     setupInputItems()
     setupPickerItems()
     setupFormView()
@@ -54,25 +53,6 @@ final class ScreenView: UIView {
         .paragraphStyle: paragraphStyle
       ],
       spacingAfter: 30
-    )
-  }
-
-  // Setup a checkbox item with appropriate attributes.
-  private func setupCheckboxItem() {
-    checkboxItem = RequiredFormCheckboxItem(
-      title: "Accept terms & conditions",
-      titleFont: UIFont(name: "Helvetica-bold", size: 16)!,
-      titleColor: .black,
-      subtitle: "Terms and conditions may apply. For your safety, please read all the documents we provide upon the password changing topic",
-      subtitleFont: UIFont(name: "Helvetica-light", size: 13)!,
-      subtitleColor: .lightGray,
-      checkedColor: .systemGreen,
-      uncheckedColor: .clear,
-      borderWidth: 1.5,
-      borderColor: .lightGray,
-      cornerRadius: 12,
-      isSelected: false,
-      spacingAfter: 25
     )
   }
 
