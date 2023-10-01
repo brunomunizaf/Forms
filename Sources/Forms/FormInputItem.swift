@@ -1,8 +1,13 @@
 import Combine
 import UIKit
 
-/// `FormInputItem` represents a text input item in a form. It is a customizable UIView
-/// with a title and a text field and conforms to the `FormInputType` protocol.
+/// `FormInputItem` represents a text input item in a form. 
+///
+/// It is a customizable text input component within a form-based interface,
+/// allowing users to input text or numerical data. As a subclass of `UIView`, it
+/// offers extensive customization options
+///
+/// - Note: This class conforms to the `FormItem` protocol.
 open class FormInputItem: UIView, FormInputType {
   private let containerView = UIView()
   private let stackView = UIStackView()

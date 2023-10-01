@@ -1,7 +1,12 @@
 import UIKit
 
-/// `FormTextItem` represents a text item in a form. It is a customizable `UIView`
-/// with a label and conforms to the `FormItem` protocol.
+/// `FormTextItem` represents a text item in a form.
+///
+/// As a subclass of `UIView`, it is designed to hold and display text content
+/// within form layouts, offering extensive customization options for text attributes
+/// and styles.
+///
+/// - Note: This class conforms to the `FormItem` protocol.
 open class FormTextItem: UIView, FormItem {
   private(set) var textLabel = UILabel()
 

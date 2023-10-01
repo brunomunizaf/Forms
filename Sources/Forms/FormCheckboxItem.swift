@@ -3,8 +3,8 @@ import UIKit
 
 /// `FormCheckboxItem` represents a checkbox item within a form-based interface.
 ///
-/// This class serves as a customizable and interactive component, allowing users
-/// to make binary choices in form-based UIs. As a subclass of `UIView`, `FormCheckboxItem`
+/// This class is a customizable and interactive component, allowing users
+/// to make binary choices in form-based UIs. As a subclass of `UIView`, it
 /// provides extensive customization options.
 ///
 /// - Note: This class conforms to the `FormItem` protocol.

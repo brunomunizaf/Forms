@@ -1,7 +1,12 @@
 import UIKit
 
-/// `FormPickerItem` represents a form component for
-/// selecting a single combination from a list of options.
+/// `FormPickerItem` represents a form component for selecting a single
+/// combination from a list of options.
+///
+/// It offers extensive customization possibilities, allowing adjustments to visual elements
+/// to achieve a coherent and aesthetically pleasing user interface.
+///
+/// - Note: This class conforms to the `FormItem` protocol.
 open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerViewDelegate {
   private(set) var pickerView = UIPickerView()
 
