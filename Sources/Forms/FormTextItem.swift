@@ -19,11 +19,8 @@ open class FormTextItem: UIView, FormItem {
     self.spacingAfter = spacingAfter
 
     super.init(frame: .zero)
-    setupSubviews()
-
-    // Improving accessibility
-    textLabel.accessibilityLabel = text
-    textLabel.accessibilityTraits = .staticText
+    setupViews()
+    setupAccessibility()
   }
 
   /// Initializes a new instance of `FormTextItem` with the provided text and style.
@@ -40,21 +37,25 @@ open class FormTextItem: UIView, FormItem {
     self.spacingAfter = spacingAfter
 
     super.init(frame: .zero)
-    setupSubviews()
-
-    // Improving accessibility
-    textLabel.accessibilityLabel = text
-    textLabel.accessibilityTraits = .staticText
+    setupViews()
+    setupAccessibility()
   }
 
   required public init?(coder: NSCoder) { nil }
 
-  private func setupSubviews() {
+  private func setupViews() {
     addSubview(textLabel)
     textLabel.translatesAutoresizingMaskIntoConstraints = false
-    textLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-    textLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-    textLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
-    textLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    NSLayoutConstraint.activate([
+      textLabel.topAnchor.constraint(equalTo: topAnchor),
+      textLabel.leftAnchor.constraint(equalTo: leftAnchor),
+      textLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+      textLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+    ])
+  }
+
+  private func setupAccessibility() {
+    textLabel.accessibilityLabel = textLabel.text
+    textLabel.accessibilityTraits = .staticText
   }
 }

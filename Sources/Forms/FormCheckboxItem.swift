@@ -73,15 +73,14 @@ open class FormCheckboxItem: UIView, FormItem {
   ) {
     titleLabel.text = title
     titleLabel.font = titleFont
+    titleLabel.numberOfLines = 0
     titleLabel.textColor = titleColor
-
     subtitleLabel.text = subtitle
+    subtitleLabel.numberOfLines = 0
     subtitleLabel.font = subtitleFont
     subtitleLabel.textColor = subtitleColor
-
     filledColor = checkedColor
     emptyColor = uncheckedColor
-
     controlView.isSelected = isSelected
     controlView.layer.borderWidth = borderWidth
     controlView.layer.cornerRadius = cornerRadius
@@ -92,13 +91,8 @@ open class FormCheckboxItem: UIView, FormItem {
     self.spacingAfter = spacingAfter
 
     super.init(frame: .zero)
-    setupSubviews()
-
-    // Improving accessibility
-    titleLabel.accessibilityLabel = title
-    titleLabel.accessibilityTraits = .header
-    controlView.accessibilityLabel = "Checkbox"
-    controlView.accessibilityTraits = .button
+    setupViews()
+    setupAccessibility()
 
     controlView.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
 
@@ -108,28 +102,31 @@ open class FormCheckboxItem: UIView, FormItem {
     }.store(in: &cancellables)
   }
 
-  required public init?(coder: NSCoder) { nil }
+  required public init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
-  private func setupSubviews() {
-    titleLabel.numberOfLines = 0
-    subtitleLabel.numberOfLines = 0
-
+  private func setupViews() {
     addSubview(externalStackView)
     externalStackView.translatesAutoresizingMaskIntoConstraints = false
-    externalStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-    externalStackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-    externalStackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-    externalStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    NSLayoutConstraint.activate([
+      externalStackView.topAnchor.constraint(equalTo: topAnchor),
+      externalStackView.leftAnchor.constraint(equalTo: leftAnchor),
+      externalStackView.rightAnchor.constraint(equalTo: rightAnchor),
+      externalStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    ])
 
     let containerView = UIView()
     containerView.addSubview(controlView)
     controlView.translatesAutoresizingMaskIntoConstraints = false
-    controlView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-    controlView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-    controlView.topAnchor.constraint(equalTo: containerView.topAnchor ,constant: 10).isActive = true
-    controlView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-    controlView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive = true
-    controlView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -20).isActive = true
+    NSLayoutConstraint.activate([
+      controlView.widthAnchor.constraint(equalToConstant: 25),
+      controlView.heightAnchor.constraint(equalToConstant: 25),
+      controlView.topAnchor.constraint(equalTo: containerView.topAnchor ,constant: 10),
+      controlView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+      controlView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15),
+      controlView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -20)
+    ])
 
     externalStackView.addArrangedSubview(containerView)
     externalStackView.addArrangedSubview(internalStackView)
@@ -138,6 +135,13 @@ open class FormCheckboxItem: UIView, FormItem {
     internalStackView.addArrangedSubview(titleLabel)
     internalStackView.addArrangedSubview(subtitleLabel)
     internalStackView.setCustomSpacing(5, after: titleLabel)
+  }
+
+  private func setupAccessibility() {
+    titleLabel.accessibilityLabel = titleLabel.text
+    titleLabel.accessibilityTraits = .header
+    controlView.accessibilityLabel = "Checkbox"
+    controlView.accessibilityTraits = .button
   }
 
   @objc private func didTapCheckbox() {

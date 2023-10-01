@@ -95,17 +95,21 @@ open class FormInputItem: UIView, FormInputType {
     stackView.addArrangedSubview(titleLabel)
     stackView.addArrangedSubview(containerView)
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-    stackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-    stackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-    stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    NSLayoutConstraint.activate([
+      stackView.topAnchor.constraint(equalTo: topAnchor),
+      stackView.leftAnchor.constraint(equalTo: leftAnchor),
+      stackView.rightAnchor.constraint(equalTo: rightAnchor),
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    ])
 
     containerView.addSubview(textField)
     textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
-    textField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10).isActive = true
-    textField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10).isActive = true
-    textField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10).isActive = true
+    NSLayoutConstraint.activate([
+      textField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+      textField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10),
+      textField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
+      textField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10)
+    ])
   }
 
   @objc private func textFieldDidChange() {
