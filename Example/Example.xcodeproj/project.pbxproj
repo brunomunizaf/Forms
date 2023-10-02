@@ -9,38 +9,38 @@
 /* Begin PBXBuildFile section */
 		321225C22AC33A5600DBE7E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321225C12AC33A5600DBE7E9 /* AppDelegate.swift */; };
 		321225C42AC33A5600DBE7E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321225C32AC33A5600DBE7E9 /* SceneDelegate.swift */; };
-		321225C62AC33A5600DBE7E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321225C52AC33A5600DBE7E9 /* ViewController.swift */; };
 		321225C92AC33A5600DBE7E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321225C72AC33A5600DBE7E9 /* Main.storyboard */; };
 		321225CB2AC33A5700DBE7E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321225CA2AC33A5700DBE7E9 /* Assets.xcassets */; };
 		321225CE2AC33A5700DBE7E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321225CC2AC33A5700DBE7E9 /* LaunchScreen.storyboard */; };
-		321F5CED2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CEC2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift */; };
-		321F5CEF2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CEE2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift */; };
-		321F5CF12ACA405900FB8AC5 /* FormTextItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CF02ACA405900FB8AC5 /* FormTextItem+Configuration.swift */; };
-		321F5CF32ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CF22ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift */; };
+		321F5CF62ACA477A00FB8AC5 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CF52ACA477A00FB8AC5 /* TermsViewController.swift */; };
+		321F5CF92ACA4ADC00FB8AC5 /* TermsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CF82ACA4ADC00FB8AC5 /* TermsScreenView.swift */; };
+		321F5CFB2ACA4D0A00FB8AC5 /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CFA2ACA4D0A00FB8AC5 /* PersonalViewController.swift */; };
+		321F5CFD2ACA4D3100FB8AC5 /* PersonalScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CFC2ACA4D3100FB8AC5 /* PersonalScreenView.swift */; };
 		322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */; };
 		322B458E2AC33BEB001917DE /* Forms in Frameworks */ = {isa = PBXBuildFile; productRef = 322B458D2AC33BEB001917DE /* Forms */; };
-		32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CFCA612AC367D900539B60 /* ScreenView.swift */; };
-		32F960572ACA060E004B3265 /* FormButtonItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */; };
-		32F9605A2ACA0D32004B3265 /* FormSwitchItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F960592ACA0D32004B3265 /* FormSwitchItem+Configuration.swift */; };
+		32EF92582ACA5934002278A7 /* PermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF92572ACA5934002278A7 /* PermissionsViewController.swift */; };
+		32EF925A2ACA595C002278A7 /* PermissionsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF92592ACA595C002278A7 /* PermissionsScreenView.swift */; };
+		32EF925C2ACA5FD7002278A7 /* FinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF925B2ACA5FD7002278A7 /* FinishedViewController.swift */; };
+		32EF925E2ACA6006002278A7 /* FinishedScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF925D2ACA6006002278A7 /* FinishedScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		321225BE2AC33A5600DBE7E9 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		321225C12AC33A5600DBE7E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		321225C32AC33A5600DBE7E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		321225C52AC33A5600DBE7E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		321225C82AC33A5600DBE7E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		321225CA2AC33A5700DBE7E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		321225CD2AC33A5700DBE7E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		321225CF2AC33A5700DBE7E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		321F5CEC2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormCheckboxItem+Configuration.swift"; sourceTree = "<group>"; };
-		321F5CEE2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormInputItem+Configuration.swift"; sourceTree = "<group>"; };
-		321F5CF02ACA405900FB8AC5 /* FormTextItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormTextItem+Configuration.swift"; sourceTree = "<group>"; };
-		321F5CF22ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormPickerItem+Configuration.swift"; sourceTree = "<group>"; };
+		321F5CF52ACA477A00FB8AC5 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		321F5CF82ACA4ADC00FB8AC5 /* TermsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsScreenView.swift; sourceTree = "<group>"; };
+		321F5CFA2ACA4D0A00FB8AC5 /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
+		321F5CFC2ACA4D3100FB8AC5 /* PersonalScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalScreenView.swift; sourceTree = "<group>"; };
 		322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableFormItems.swift; sourceTree = "<group>"; };
-		32CFCA612AC367D900539B60 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
-		32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormButtonItem+Configuration.swift"; sourceTree = "<group>"; };
-		32F960592ACA0D32004B3265 /* FormSwitchItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormSwitchItem+Configuration.swift"; sourceTree = "<group>"; };
+		32EF92572ACA5934002278A7 /* PermissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsViewController.swift; sourceTree = "<group>"; };
+		32EF92592ACA595C002278A7 /* PermissionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsScreenView.swift; sourceTree = "<group>"; };
+		32EF925B2ACA5FD7002278A7 /* FinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedViewController.swift; sourceTree = "<group>"; };
+		32EF925D2ACA6006002278A7 /* FinishedScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,31 +74,39 @@
 		321225C02AC33A5600DBE7E9 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				32F960582ACA06A4004B3265 /* Extensions */,
+				321F5CF72ACA4AD200FB8AC5 /* Views */,
+				321F5CF42ACA471500FB8AC5 /* Controllers */,
 				321225C12AC33A5600DBE7E9 /* AppDelegate.swift */,
 				321225C32AC33A5600DBE7E9 /* SceneDelegate.swift */,
-				321225C52AC33A5600DBE7E9 /* ViewController.swift */,
 				321225C72AC33A5600DBE7E9 /* Main.storyboard */,
 				321225CA2AC33A5700DBE7E9 /* Assets.xcassets */,
 				321225CC2AC33A5700DBE7E9 /* LaunchScreen.storyboard */,
 				321225CF2AC33A5700DBE7E9 /* Info.plist */,
 				322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */,
-				32CFCA612AC367D900539B60 /* ScreenView.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
 		};
-		32F960582ACA06A4004B3265 /* Extensions */ = {
+		321F5CF42ACA471500FB8AC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */,
-				32F960592ACA0D32004B3265 /* FormSwitchItem+Configuration.swift */,
-				321F5CEC2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift */,
-				321F5CEE2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift */,
-				321F5CF02ACA405900FB8AC5 /* FormTextItem+Configuration.swift */,
-				321F5CF22ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift */,
+				321F5CF52ACA477A00FB8AC5 /* TermsViewController.swift */,
+				321F5CFA2ACA4D0A00FB8AC5 /* PersonalViewController.swift */,
+				32EF92572ACA5934002278A7 /* PermissionsViewController.swift */,
+				32EF925B2ACA5FD7002278A7 /* FinishedViewController.swift */,
 			);
-			path = Extensions;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		321F5CF72ACA4AD200FB8AC5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				321F5CF82ACA4ADC00FB8AC5 /* TermsScreenView.swift */,
+				321F5CFC2ACA4D3100FB8AC5 /* PersonalScreenView.swift */,
+				32EF92592ACA595C002278A7 /* PermissionsScreenView.swift */,
+				32EF925D2ACA6006002278A7 /* FinishedScreenView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,16 +186,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				321F5CF12ACA405900FB8AC5 /* FormTextItem+Configuration.swift in Sources */,
-				321225C62AC33A5600DBE7E9 /* ViewController.swift in Sources */,
-				321F5CF32ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift in Sources */,
+				32EF925C2ACA5FD7002278A7 /* FinishedViewController.swift in Sources */,
 				321225C22AC33A5600DBE7E9 /* AppDelegate.swift in Sources */,
-				32F9605A2ACA0D32004B3265 /* FormSwitchItem+Configuration.swift in Sources */,
-				32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */,
-				321F5CEF2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift in Sources */,
-				321F5CED2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift in Sources */,
-				32F960572ACA060E004B3265 /* FormButtonItem+Configuration.swift in Sources */,
+				32EF92582ACA5934002278A7 /* PermissionsViewController.swift in Sources */,
+				321F5CFD2ACA4D3100FB8AC5 /* PersonalScreenView.swift in Sources */,
+				321F5CFB2ACA4D0A00FB8AC5 /* PersonalViewController.swift in Sources */,
+				32EF925A2ACA595C002278A7 /* PermissionsScreenView.swift in Sources */,
+				321F5CF92ACA4ADC00FB8AC5 /* TermsScreenView.swift in Sources */,
 				322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */,
+				321F5CF62ACA477A00FB8AC5 /* TermsViewController.swift in Sources */,
+				32EF925E2ACA6006002278A7 /* FinishedScreenView.swift in Sources */,
 				321225C42AC33A5600DBE7E9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

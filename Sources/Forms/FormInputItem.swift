@@ -16,8 +16,7 @@ open class FormInputItem: UIView, FormInputType {
   /// and spacing information for the input item in the form.
   public struct Configuration {
     let title: String?
-    let titleFont: UIFont
-    let titleColor: UIColor
+    let titleAttributes: [NSAttributedString.Key: Any]
     let initialText: String?
     let placeholder: String?
     let isSecure: Bool
@@ -34,8 +33,7 @@ open class FormInputItem: UIView, FormInputType {
     /// Initializes a new instance of `FormInputItem.Configuration`.
     /// - Parameters:
     ///   - title: The title of the input item.
-    ///   - titleFont: The font of the title label.
-    ///   - titleColor: The text color of the title label.
+    ///   - attributes: A dictionary with the attributes for the title label.
     ///   - initialText: The initial text in the text field.
     ///   - placeholder: The placeholder text in the text field.
     ///   - font: The font of the text field.
@@ -46,8 +44,7 @@ open class FormInputItem: UIView, FormInputType {
     ///   - spacingAfter: The space after the input item in the form.
     public init(
       title: String?, 
-      titleFont: UIFont,
-      titleColor: UIColor,
+      titleAttributes: [NSAttributedString.Key: Any],
       initialText: String?,
       placeholder: String?,
       isSecure: Bool,
@@ -62,8 +59,7 @@ open class FormInputItem: UIView, FormInputType {
       didChange: ((String?) -> Void)?
     ) {
       self.title = title
-      self.titleFont = titleFont
-      self.titleColor = titleColor
+      self.titleAttributes = titleAttributes
       self.initialText = initialText
       self.placeholder = placeholder
       self.isSecure = isSecure
@@ -104,9 +100,11 @@ open class FormInputItem: UIView, FormInputType {
   /// - Parameters:
   ///   - configuration: The model containing all the attributes of the input item.
   public init(configuration: Configuration) {
-    titleLabel.text = configuration.title
-    titleLabel.font = configuration.titleFont
-    titleLabel.textColor = configuration.titleColor
+    titleLabel.numberOfLines = 0
+    titleLabel.attributedText = NSAttributedString(
+      string: configuration.title ?? "",
+      attributes: configuration.titleAttributes
+    )
     textField.font = configuration.font
     textField.text = configuration.initialText
     textField.textColor = configuration.textColor
