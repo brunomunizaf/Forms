@@ -14,6 +14,9 @@
 		321225CB2AC33A5700DBE7E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321225CA2AC33A5700DBE7E9 /* Assets.xcassets */; };
 		321225CE2AC33A5700DBE7E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 321225CC2AC33A5700DBE7E9 /* LaunchScreen.storyboard */; };
 		321F5CED2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CEC2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift */; };
+		321F5CEF2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CEE2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift */; };
+		321F5CF12ACA405900FB8AC5 /* FormTextItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CF02ACA405900FB8AC5 /* FormTextItem+Configuration.swift */; };
+		321F5CF32ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CF22ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift */; };
 		322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */; };
 		322B458E2AC33BEB001917DE /* Forms in Frameworks */ = {isa = PBXBuildFile; productRef = 322B458D2AC33BEB001917DE /* Forms */; };
 		32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CFCA612AC367D900539B60 /* ScreenView.swift */; };
@@ -31,6 +34,9 @@
 		321225CD2AC33A5700DBE7E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		321225CF2AC33A5700DBE7E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		321F5CEC2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormCheckboxItem+Configuration.swift"; sourceTree = "<group>"; };
+		321F5CEE2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormInputItem+Configuration.swift"; sourceTree = "<group>"; };
+		321F5CF02ACA405900FB8AC5 /* FormTextItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormTextItem+Configuration.swift"; sourceTree = "<group>"; };
+		321F5CF22ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormPickerItem+Configuration.swift"; sourceTree = "<group>"; };
 		322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableFormItems.swift; sourceTree = "<group>"; };
 		32CFCA612AC367D900539B60 /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 		32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormButtonItem+Configuration.swift"; sourceTree = "<group>"; };
@@ -88,6 +94,9 @@
 				32F960562ACA060E004B3265 /* FormButtonItem+Configuration.swift */,
 				32F960592ACA0D32004B3265 /* FormSwitchItem+Configuration.swift */,
 				321F5CEC2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift */,
+				321F5CEE2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift */,
+				321F5CF02ACA405900FB8AC5 /* FormTextItem+Configuration.swift */,
+				321F5CF22ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -169,10 +178,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				321F5CF12ACA405900FB8AC5 /* FormTextItem+Configuration.swift in Sources */,
 				321225C62AC33A5600DBE7E9 /* ViewController.swift in Sources */,
+				321F5CF32ACA42BA00FB8AC5 /* FormPickerItem+Configuration.swift in Sources */,
 				321225C22AC33A5600DBE7E9 /* AppDelegate.swift in Sources */,
 				32F9605A2ACA0D32004B3265 /* FormSwitchItem+Configuration.swift in Sources */,
 				32CFCA622AC367D900539B60 /* ScreenView.swift in Sources */,
+				321F5CEF2ACA3EC800FB8AC5 /* FormInputItem+Configuration.swift in Sources */,
 				321F5CED2ACA11C800FB8AC5 /* FormCheckboxItem+Configuration.swift in Sources */,
 				32F960572ACA060E004B3265 /* FormButtonItem+Configuration.swift in Sources */,
 				322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */,

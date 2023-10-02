@@ -8,6 +8,32 @@ import UIKit
 ///
 /// - Note: This class conforms to the `FormItem` protocol.
 open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerViewDelegate {
+
+  /// A structure used to configure a `FormPickerItem`.
+  ///
+  /// It holds all the customizable parameters, which include visual attributes
+  /// and spacing information for the picker in the form.
+  public struct Configuration {
+    let options: [[String]]
+    let selectedOption: String?
+    let spacingAfter: CGFloat
+
+    /// Creates a new instance of `FormPickerItem.Configuration`.
+    /// - Parameters:
+    ///   - options: The array of strings to be displayed as options in the picker.
+    ///   - selectedOption: The initially selected option in the picker.
+    ///   - spacingAfter: The space after the picker item in the form.
+    public init(
+      options: [[String]],
+      selectedOption: String?,
+      spacingAfter: CGFloat
+    ) {
+      self.options = options
+      self.selectedOption = selectedOption
+      self.spacingAfter = spacingAfter
+    }
+  }
+
   private(set) var pickerView = UIPickerView()
 
   /// Array of options to be displayed in the picker.
@@ -27,18 +53,13 @@ open class FormPickerItem: UIView, FormItem, UIPickerViewDataSource, UIPickerVie
   /// The space after the input item in the form.
   public let spacingAfter: CGFloat
 
-  /// Creates a new instance of `FormPickerItem`.
+  /// Initializes a new instance of `FormPickerItem`.
   /// - Parameters:
-  ///   - options: The array of strings to be displayed as options in the picker.
-  ///   - selectedOption: The initially selected option in the picker.
-  public init(
-    options: [[String]],
-    selectedOption: String?,
-    spacingAfter: CGFloat = 10
-  ) {
-    self.options = options
-    self.spacingAfter = spacingAfter
-    self.selectedOption = selectedOption
+  ///   - configuration: The model containing all the attributes of the picker item.
+  public init(configuration: Configuration) {
+    options = configuration.options
+    spacingAfter = configuration.spacingAfter
+    selectedOption = configuration.selectedOption
 
     super.init(frame: .zero)
     setupSubviews()

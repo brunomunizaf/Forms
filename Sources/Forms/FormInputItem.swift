@@ -1,7 +1,7 @@
 import Combine
 import UIKit
 
-/// `FormInputItem` represents a text input item in a form. 
+/// `FormInputItem` represents a text input item in a form.
 ///
 /// It is a customizable text input component within a form-based interface,
 /// allowing users to input text or numerical data. As a subclass of `UIView`, it
@@ -9,6 +9,76 @@ import UIKit
 ///
 /// - Note: This class conforms to the `FormItem` protocol.
 open class FormInputItem: UIView, FormInputType {
+
+  /// A structure used to configure a `FormInputItem`.
+  ///
+  /// It holds all the customizable parameters, which include visual attributes
+  /// and spacing information for the input item in the form.
+  public struct Configuration {
+    let title: String?
+    let titleFont: UIFont
+    let titleColor: UIColor
+    let initialText: String?
+    let placeholder: String?
+    let isSecure: Bool
+    let autocorrectionType: UITextAutocorrectionType
+    let autocapitalizationType: UITextAutocapitalizationType
+    let font: UIFont
+    let textColor: UIColor
+    let cornerRadius: CGFloat
+    let borderWidth: CGFloat
+    let borderColor: UIColor
+    let spacingAfter: CGFloat
+    let didChange: ((String?) -> Void)?
+
+    /// Initializes a new instance of `FormInputItem.Configuration`.
+    /// - Parameters:
+    ///   - title: The title of the input item.
+    ///   - titleFont: The font of the title label.
+    ///   - titleColor: The text color of the title label.
+    ///   - initialText: The initial text in the text field.
+    ///   - placeholder: The placeholder text in the text field.
+    ///   - font: The font of the text field.
+    ///   - textColor: The text color of the text field.
+    ///   - cornerRadius: The corner radius of the container view.
+    ///   - borderWidth: The width of the border of the container view.
+    ///   - borderColor: The color of the border of the container view.
+    ///   - spacingAfter: The space after the input item in the form.
+    public init(
+      title: String?, 
+      titleFont: UIFont,
+      titleColor: UIColor,
+      initialText: String?,
+      placeholder: String?,
+      isSecure: Bool,
+      autocorrectionType: UITextAutocorrectionType,
+      autocapitalizationType: UITextAutocapitalizationType,
+      font: UIFont,
+      textColor: UIColor,
+      cornerRadius: CGFloat,
+      borderWidth: CGFloat,
+      borderColor: UIColor,
+      spacingAfter: CGFloat,
+      didChange: ((String?) -> Void)?
+    ) {
+      self.title = title
+      self.titleFont = titleFont
+      self.titleColor = titleColor
+      self.initialText = initialText
+      self.placeholder = placeholder
+      self.isSecure = isSecure
+      self.autocorrectionType = autocorrectionType
+      self.autocapitalizationType = autocapitalizationType
+      self.font = font
+      self.textColor = textColor
+      self.cornerRadius = cornerRadius
+      self.borderWidth = borderWidth
+      self.borderColor = borderColor
+      self.spacingAfter = spacingAfter
+      self.didChange = didChange
+    }
+  }
+
   private let containerView = UIView()
   private let stackView = UIStackView()
   private(set) var titleLabel = UILabel()
@@ -32,62 +102,28 @@ open class FormInputItem: UIView, FormInputType {
 
   /// Initializes a new instance of `FormInputItem`.
   /// - Parameters:
-  ///   - title: The title of the input item.
-  ///   - titleFont: The font of the title label.
-  ///   - titleColor: The text color of the title label.
-  ///   - initialText: The initial text in the text field.
-  ///   - placeholder: The placeholder text in the text field.
-  ///   - font: The font of the text field.
-  ///   - textColor: The text color of the text field.
-  ///   - cornerRadius: The corner radius of the container view.
-  ///   - borderWidth: The width of the border of the container view.
-  ///   - borderColor: The color of the border of the container view.
-  ///   - spacingAfter: The space after the input item in the form.
-  public init(
-    title: String? = nil,
-    titleFont: UIFont = .boldSystemFont(ofSize: 14),
-    titleColor: UIColor = .black,
-    initialText: String? = nil,
-    placeholder: String? = nil,
-    isSecure: Bool = false,
-    autocorrectionType: UITextAutocorrectionType = .default,
-    autocapitalizationType: UITextAutocapitalizationType = .sentences,
-    font: UIFont = .systemFont(ofSize: 14),
-    textColor: UIColor = .black,
-    cornerRadius: CGFloat = 10.0,
-    borderWidth: CGFloat = 1.5,
-    borderColor: UIColor = .clear,
-    spacingAfter: CGFloat = 10,
-    didChange: ((String?) -> Void)? = nil
-  ) {
-    titleLabel.text = title
-    titleLabel.font = titleFont
-    titleLabel.textColor = titleColor
-
-    textField.font = font
-    textField.text = initialText
-    textField.textColor = textColor
-    textField.placeholder = placeholder
-    textField.isSecureTextEntry = isSecure
-    textField.autocorrectionType = autocorrectionType
-    textField.autocapitalizationType = autocapitalizationType
-
-    containerView.layer.cornerRadius = cornerRadius
-    containerView.layer.borderWidth = borderWidth
-    containerView.layer.borderColor = borderColor.cgColor
-
-    self.didChange = didChange
-    self.spacingAfter = spacingAfter
+  ///   - configuration: The model containing all the attributes of the input item.
+  public init(configuration: Configuration) {
+    titleLabel.text = configuration.title
+    titleLabel.font = configuration.titleFont
+    titleLabel.textColor = configuration.titleColor
+    textField.font = configuration.font
+    textField.text = configuration.initialText
+    textField.textColor = configuration.textColor
+    textField.placeholder = configuration.placeholder
+    textField.isSecureTextEntry = configuration.isSecure
+    textField.autocorrectionType = configuration.autocorrectionType
+    textField.autocapitalizationType = configuration.autocapitalizationType
+    containerView.layer.cornerRadius = configuration.cornerRadius
+    containerView.layer.borderWidth = configuration.borderWidth
+    containerView.layer.borderColor = configuration.borderColor.cgColor
+    didChange = configuration.didChange
+    spacingAfter = configuration.spacingAfter
 
     super.init(frame: .zero)
-    setupSubviews()
-
-    // Improving accessibility
-    titleLabel.accessibilityLabel = title
-    titleLabel.accessibilityTraits = .header
-    textField.accessibilityLabel = "Input field"
-    textField.accessibilityTraits = .none
-
+    
+    setupViews()
+    setupAccessibility()
     textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
   }
 
@@ -95,7 +131,7 @@ open class FormInputItem: UIView, FormInputType {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private func setupSubviews() {
+  private func setupViews() {
     addSubview(stackView)
     stackView.axis = .vertical
     stackView.spacing = 5
@@ -117,6 +153,13 @@ open class FormInputItem: UIView, FormInputType {
       textField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
       textField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10)
     ])
+  }
+
+  private func setupAccessibility() {
+    titleLabel.accessibilityLabel = titleLabel.text
+    titleLabel.accessibilityTraits = .header
+    textField.accessibilityLabel = "Input field"
+    textField.accessibilityTraits = .none
   }
 
   @objc private func textFieldDidChange() {
