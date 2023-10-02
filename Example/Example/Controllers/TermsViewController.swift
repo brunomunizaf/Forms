@@ -4,6 +4,7 @@ import UIKit
 
 /// `TermsViewController` is a `UIViewController` subclass that manages the
 /// interactions and lifecycle events of the `TermsScreenView` of the app.
+///
 final class TermsViewController: UIViewController {
   // MARK: - Properties
 

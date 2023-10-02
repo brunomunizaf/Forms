@@ -16,12 +16,12 @@ final class PersonalScreenView: UIView {
     FormSpacingItem(),
     buttonItem
   ])
+
+  let scrollView = UIScrollView()
   let inputItem = FormInputItem(configuration: .first)
   let requiredInputItem = MinimumFormInputItem(configuration: .second)
   let numbersInputItem = RegexFormInputItem(configuration: .third)
   let buttonItem = FormButtonItem(configuration: .personal)
-
-  let scrollView = UIScrollView()
 
   init() {
     super.init(frame: .zero)
@@ -52,6 +52,8 @@ final class PersonalScreenView: UIView {
 
   required init?(coder: NSCoder) { nil }
 }
+
+// MARK: - FormItem.Configuration
 
 private extension FormTextItem.Configuration {
   static let title = FormTextItem.Configuration(

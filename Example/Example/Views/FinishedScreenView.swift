@@ -6,6 +6,7 @@ import UIKit
 ///
 final class FinishedScreenView: UIView {
   // MARK: - Properties
+
   let formView = FormView(elements: [
     FormTextItem(configuration: .title)
   ])

@@ -6,6 +6,7 @@ import UIKit
 ///
 final class TermsScreenView: UIView {
   // MARK: - Properties
+
   lazy var formView = FormView(elements: [
     FormTextItem(configuration: .termsTitle),
     FormTextItem(configuration: .termsSubtitle),

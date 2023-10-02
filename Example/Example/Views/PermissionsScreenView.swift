@@ -6,6 +6,7 @@ import UIKit
 ///
 final class PermissionsScreenView: UIView {
   // MARK: - Properties
+
   lazy var formView = FormView(elements: [
     FormTextItem(configuration: .permissionsTitle),
     FormTextItem(configuration: .permissionsSubtitle),

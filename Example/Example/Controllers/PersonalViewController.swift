@@ -1,6 +1,9 @@
 import Forms
 import UIKit
 
+/// `PersonalViewController` is a `UIViewController` subclass that manages the
+/// interactions and lifecycle events of the `PersonalScreenView` of the app.
+///
 final class PersonalViewController: UIViewController {
   // MARK: - Properties
 

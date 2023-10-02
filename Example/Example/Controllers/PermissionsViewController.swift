@@ -4,6 +4,7 @@ import UIKit
 
 /// `PermissionsViewController` is a `UIViewController` subclass that manages the
 /// interactions and lifecycle events of the `PermissionsScreenView` of the app.
+///
 final class PermissionsViewController: UIViewController {
   // MARK: - Properties
 
