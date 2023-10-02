@@ -1,9 +1,68 @@
+import Combine
 import UIKit
 
-/// `FormButtonItem` represents a button item in a form. It is a customizable UIControl
-/// with a title and conforms to the `FormItem` protocol. It can be enabled or disabled,
-/// changing its background color accordingly.
+/// `FormButtonItem` represents a button item in a form. 
+///
+/// This class is a customizable UIControl that can be used to represent buttons
+/// in form-based UIs. It allows customization of various visual attributes and
+/// can be enabled or disabled, changing its appearance based on its state.
+///
+/// - Note: This class conforms to the `FormItem` protocol.
 open class FormButtonItem: UIControl, FormItem {
+
+  /// A structure used to configure a `FormButtonItem`.
+  ///
+  /// It holds all the customizable parameters, which include visual attributes
+  /// and spacing information for the button in the form.
+  public struct Configuration {
+    let title: String
+    let font: UIFont
+    let textColor: UIColor
+    let enabledColor: UIColor
+    let disabledColor: UIColor
+    let borderWidth: CGFloat
+    let borderColor: UIColor
+    let cornerRadius: CGFloat
+    let spacingAfter: CGFloat
+    let shouldBeEnabled: Bool
+
+    /// Initializes a new instance of `FormButtonItem.Configuration`.
+    /// - Parameters:
+    ///   - title: The title of the button item.
+    ///   - font: The font of the title label.
+    ///   - textColor: The text color of the title label.
+    ///   - enabledColor: The background color when the button is enabled.
+    ///   - disabledColor: The background color when the button is disabled.
+    ///   - borderWidth: The width of the border of the button.
+    ///   - borderColor: The color of the border of the button.
+    ///   - cornerRadius: The corner radius of the button.
+    ///   - spacingAfter: The space after the button item in the form.
+    ///   - shouldBeEnabled: The initial state of the button item.
+    public init(
+      title: String,
+      font: UIFont,
+      textColor: UIColor,
+      enabledColor: UIColor,
+      disabledColor: UIColor,
+      borderWidth: CGFloat,
+      borderColor: UIColor,
+      cornerRadius: CGFloat,
+      spacingAfter: CGFloat,
+      shouldBeEnabled: Bool
+    ) {
+      self.title = title
+      self.font = font
+      self.textColor = textColor
+      self.enabledColor = enabledColor
+      self.disabledColor = disabledColor
+      self.borderWidth = borderWidth
+      self.borderColor = borderColor
+      self.cornerRadius = cornerRadius
+      self.spacingAfter = spacingAfter
+      self.shouldBeEnabled = shouldBeEnabled
+    }
+  }
+
   private let titleLabel = UILabel()
   private let enabledColor: UIColor
   private let disabledColor: UIColor
@@ -16,61 +75,75 @@ open class FormButtonItem: UIControl, FormItem {
     get { super.isEnabled }
     set {
       super.isEnabled = newValue
-      backgroundColor = newValue ? enabledColor : disabledColor
+      isEnabledSubject.send(newValue)
     }
   }
 
-  /// Initializes a new instance of `FormButtonItem`.
-  /// - Parameters:
-  ///   - title: The title of the button item.
-  ///   - font: The font of the title label.
-  ///   - textColor: The text color of the title label.
-  ///   - enabledColor: The background color when the button is enabled.
-  ///   - disabledColor: The background color when the button is disabled.
-  ///   - borderWidth: The width of the border of the button.
-  ///   - borderColor: The color of the border of the button.
-  ///   - cornerRadius: The corner radius of the button.
-  ///   - spacingAfter: The space after the button item in the form.
-  ///   - shouldBeEnabled: The initial state of the button item.
-  public init(
-    title: String,
-    font: UIFont = .boldSystemFont(ofSize: 14),
-    textColor: UIColor = .black,
-    enabledColor: UIColor = .green,
-    disabledColor: UIColor = .white,
-    borderWidth: CGFloat = 1.5,
-    borderColor: UIColor = .clear,
-    cornerRadius: CGFloat = 10.0,
-    spacingAfter: CGFloat = 0,
-    shouldBeEnabled: Bool = true
-  ) {
-    self.titleLabel.font = font
-    self.titleLabel.text = title
-    self.titleLabel.textColor = textColor
-    self.spacingAfter = spacingAfter
-    self.enabledColor = enabledColor
-    self.disabledColor = disabledColor
-
-    super.init(frame: .zero)
-
-    layer.borderWidth = borderWidth
-    layer.cornerRadius = cornerRadius
-    layer.borderColor = borderColor.cgColor
-    self.isEnabled = shouldBeEnabled
-
-    addSubview(titleLabel)
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-    titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-    titleLabel.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 10).isActive = true
-    titleLabel.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
-    titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
-
-    // Improving accessibility
-    titleLabel.accessibilityLabel = title
-    titleLabel.accessibilityTraits = .header
+  /// An `AnyPublisher` that publishes the `isEnabled` state of the button.
+  public var isEnabledPublisher: AnyPublisher<Bool, Never> {
+    isEnabledSubject.eraseToAnyPublisher()
   }
 
-  required public init?(coder: NSCoder) { nil }
+  /// A subject that receives the state of `isEnabled` from the button.
+  private let isEnabledSubject: CurrentValueSubject<Bool, Never>
+
+  /// A cancellable object that represents a type-erasing
+  /// reference-holding container that stores the produced cancellables.
+  private var cancellables: Set<AnyCancellable> = []
+
+  /// Initializes a new instance of `FormButtonItem`.
+  /// - Parameters:
+  ///   - configuration: The model containing all the attributes of the button item.
+  public init(configuration: Configuration) {
+    titleLabel.font = configuration.font
+    titleLabel.text = configuration.title
+    titleLabel.textColor = configuration.textColor
+    spacingAfter = configuration.spacingAfter
+    enabledColor = configuration.enabledColor
+    disabledColor = configuration.disabledColor
+    isEnabledSubject = CurrentValueSubject<Bool, Never>(configuration.shouldBeEnabled)
+
+    super.init(frame: .zero)
+    isEnabled = configuration.shouldBeEnabled
+
+    layer.borderWidth = configuration.borderWidth
+    layer.cornerRadius = configuration.cornerRadius
+    layer.borderColor = configuration.borderColor.cgColor
+
+    setupView()
+    setupAccessibility()
+    observeIsEnabled()
+  }
+
+  required public init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  /// Sets up the view by adding `titleLabel` as a subview and activating its layout constraints.
+  private func setupView() {
+    addSubview(titleLabel)
+    titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+      titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+      titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+      titleLabel.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 10),
+      titleLabel.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10),
+      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+    ])
+  }
+
+  /// Sets up accessibility properties for the control.
+  private func setupAccessibility() {
+    titleLabel.accessibilityLabel = titleLabel.text
+    titleLabel.accessibilityTraits = .header
+    titleLabel.accessibilityHint = "Tap to activate"
+  }
+
+  // Observe changes to the isEnabledSubject
+  private func observeIsEnabled() {
+    isEnabledSubject.sink { [unowned self] isEnabled in
+      backgroundColor = isEnabled ? enabledColor : disabledColor
+    }.store(in: &cancellables)
+  }
 }

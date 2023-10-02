@@ -1,3 +1,4 @@
+import Combine
 import Forms
 import UIKit
 
@@ -8,6 +9,10 @@ final class ViewController: UIViewController {
 
   /// A lazy initialized `ScreenView` object.
   lazy var screenView = ScreenView()
+
+  /// A cancellable object that represents a type-erasing
+  /// reference-holding container that stores the produced cancellables.
+  private var cancellables = Set<AnyCancellable>()
 
   // MARK: - Lifecycle
 
@@ -30,8 +35,67 @@ final class ViewController: UIViewController {
 
   // MARK: - Setup
 
-  /// Sets up observers for keyboard notifications.
+  /// Sets up observers and subscriptions
   private func setupObservers() {
+    setupSubscriptions()
+    setupKeyboardObservers()
+  }
+
+  /// The subscriptions are stored in the `cancellables` set to keep them alive.
+  private func setupSubscriptions() {
+    /// Subscribes to `isEnabledPublisher` from `FormButtonItem`.
+    /// When `isEnabled` state changes, it receives a signal with the value
+    screenView
+      .buttonItem
+      .isEnabledPublisher
+      .removeDuplicates() // To avoid spamming the console
+      .receive(on: DispatchQueue.main)
+      .sink { print($0 ? "FormButtonItem: 👍🏻" : "FormButtonItem: 👎🏻") }
+      .store(in: &cancellables)
+
+    /// Subscribes to `isSelectedPublisher` from `FormCheckboxItem`.
+    /// When `isSelected` state changes, it receives a signal with the value
+    screenView
+      .checkboxItem
+      .isSelectedPublisher
+      .removeDuplicates() // To avoid spamming the console
+      .receive(on: DispatchQueue.main)
+      .sink { print($0 ? "FormCheckboxItem: ✅" : "FormCheckboxItem: ⬜️") }
+      .store(in: &cancellables)
+
+    /// Subscribes to `.touchUpInsidePublisher` from custom extension
+    /// located at `UIControl+Publishers.swift`.
+    screenView
+      .buttonItem
+      .touchUpInsidePublisher
+      .receive(on: DispatchQueue.main)
+      .sink { print("Tapped on FormButtonItem. <> This observation was set using Publishers! 🫡") }
+      .store(in: &cancellables)
+
+    /// Subscribes to `.editingChanged` from custom extension
+    /// located at `UITextField+Publishers.swift`
+    screenView
+      .inputItem
+      .textPublisher
+      .receive(on: DispatchQueue.main)
+      .sink {
+        if let text = $0 {
+          print("Typed at 'inputItem' using Combine = \(text)")
+        }
+      }.store(in: &cancellables)
+
+    /// Subscribes to `.valueChangedPublisher` from custom extension
+    /// located at `UIControl+Publishers.swift`
+    screenView
+      .switchItem
+      .isOnPublisher
+      .receive(on: DispatchQueue.main)
+      .sink { _ in print("Toggled FormSwitchItem. <> This observation was set using Publishers! 🎉") }
+      .store(in: &cancellables)
+  }
+
+  /// Sets up observers for keyboard notifications.
+  private func setupKeyboardObservers() {
     let notificationCenter = NotificationCenter.default
     notificationCenter.addObserver(
       self, selector: #selector(adjustForKeyboard),
@@ -45,17 +109,37 @@ final class ViewController: UIViewController {
 
   /// Sets up target-action for buttons and other UI components.
   private func setupActions() {
-    screenView.inputItem.didChange = { [weak self] in self?.validate() }
-    screenView.checkboxItem.didSelect = { [weak self] in self?.validate() }
-    screenView.numbersInputItem.didChange = { [weak self] in self?.validate() }
-    screenView.requiredInputItem.didChange = { [weak self] in self?.validate() }
+    screenView.inputItem.didChange = { [weak self] in
+      if let text = $0 {
+        print(">>> 'inputItem' = \(text)")
+      }
+      self?.validateForm()
+    }
+    screenView.numbersInputItem.didChange = { [weak self] in
+      if let text = $0 {
+        print(">>> 'numbersInputItem' = \(text)")
+      }
+      self?.validateForm()
+    }
+    screenView.requiredInputItem.didChange = { [weak self] in
+      if let text = $0 {
+        print(">>> 'requiredInputItem' = \(text)")
+      }
+      self?.validateForm()
+    }
+    screenView.checkboxItem.didSelect = { [weak self] in
+      self?.validateForm()
+    }
+    screenView.switchItem.didToggle = { _ in
+      print("Toggled FormSwitchItem! <> This observation was set using closures. 🤷🏻‍♂️")
+    }
     screenView.buttonItem.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
   }
 
   // MARK: - Validation
 
   /// Validates the form and updates the UI accordingly.
-  func validate() {
+  func validateForm() {
     screenView.buttonItem.isEnabled = screenView.formView.isValid
   }
 
@@ -63,9 +147,7 @@ final class ViewController: UIViewController {
 
   /// Handles the button tap event and performs the associated actions.
   @objc func didTapButton() {
-    print("1_\(screenView.inputItem.value ?? "nil")")
-    print("2_\(screenView.requiredInputItem.value ?? "nil")")
-    print("3_\(screenView.numbersInputItem.value ?? "nil")")
+    print("Tapped on FormButtonItem! <> This observation was set using Selectors. 🤷🏻‍♂️")
   }
 
   /// Adjusts the scrollView’s content inset when the keyboard appears or disappears.

@@ -31,19 +31,6 @@ final class FormInputItemTests: XCTestCase {
     )
   }
 
-  func _testDidChangeCallback() {
-    let expectation = self.expectation(description: "didChange should be called")
-    let item = FormInputItem()
-
-    item.didChange = {
-      expectation.fulfill()
-    }
-
-    item.textField.text = "New Text"
-    item.textField.sendActions(for: .editingChanged)
-    waitForExpectations(timeout: 1.0, handler: nil)
-  }
-
   func testConstraintsAreActive() {
     let item = FormInputItem()
     item.layoutIfNeeded() // Force layout so constraints are activated.
