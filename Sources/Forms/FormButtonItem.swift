@@ -16,8 +16,7 @@ open class FormButtonItem: UIControl, FormItem {
   /// and spacing information for the button in the form.
   public struct Configuration {
     let title: String
-    let font: UIFont
-    let textColor: UIColor
+    let attributes: [NSAttributedString.Key: Any]
     let enabledColor: UIColor
     let disabledColor: UIColor
     let borderWidth: CGFloat
@@ -29,8 +28,7 @@ open class FormButtonItem: UIControl, FormItem {
     /// Initializes a new instance of `FormButtonItem.Configuration`.
     /// - Parameters:
     ///   - title: The title of the button item.
-    ///   - font: The font of the title label.
-    ///   - textColor: The text color of the title label.
+    ///   - attributes: A dictionary with the attributes for the title label.
     ///   - enabledColor: The background color when the button is enabled.
     ///   - disabledColor: The background color when the button is disabled.
     ///   - borderWidth: The width of the border of the button.
@@ -40,8 +38,7 @@ open class FormButtonItem: UIControl, FormItem {
     ///   - shouldBeEnabled: The initial state of the button item.
     public init(
       title: String,
-      font: UIFont,
-      textColor: UIColor,
+      attributes: [NSAttributedString.Key : Any],
       enabledColor: UIColor,
       disabledColor: UIColor,
       borderWidth: CGFloat,
@@ -51,8 +48,7 @@ open class FormButtonItem: UIControl, FormItem {
       shouldBeEnabled: Bool
     ) {
       self.title = title
-      self.font = font
-      self.textColor = textColor
+      self.attributes = attributes
       self.enabledColor = enabledColor
       self.disabledColor = disabledColor
       self.borderWidth = borderWidth
@@ -95,9 +91,11 @@ open class FormButtonItem: UIControl, FormItem {
   /// - Parameters:
   ///   - configuration: The model containing all the attributes of the button item.
   public init(configuration: Configuration) {
-    titleLabel.font = configuration.font
-    titleLabel.text = configuration.title
-    titleLabel.textColor = configuration.textColor
+    titleLabel.numberOfLines = 0
+    titleLabel.attributedText = NSAttributedString(
+      string: configuration.title,
+      attributes: configuration.attributes
+    )
     spacingAfter = configuration.spacingAfter
     enabledColor = configuration.enabledColor
     disabledColor = configuration.disabledColor

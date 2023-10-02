@@ -82,8 +82,10 @@ private extension FormCheckboxItem.Configuration {
 private extension FormButtonItem.Configuration {
   static let terms = FormButtonItem.Configuration(
     title: "Continue to Registration",
-    font: UIFont(name: "AvenirNext-Bold", size: 20)!,
-    textColor: UIColor.white,
+    attributes: [
+      .font: UIFont(name: "AvenirNext-Bold", size: 20)!,
+      .foregroundColor: UIColor.white
+    ],
     enabledColor: UIColor.systemBlue,
     disabledColor: UIColor.systemGray,
     borderWidth: 1.0,

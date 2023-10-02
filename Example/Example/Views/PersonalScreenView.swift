@@ -80,8 +80,10 @@ private extension FormTextItem.Configuration {
 private extension FormInputItem.Configuration {
   static let first = FormInputItem.Configuration(
     title: "Street Address",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 16)!,
-    titleColor: UIColor.black,
+    titleAttributes: [
+      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
+      .foregroundColor: UIColor.black
+    ],
     initialText: nil,
     placeholder: "e.g. 5912 5th Avenue, New York, NY",
     isSecure: false,
@@ -98,8 +100,10 @@ private extension FormInputItem.Configuration {
 
   static let second = FormInputItem.Configuration(
     title: "Full Name",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 16)!,
-    titleColor: UIColor.black,
+    titleAttributes: [
+      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
+      .foregroundColor: UIColor.black
+    ],
     initialText: nil,
     placeholder: "Required",
     isSecure: false,
@@ -116,8 +120,10 @@ private extension FormInputItem.Configuration {
 
   static let third = FormInputItem.Configuration(
     title: "Phone Number",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 16)!,
-    titleColor: UIColor.black,
+    titleAttributes: [
+      .font:  UIFont(name: "AvenirNext-Medium", size: 16)!,
+      .foregroundColor: UIColor.black
+    ],
     initialText: nil,
     placeholder: "Only numbers allowed",
     isSecure: false,
@@ -136,8 +142,10 @@ private extension FormInputItem.Configuration {
 private extension FormButtonItem.Configuration {
   static let personal = FormButtonItem.Configuration(
     title: "Continue to Permissions",
-    font: UIFont(name: "AvenirNext-DemiBold", size: 18)!,
-    textColor: .white,
+    attributes: [
+      .font: UIFont(name: "AvenirNext-DemiBold", size: 18)!,
+      .foregroundColor: UIColor.white
+    ],
     enabledColor: .systemBlue,
     disabledColor: .systemGray3,
     borderWidth: 1.5,
