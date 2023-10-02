@@ -26,7 +26,7 @@ open class FormCheckboxItem: UIView, FormItem {
     let borderWidth: CGFloat
     let borderColor: UIColor
     let cornerRadius: CGFloat
-    let isSelected: Bool
+    let isChecked: Bool
     let spacingAfter: CGFloat
     let shouldBeSelected: Bool
 
@@ -43,7 +43,7 @@ open class FormCheckboxItem: UIView, FormItem {
     ///   - borderWidth: The width of the border of the checkbox.
     ///   - borderColor: The color of the border of the checkbox.
     ///   - cornerRadius: The corner radius of the checkbox.
-    ///   - isSelected: The initial state of the checkbox item.
+    ///   - isChecked: The initial state of the checkbox item.
     ///   - spacingAfter: The space after the checkbox item in the form.
     ///   - shouldBeSelected: The initial state of the component item.
     public init(
@@ -58,7 +58,7 @@ open class FormCheckboxItem: UIView, FormItem {
       borderWidth: CGFloat,
       borderColor: UIColor,
       cornerRadius: CGFloat,
-      isSelected: Bool,
+      isChecked: Bool,
       spacingAfter: CGFloat,
       shouldBeSelected: Bool
     ) {
@@ -73,7 +73,7 @@ open class FormCheckboxItem: UIView, FormItem {
       self.borderWidth = borderWidth
       self.borderColor = borderColor
       self.cornerRadius = cornerRadius
-      self.isSelected = isSelected
+      self.isChecked = isChecked
       self.spacingAfter = spacingAfter
       self.shouldBeSelected = shouldBeSelected
     }
@@ -128,11 +128,11 @@ open class FormCheckboxItem: UIView, FormItem {
     subtitleLabel.textColor = configuration.subtitleColor
     filledColor = configuration.checkedColor
     emptyColor = configuration.uncheckedColor
-    controlView.isSelected = configuration.isSelected
+    controlView.isSelected = configuration.isChecked
     controlView.layer.borderWidth = configuration.borderWidth
     controlView.layer.cornerRadius = configuration.cornerRadius
     controlView.layer.borderColor = configuration.borderColor.cgColor
-    controlView.backgroundColor = configuration.isSelected ? filledColor : emptyColor
+    controlView.backgroundColor = configuration.isChecked ? filledColor : emptyColor
     isSelectedSubject = CurrentValueSubject<Bool, Never>(configuration.shouldBeSelected)
     spacingAfter = configuration.spacingAfter
 

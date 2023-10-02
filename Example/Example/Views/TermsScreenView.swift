@@ -73,7 +73,7 @@ private extension FormCheckboxItem.Configuration {
     borderWidth: 1.0,
     borderColor: UIColor.lightGray,
     cornerRadius: 5.0,
-    isSelected: false,
+    isChecked: false,
     spacingAfter: 20.0,
     shouldBeSelected: false
   )
