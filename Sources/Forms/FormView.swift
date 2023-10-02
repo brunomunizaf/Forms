@@ -1,5 +1,12 @@
 import UIKit
 
+public enum FormItemType {
+  case text(FormTextItem.Configuration)
+  case input(FormInputItem.Configuration)
+  case button(FormButtonItem.Configuration)
+  case checkbox(FormCheckboxItem.Configuration)
+}
+
 /// A `UIView` subclass representing a form containing multiple `FormItem`s arranged vertically.
 open class FormView: UIView {
   /// An array holding the `FormItem`s.

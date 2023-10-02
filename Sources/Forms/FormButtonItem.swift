@@ -15,15 +15,15 @@ open class FormButtonItem: UIControl, FormItem {
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the button in the form.
   public struct Configuration {
-    let title: String
-    let attributes: [NSAttributedString.Key: Any]
-    let enabledColor: UIColor
-    let disabledColor: UIColor
-    let borderWidth: CGFloat
-    let borderColor: UIColor
-    let cornerRadius: CGFloat
-    let spacingAfter: CGFloat
-    let shouldBeEnabled: Bool
+    public let title: String
+    public let attributes: [NSAttributedString.Key: Any]
+    public let enabledColor: UIColor
+    public let disabledColor: UIColor
+    public let borderWidth: CGFloat
+    public let borderColor: UIColor
+    public let cornerRadius: CGFloat
+    public let spacingAfter: CGFloat
+    public let shouldBeEnabled: Bool
 
     /// Initializes a new instance of `FormButtonItem.Configuration`.
     /// - Parameters:
@@ -59,9 +59,9 @@ open class FormButtonItem: UIControl, FormItem {
     }
   }
 
-  private let titleLabel = UILabel()
-  private let enabledColor: UIColor
-  private let disabledColor: UIColor
+  public let titleLabel = UILabel()
+  public let enabledColor: UIColor
+  public let disabledColor: UIColor
 
   /// The space after the button item in the form.
   public let spacingAfter: CGFloat

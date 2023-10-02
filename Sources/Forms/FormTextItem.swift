@@ -14,9 +14,9 @@ open class FormTextItem: UIView, FormItem {
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the text item in the form.
   public struct Configuration {
-    let text: String
-    let attributes: [NSAttributedString.Key: Any]
-    let spacingAfter: CGFloat
+    public let text: String
+    public let attributes: [NSAttributedString.Key: Any]
+    public let spacingAfter: CGFloat
 
     /// Initializes a new instance of `FormCheckboxItem.Configuration`.
     /// - Parameters:
@@ -34,10 +34,10 @@ open class FormTextItem: UIView, FormItem {
     }
   }
 
-  private(set) var textLabel = UILabel()
+  public let textLabel = UILabel()
 
   /// The space after the text item in the form.
-  public let spacingAfter: CGFloat
+  public var spacingAfter: CGFloat
 
   /// Initializes a new instance of `FormTextItem` with the provided text attributes.
   /// - Parameters:

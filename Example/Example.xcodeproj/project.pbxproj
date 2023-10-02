@@ -18,6 +18,9 @@
 		321F5CFD2ACA4D3100FB8AC5 /* PersonalScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F5CFC2ACA4D3100FB8AC5 /* PersonalScreenView.swift */; };
 		322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */; };
 		322B458E2AC33BEB001917DE /* Forms in Frameworks */ = {isa = PBXBuildFile; productRef = 322B458D2AC33BEB001917DE /* Forms */; };
+		32E341F22ACA6E020073E119 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E341F12ACA6E020073E119 /* PasswordViewController.swift */; };
+		32E341F42ACA73300073E119 /* FormButtonItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E341F32ACA73300073E119 /* FormButtonItemCell.swift */; };
+		32E341F62ACA73510073E119 /* FormTextItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E341F52ACA73510073E119 /* FormTextItemCell.swift */; };
 		32EF92582ACA5934002278A7 /* PermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF92572ACA5934002278A7 /* PermissionsViewController.swift */; };
 		32EF925A2ACA595C002278A7 /* PermissionsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF92592ACA595C002278A7 /* PermissionsScreenView.swift */; };
 		32EF925C2ACA5FD7002278A7 /* FinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF925B2ACA5FD7002278A7 /* FinishedViewController.swift */; };
@@ -37,6 +40,9 @@
 		321F5CFA2ACA4D0A00FB8AC5 /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
 		321F5CFC2ACA4D3100FB8AC5 /* PersonalScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalScreenView.swift; sourceTree = "<group>"; };
 		322788542AC35D0F00F16F06 /* ValidatableFormItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableFormItems.swift; sourceTree = "<group>"; };
+		32E341F12ACA6E020073E119 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		32E341F32ACA73300073E119 /* FormButtonItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormButtonItemCell.swift; sourceTree = "<group>"; };
+		32E341F52ACA73510073E119 /* FormTextItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextItemCell.swift; sourceTree = "<group>"; };
 		32EF92572ACA5934002278A7 /* PermissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsViewController.swift; sourceTree = "<group>"; };
 		32EF92592ACA595C002278A7 /* PermissionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsScreenView.swift; sourceTree = "<group>"; };
 		32EF925B2ACA5FD7002278A7 /* FinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +100,7 @@
 				321F5CFA2ACA4D0A00FB8AC5 /* PersonalViewController.swift */,
 				32EF92572ACA5934002278A7 /* PermissionsViewController.swift */,
 				32EF925B2ACA5FD7002278A7 /* FinishedViewController.swift */,
+				32E341F12ACA6E020073E119 /* PasswordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -105,6 +112,8 @@
 				321F5CFC2ACA4D3100FB8AC5 /* PersonalScreenView.swift */,
 				32EF92592ACA595C002278A7 /* PermissionsScreenView.swift */,
 				32EF925D2ACA6006002278A7 /* FinishedScreenView.swift */,
+				32E341F32ACA73300073E119 /* FormButtonItemCell.swift */,
+				32E341F52ACA73510073E119 /* FormTextItemCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,12 +200,15 @@
 				32EF92582ACA5934002278A7 /* PermissionsViewController.swift in Sources */,
 				321F5CFD2ACA4D3100FB8AC5 /* PersonalScreenView.swift in Sources */,
 				321F5CFB2ACA4D0A00FB8AC5 /* PersonalViewController.swift in Sources */,
+				32E341F62ACA73510073E119 /* FormTextItemCell.swift in Sources */,
 				32EF925A2ACA595C002278A7 /* PermissionsScreenView.swift in Sources */,
+				32E341F42ACA73300073E119 /* FormButtonItemCell.swift in Sources */,
 				321F5CF92ACA4ADC00FB8AC5 /* TermsScreenView.swift in Sources */,
 				322788552AC35D0F00F16F06 /* ValidatableFormItems.swift in Sources */,
 				321F5CF62ACA477A00FB8AC5 /* TermsViewController.swift in Sources */,
 				32EF925E2ACA6006002278A7 /* FinishedScreenView.swift in Sources */,
 				321225C42AC33A5600DBE7E9 /* SceneDelegate.swift in Sources */,
+				32E341F22ACA6E020073E119 /* PasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
