@@ -7,10 +7,22 @@ final class FormInputItemTests: XCTestCase {
     let placeholder = "Placeholder"
     let initialText = "Initial Text"
     let item = FormInputItem(
-      title: title,
-      initialText: initialText,
-      placeholder: placeholder,
-      spacingAfter: 20
+      configuration: .init(
+        title: title,
+        titleAttributes: [:],
+        initialText: initialText,
+        placeholder: placeholder,
+        isSecure: false,
+        autocorrectionType: .no,
+        autocapitalizationType: .none,
+        font: .boldSystemFont(ofSize: 10),
+        textColor: .blue,
+        cornerRadius: 10,
+        borderWidth: 2.0,
+        borderColor: .black,
+        spacingAfter: 20,
+        didChange: nil
+      )
     )
 
     XCTAssertEqual(
@@ -32,7 +44,24 @@ final class FormInputItemTests: XCTestCase {
   }
 
   func testConstraintsAreActive() {
-    let item = FormInputItem()
+    let item = FormInputItem(
+      configuration: .init(
+        title: nil,
+        titleAttributes: [:],
+        initialText: nil,
+        placeholder: nil,
+        isSecure: false,
+        autocorrectionType: .default,
+        autocapitalizationType: .allCharacters,
+        font: .boldSystemFont(ofSize: 1),
+        textColor: .black,
+        cornerRadius: 1,
+        borderWidth: 1,
+        borderColor: .black,
+        spacingAfter: 1,
+        didChange: nil
+      )
+    )
     item.layoutIfNeeded() // Force layout so constraints are activated.
 
     for constraint in item.constraints {
