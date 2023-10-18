@@ -75,9 +75,7 @@ open class FormTextItem: UIView, FormItem {
     setupAccessibility()
   }
 
-  required public init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder: NSCoder) { nil }
 
   private func setupViews() {
     addSubview(textLabel)

@@ -10,9 +10,11 @@ final class FormTextItemTests: XCTestCase {
       .foregroundColor: UIColor.red
     ]
     let item = FormTextItem(
-      text: text,
-      attributes: attributes,
-      spacingAfter: spacing
+      configuration: .init(
+        text: text,
+        attributes: attributes,
+        spacingAfter: spacing
+      )
     )
     XCTAssertEqual(
       item.spacingAfter, spacing,
