@@ -93,9 +93,9 @@ open class FormCalendarItem: UIView, FormItem {
     }
   }
 
-  private let titleLabel = UILabel()
   private let stackView = UIStackView()
-  private let calendarView = UICalendarView()
+  private(set) var titleLabel = UILabel()
+  private(set) var calendarView = UICalendarView()
 
   /// The space after the calendar item in the form.
   public var spacingAfter: CGFloat
@@ -132,9 +132,7 @@ open class FormCalendarItem: UIView, FormItem {
     setupViews()
   }
 
-  required public init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder: NSCoder) { nil }
 
   private func setupViews() {
     addSubview(stackView)

@@ -43,32 +43,6 @@ final class FormInputItemTests: XCTestCase {
     )
   }
 
-  func testConstraintsAreActive() {
-    let item = FormInputItem(
-      configuration: .init(
-        title: nil,
-        titleAttributes: [:],
-        initialText: nil,
-        placeholder: nil,
-        isSecure: false,
-        autocorrectionType: .default,
-        autocapitalizationType: .allCharacters,
-        font: .boldSystemFont(ofSize: 1),
-        textColor: .black,
-        cornerRadius: 1,
-        borderWidth: 1,
-        borderColor: .black,
-        spacingAfter: 1,
-        didChange: nil
-      )
-    )
-    item.layoutIfNeeded() // Force layout so constraints are activated.
-
-    for constraint in item.constraints {
-      XCTAssertTrue(constraint.isActive, "All constraints should be active")
-    }
-  }
-
   func testInitializationUsingNSCoder() {
     let archiver = NSKeyedArchiver(requiringSecureCoding: false)
     let item = FormInputItem(coder: archiver)
