@@ -63,6 +63,7 @@ open class FormTextItem: UIView, FormItem {
   ///   - font: The font of the text label.
   ///   - color: The text color of the text label.
   ///   - spacingAfter: The space after the text item in the form.
+  @available(*, deprecated, message: "Use 'init(configuration:)'")
   public init(text: String, font: UIFont, color: UIColor, spacingAfter: CGFloat) {
     textLabel.text = text
     textLabel.font = font

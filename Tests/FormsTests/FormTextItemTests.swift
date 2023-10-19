@@ -28,14 +28,18 @@ final class FormTextItemTests: XCTestCase {
 
   func testInitWithFontColor() {
     let text = "Test"
+    let color = UIColor.black
     let font = UIFont.systemFont(ofSize: 16)
-    let color = UIColor.blue
     let spacing: CGFloat = 15
     let item = FormTextItem(
-      text: text,
-      font: font,
-      color: color,
-      spacingAfter: spacing
+      configuration: .init(
+        text: text,
+        attributes: [
+          .foregroundColor: color,
+          .font: font
+        ],
+        spacingAfter: spacing
+      )
     )
     XCTAssertEqual(
       item.spacingAfter, spacing,
@@ -124,10 +128,14 @@ private extension FormTextItem {
     _ spacingAfter: CGFloat = 10
   ) -> FormTextItem {
     FormTextItem(
-      text: string,
-      font: .systemFont(ofSize: 12),
-      color: .black,
-      spacingAfter: spacingAfter
+      configuration: .init(
+        text: string,
+        attributes: [
+          .foregroundColor: UIColor.black,
+          .font: UIFont.systemFont(ofSize: 12)
+        ],
+        spacingAfter: spacingAfter
+      )
     )
   }
 }
