@@ -32,7 +32,7 @@ final class PersonalScreenView: UIView {
 
   init() {
     super.init(frame: .zero)
-    backgroundColor = .white
+    backgroundColor = .systemBackground
 
     addSubview(scrollView)
     scrollView.addSubview(formView)
@@ -124,20 +124,20 @@ private extension FormTextItem.Configuration {
     text: "Your personal details",
     attributes: [
       .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-      .foregroundColor: UIColor.black,
+      .foregroundColor: UIColor.label,
       .kern: 0.5
     ],
-    spacingAfter: 15
+    spacingAfter: 20
   )
 
   static let subtitle = FormTextItem.Configuration(
     text: "Insert your personal information to keep your profile up to date.",
     attributes: [
       .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-      .foregroundColor: UIColor.darkGray,
+      .foregroundColor: UIColor.secondaryLabel,
       .kern: 0.2
     ],
-    spacingAfter: 30
+    spacingAfter: 20
   )
 }
 
@@ -146,7 +146,7 @@ private extension FormInputItem.Configuration {
     title: "Street Address",
     titleAttributes: [
       .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.black
+      .foregroundColor: UIColor.label
     ],
     initialText: nil,
     placeholder: "e.g. 5912 5th Avenue, New York, NY",
@@ -154,10 +154,10 @@ private extension FormInputItem.Configuration {
     autocorrectionType: .no,
     autocapitalizationType: .none,
     font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.darkGray,
+    textColor: UIColor.label,
     cornerRadius: 8,
     borderWidth: 1.0,
-    borderColor: UIColor.lightGray,
+    borderColor: UIColor.systemGray,
     spacingAfter: 15,
     didChange: nil
   )
@@ -166,7 +166,7 @@ private extension FormInputItem.Configuration {
     title: "Full Name",
     titleAttributes: [
       .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.black
+      .foregroundColor: UIColor.label
     ],
     initialText: nil,
     placeholder: "Required",
@@ -174,7 +174,7 @@ private extension FormInputItem.Configuration {
     autocorrectionType: .default,
     autocapitalizationType: .words,
     font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.darkGray,
+    textColor: UIColor.label,
     cornerRadius: 8,
     borderWidth: 1.0,
     borderColor: UIColor.lightGray,
@@ -185,8 +185,8 @@ private extension FormInputItem.Configuration {
   static let third = FormInputItem.Configuration(
     title: "Phone Number",
     titleAttributes: [
-      .font:  UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.black
+      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
+      .foregroundColor: UIColor.label
     ],
     initialText: nil,
     placeholder: "Only numbers allowed",
@@ -194,11 +194,11 @@ private extension FormInputItem.Configuration {
     autocorrectionType: .no,
     autocapitalizationType: .none,
     font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.darkGray,
+    textColor: UIColor.label,
     cornerRadius: 8,
     borderWidth: 1.0,
     borderColor: UIColor.lightGray,
-    spacingAfter: 20,
+    spacingAfter: 15,
     didChange: nil
   )
 }

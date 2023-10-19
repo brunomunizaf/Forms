@@ -20,7 +20,7 @@ final class TermsScreenView: UIView {
 
   init() {
     super.init(frame: .zero)
-    backgroundColor = .white
+    backgroundColor = .systemBackground
 
     addSubview(formView)
     formView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ private extension FormTextItem.Configuration {
     text: "Review Our Terms & Conditions",
     attributes: [
       .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-      .foregroundColor: UIColor.black,
+      .foregroundColor: UIColor.label,
       .kern: 0.5
     ],
     spacingAfter: 20
@@ -53,7 +53,7 @@ private extension FormTextItem.Configuration {
     text: "Please read carefully to understand your rights and obligations while using our services.",
     attributes: [
       .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-      .foregroundColor: UIColor.darkGray,
+      .foregroundColor: UIColor.secondaryLabel,
       .kern: 0.2
     ],
     spacingAfter: 20
@@ -64,10 +64,10 @@ private extension FormCheckboxItem.Configuration {
   static let terms = FormCheckboxItem.Configuration(
     title: "Acceptance of Terms & Conditions",
     titleFont: UIFont(name: "AvenirNext-Medium", size: 18)!,
-    titleColor: UIColor.black,
+    titleColor: UIColor.label,
     subtitle: "By checking this box, you acknowledge that you have read, understood, and agree to abide by the terms and conditions outlined above.",
     subtitleFont: UIFont(name: "AvenirNext-Regular", size: 14)!,
-    subtitleColor: UIColor.gray,
+    subtitleColor: UIColor.secondaryLabel,
     checkedColor: UIColor.systemGreen,
     uncheckedColor: UIColor.white,
     borderWidth: 1.0,
