@@ -13,7 +13,7 @@ final class FinishedScreenView: UIView {
 
   init() {
     super.init(frame: .zero)
-    backgroundColor = .white
+    backgroundColor = .systemBackground
 
     addSubview(formView)
     formView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ private extension FormTextItem.Configuration {
     text: "Horray! You finished the onboarding. 🎉",
     attributes: [
       .font: UIFont(name: "AvenirNext-DemiBold", size: 30)!,
-      .foregroundColor: UIColor.black,
+      .foregroundColor: UIColor.label,
       .kern: 0.5,
     ],
     spacingAfter: 20

@@ -1,6 +1,11 @@
 import Forms
 import UIKit
 
+typealias CalendarDelegate =
+UICalendarViewDelegate &
+UICalendarSelectionMultiDateDelegate &
+UICalendarSelectionSingleDateDelegate
+
 /// `PersonalScreenView` is a `UIView` subclass that sets up and
 /// manages `FormItem's` included on the Personal Details UI flow.
 ///
@@ -10,9 +15,10 @@ final class PersonalScreenView: UIView {
   lazy var formView = FormView(elements: [
     FormTextItem(configuration: .title),
     FormTextItem(configuration: .subtitle),
-    inputItem,
     requiredInputItem,
     numbersInputItem,
+    inputItem,
+    calendarItem,
     FormSpacingItem(),
     buttonItem
   ])
@@ -22,10 +28,11 @@ final class PersonalScreenView: UIView {
   let requiredInputItem = MinimumFormInputItem(configuration: .second)
   let numbersInputItem = RegexFormInputItem(configuration: .third)
   let buttonItem = FormButtonItem(configuration: .personal)
+  lazy var calendarItem = FormCalendarItem(configuration: .personal(delegate: self))
 
   init() {
     super.init(frame: .zero)
-    backgroundColor = .white
+    backgroundColor = .systemBackground
 
     addSubview(scrollView)
     scrollView.addSubview(formView)
@@ -53,6 +60,63 @@ final class PersonalScreenView: UIView {
   required init?(coder: NSCoder) { nil }
 }
 
+// MARK: - UICalendarSelectionSingleDateDelegate
+
+extension PersonalScreenView: UICalendarSelectionSingleDateDelegate {
+  func dateSelection(
+    _ selection: UICalendarSelectionSingleDate,
+    didSelectDate dateComponents: DateComponents?
+  ) {
+    if let day = dateComponents?.day,
+       let month = dateComponents?.month,
+       let year = dateComponents?.year {
+      print(">>> Did select \(day)/\(month)/\(year)")
+    }
+  }
+}
+
+// MARK: - UICalendarSelectionMultiDateDelegate
+
+extension PersonalScreenView: UICalendarSelectionMultiDateDelegate {
+  func multiDateSelection(
+    _ selection: UICalendarSelectionMultiDate,
+    didSelectDate dateComponents: DateComponents
+  ) {
+    if let day = dateComponents.day,
+       let month = dateComponents.month,
+       let year = dateComponents.year {
+      print(">>> Did select \(day)/\(month)/\(year)")
+    }
+  }
+
+  func multiDateSelection(
+    _ selection: UICalendarSelectionMultiDate,
+    didDeselectDate dateComponents: DateComponents
+  ) {
+    if let day = dateComponents.day,
+       let month = dateComponents.month,
+       let year = dateComponents.year {
+      print(">>> Did de-select \(day)/\(month)/\(year)")
+    }
+  }
+}
+
+// MARK: - UICalendarViewDelegate
+
+extension PersonalScreenView: UICalendarViewDelegate {
+  func calendarView(
+    _ calendarView: UICalendarView,
+    decorationFor dateComponents: DateComponents
+  ) -> UICalendarView.Decoration? {
+    switch dateComponents.day {
+    case 5:
+      return .default(color: .systemRed, size: .small)
+    default:
+      return .default(color: .systemGreen, size: .small)
+    }
+  }
+}
+
 // MARK: - FormItem.Configuration
 
 private extension FormTextItem.Configuration {
@@ -60,20 +124,20 @@ private extension FormTextItem.Configuration {
     text: "Your personal details",
     attributes: [
       .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-      .foregroundColor: UIColor.black,
+      .foregroundColor: UIColor.label,
       .kern: 0.5
     ],
-    spacingAfter: 15
+    spacingAfter: 20
   )
 
   static let subtitle = FormTextItem.Configuration(
     text: "Insert your personal information to keep your profile up to date.",
     attributes: [
       .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-      .foregroundColor: UIColor.darkGray,
+      .foregroundColor: UIColor.secondaryLabel,
       .kern: 0.2
     ],
-    spacingAfter: 30
+    spacingAfter: 20
   )
 }
 
@@ -82,7 +146,7 @@ private extension FormInputItem.Configuration {
     title: "Street Address",
     titleAttributes: [
       .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.black
+      .foregroundColor: UIColor.label
     ],
     initialText: nil,
     placeholder: "e.g. 5912 5th Avenue, New York, NY",
@@ -90,10 +154,10 @@ private extension FormInputItem.Configuration {
     autocorrectionType: .no,
     autocapitalizationType: .none,
     font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.darkGray,
+    textColor: UIColor.label,
     cornerRadius: 8,
     borderWidth: 1.0,
-    borderColor: UIColor.lightGray,
+    borderColor: UIColor.systemGray,
     spacingAfter: 15,
     didChange: nil
   )
@@ -102,7 +166,7 @@ private extension FormInputItem.Configuration {
     title: "Full Name",
     titleAttributes: [
       .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.black
+      .foregroundColor: UIColor.label
     ],
     initialText: nil,
     placeholder: "Required",
@@ -110,7 +174,7 @@ private extension FormInputItem.Configuration {
     autocorrectionType: .default,
     autocapitalizationType: .words,
     font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.darkGray,
+    textColor: UIColor.label,
     cornerRadius: 8,
     borderWidth: 1.0,
     borderColor: UIColor.lightGray,
@@ -121,8 +185,8 @@ private extension FormInputItem.Configuration {
   static let third = FormInputItem.Configuration(
     title: "Phone Number",
     titleAttributes: [
-      .font:  UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.black
+      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
+      .foregroundColor: UIColor.label
     ],
     initialText: nil,
     placeholder: "Only numbers allowed",
@@ -130,11 +194,11 @@ private extension FormInputItem.Configuration {
     autocorrectionType: .no,
     autocapitalizationType: .none,
     font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.darkGray,
+    textColor: UIColor.label,
     cornerRadius: 8,
     borderWidth: 1.0,
     borderColor: UIColor.lightGray,
-    spacingAfter: 20,
+    spacingAfter: 15,
     didChange: nil
   )
 }
@@ -154,4 +218,36 @@ private extension FormButtonItem.Configuration {
     spacingAfter: 20,
     shouldBeEnabled: false
   )
+}
+
+private extension FormCalendarItem.Configuration {
+  static func personal(
+    delegate: CalendarDelegate
+  ) -> FormCalendarItem.Configuration {
+    FormCalendarItem.Configuration(
+      title: "Date of Birth",
+      calendar: .init(identifier: .gregorian),
+      tintColor: .label,
+      spacingAfter: 20,
+      availableRange: DateInterval(start: .distantPast, end: .now),
+      delegate: delegate,
+      selectionMultiDate: nil,
+      selectionSingleDate: .selectionSingleDate(delegate: delegate),
+      titleAttributes: [
+        .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
+        .foregroundColor: UIColor.label
+      ]
+    )
+  }
+}
+
+private extension FormCalendarItem.Configuration.SelectionSingleDate {
+  static func selectionSingleDate(
+    delegate: UICalendarSelectionSingleDateDelegate
+  ) -> FormCalendarItem.Configuration.SelectionSingleDate {
+    FormCalendarItem.Configuration.SelectionSingleDate(
+      delegate: delegate,
+      selectedDate: DateComponents(year: 1995, month: 06, day: 01)
+    )
+  }
 }
