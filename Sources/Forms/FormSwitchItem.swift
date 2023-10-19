@@ -146,7 +146,11 @@ open class FormSwitchItem: UIView, FormItem {
     titleLabel.accessibilityLabel = titleLabel.text
     titleLabel.accessibilityTraits = .header
     switchView.accessibilityLabel = "Switch"
-    switchView.accessibilityTraits = .button // N.B: `.toggleButton` is only available on iOS 17
+    if #available(iOS 17.0, *) {
+      switchView.accessibilityTraits = .toggleButton
+    } else {
+      switchView.accessibilityTraits = .button
+    }
   }
 
   @objc private func didToggleSwitch() {
