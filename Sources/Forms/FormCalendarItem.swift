@@ -21,8 +21,8 @@ open class FormCalendarItem: UIView, FormItem {
 
       /// Initializes a new instance of `FormCalendarItem.Configuration.SelectionSingleDate`.
       /// - Parameters:
-      ///   - delegate: .....
-      ///   - selectedDate: .....
+      ///   - delegate: A set of methods to provide selectable dates and handle changes to the selection of a single date.
+      ///   - selectedDate: A date or time specified in terms of units to be evaluated in a calendar system and time zone.
       public init(
         delegate: UICalendarSelectionSingleDateDelegate?,
         selectedDate: DateComponents
@@ -38,8 +38,8 @@ open class FormCalendarItem: UIView, FormItem {
 
       /// Initializes a new instance of `FormCalendarItem.Configuration.SelectionMultiDate`.
       /// - Parameters:
-      ///   - delegate: .....
-      ///   - selectedDates: .....
+      ///   - delegate: A set of methods to provide selectable dates and handle changes to the selection of multiple dates.
+      ///   - selectedDates: An array of dates or times specified in terms of units to be evaluated in a calendar system and time zone.
       public init(
         delegate: UICalendarSelectionMultiDateDelegate?,
         selectedDates: [DateComponents]
@@ -61,10 +61,15 @@ open class FormCalendarItem: UIView, FormItem {
 
     /// Initializes a new instance of `FormCalendarItem.Configuration`.
     /// - Parameters:
-    ///   - selectionMultiDate: .....
-    ///   - selectionSingleDate: .....
-    ///   - calendar: The calendar that the calendar item illustrates
+    ///   - title: The title of the calendar item.
+    ///   - calendar: The calendar that the calendar item illustrates.
+    ///   - tintColor: The tint color of the calendar view.
     ///   - spacingAfter: The space after the calendar item in the form.
+    ///   - availableRange: The range of dates that the calendar item can display.
+    ///   - delegate: The object that acts as the delegate of the calendar view.
+    ///   - selectionMultiDate: Configuration for the selection of multiple dates.
+    ///   - selectionSingleDate: Configuration for the selection of a single date.
+    ///   - titleAttributes: A dictionary with the attributes for the title label.
     public init(
       title: String,
       calendar: Calendar,
