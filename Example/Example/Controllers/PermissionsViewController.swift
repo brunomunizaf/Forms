@@ -44,7 +44,10 @@ final class PermissionsViewController: UIViewController {
       .firstSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
-      .sink { print(">>> 1st FormSwitchItem \($0 ? "on" : "off")") }
+      .sink { [unowned self] in
+        print(">>> 1st FormSwitchItem \($0 ? "on" : "off")")
+        validateForm()
+      }
       .store(in: &cancellables)
 
     /// Subscribes to `.valueChangedPublisher` from custom extension
@@ -53,7 +56,10 @@ final class PermissionsViewController: UIViewController {
       .secondSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
-      .sink { print(">>> 2nd FormSwitchItem \($0 ? "on" : "off")") }
+      .sink { [unowned self] in
+        print(">>> 2nd FormSwitchItem \($0 ? "on" : "off")")
+        validateForm()
+      }
       .store(in: &cancellables)
 
     /// Subscribes to `.valueChangedPublisher` from custom extension
@@ -62,7 +68,17 @@ final class PermissionsViewController: UIViewController {
       .thirdSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
-      .sink { print(">>> 3rd FormSwitchItem \($0 ? "on" : "off")") }
+      .sink { [unowned self] in
+        print(">>> 3rd FormSwitchItem \($0 ? "on" : "off")")
+        validateForm()
+      }
       .store(in: &cancellables)
+  }
+
+  // MARK: - Validation
+
+  /// Validates the form and updates the UI accordingly.
+  func validateForm() {
+    screenView.buttonItem.isEnabled = screenView.formView.isValid
   }
 }

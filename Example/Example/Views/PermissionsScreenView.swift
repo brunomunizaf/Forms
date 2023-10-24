@@ -18,7 +18,7 @@ final class PermissionsScreenView: UIView {
   ])
 
   let firstSwitchItem = FormSwitchItem(configuration: .first)
-  let secondSwitchItem = FormSwitchItem(configuration: .second)
+  let secondSwitchItem = RequiredFormSwitchItem(configuration: .second)
   let thirdSwitchItem = FormSwitchItem(configuration: .third)
   let buttonItem = FormButtonItem(configuration: .terms)
 
@@ -67,11 +67,15 @@ private extension FormTextItem.Configuration {
 private extension FormSwitchItem.Configuration {
   static let first = FormSwitchItem.Configuration(
     title: "Location Access",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 17)!,
-    titleColor: .label,
+    titleAttributes: [
+      .foregroundColor: UIColor.label,
+      .font: UIFont(name: "AvenirNext-Medium", size: 17)!
+    ],
     subtitle: "Allow the app to access your location to enhance service delivery and improve user experience.",
-    subtitleFont: UIFont(name: "AvenirNext-Regular", size: 15)!,
-    subtitleColor: .secondaryLabel,
+    subtitleAttributes: [
+      .foregroundColor: UIColor.secondaryLabel,
+      .font: UIFont(name: "AvenirNext-Regular", size: 15)!
+    ],
     onColor: .systemBlue,
     isOn: false,
     spacingAfter: 25
@@ -79,11 +83,15 @@ private extension FormSwitchItem.Configuration {
 
   static let second = FormSwitchItem.Configuration(
     title: "Notifications",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 17)!,
-    titleColor: .label,
-    subtitle: "Enable notifications to stay updated with the latest news, updates, and offers.",
-    subtitleFont: UIFont(name: "AvenirNext-Regular", size: 15)!,
-    subtitleColor: .secondaryLabel,
+    titleAttributes: [
+      .foregroundColor: UIColor.label,
+      .font: UIFont(name: "AvenirNext-Medium", size: 17)!
+    ],
+    subtitle: "Enable notifications to stay updated with the latest news, updates, and offers. This permission is mandatory!",
+    subtitleAttributes: [
+      .foregroundColor: UIColor.secondaryLabel,
+      .font: UIFont(name: "AvenirNext-Regular", size: 15)!
+    ],
     onColor: .systemGreen,
     isOn: false,
     spacingAfter: 25
@@ -91,11 +99,15 @@ private extension FormSwitchItem.Configuration {
 
   static let third = FormSwitchItem.Configuration(
     title: "Camera Access",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 17)!,
-    titleColor: .label,
+    titleAttributes: [
+      .foregroundColor: UIColor.label,
+      .font: UIFont(name: "AvenirNext-Medium", size: 17)!
+    ],
     subtitle: "Grant permission to access your camera to take photos and videos within the app.",
-    subtitleFont: UIFont(name: "AvenirNext-Regular", size: 15)!,
-    subtitleColor: .secondaryLabel,
+    subtitleAttributes: [
+      .foregroundColor: UIColor.secondaryLabel,
+      .font: UIFont(name: "AvenirNext-Regular", size: 15)!
+    ],
     onColor: .systemRed,
     isOn: false,
     spacingAfter: 25
@@ -115,6 +127,6 @@ private extension FormButtonItem.Configuration {
     borderColor: UIColor.clear,
     cornerRadius: 10.0,
     spacingAfter: 0,
-    shouldBeEnabled: true
+    shouldBeEnabled: false
   )
 }
