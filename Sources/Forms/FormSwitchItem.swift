@@ -16,36 +16,28 @@ open class FormSwitchItem: UIView, FormInputType {
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the switch item in the form.
   public struct Configuration {
-    let title: String
-    let titleAttributes: [NSAttributedString.Key: Any]
-    let subtitle: String?
-    let subtitleAttributes: [NSAttributedString.Key: Any]?
+    let title: [NSAttributedString]
+    let subtitle: [NSAttributedString]?
     let isOn: Bool
     let onColor: UIColor
     let spacingAfter: CGFloat
 
     /// Initializes a new instance of `FormSwitchItem.Configuration`.
     /// - Parameters:
-    ///   - title: The title of the switcher item.
-    ///   - titleAttributes: The attributes to apply to the title text.
-    ///   - subtitle: The subtitle of the switcher item.
-    ///   - subtitleAttributes: The attributes to apply to the subtitle text.
+    ///   - title: A collection of attributed strings that will compose the title of the switcher item.
+    ///   - subtitle: A collection of attributed strings that will compose the subtitle of the switcher item.
     ///   - isOn: The initial state of the switch item.
     ///   - onColor: The tint color when the switch is toggled on.
     ///   - spacingAfter: The space after the switch item in the form.
     public init(
-      title: String,
-      titleAttributes: [NSAttributedString.Key: Any],
-      subtitle: String?,
-      subtitleAttributes: [NSAttributedString.Key: Any]?,
+      title: [NSAttributedString],
+      subtitle: [NSAttributedString]?,
       onColor: UIColor,
       isOn: Bool,
       spacingAfter: CGFloat
     ) {
       self.title = title
-      self.titleAttributes = titleAttributes
       self.subtitle = subtitle
-      self.subtitleAttributes = subtitleAttributes
       self.isOn = isOn
       self.onColor = onColor
       self.spacingAfter = spacingAfter
@@ -84,15 +76,13 @@ open class FormSwitchItem: UIView, FormInputType {
   public init(configuration: Configuration) {
     titleLabel.numberOfLines = 0
     subtitleLabel.numberOfLines = 0
-    titleLabel.attributedText = NSAttributedString(
-      string: configuration.title,
-      attributes: configuration.titleAttributes
-    )
+    titleLabel.attributedText = configuration.title.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
     if let subtitle = configuration.subtitle {
-      subtitleLabel.attributedText = NSAttributedString(
-        string: subtitle,
-        attributes: configuration.subtitleAttributes
-      )
+      subtitleLabel.attributedText = subtitle.reduce(
+        into: NSMutableAttributedString()
+      ) { $0.append($1) }
     }
     onColor = configuration.onColor
     switchView.isOn = configuration.isOn
