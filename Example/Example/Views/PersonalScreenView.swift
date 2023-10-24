@@ -121,21 +121,27 @@ extension PersonalScreenView: UICalendarViewDelegate {
 
 private extension FormTextItem.Configuration {
   static let title = FormTextItem.Configuration(
-    text: "Your personal details",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-      .foregroundColor: UIColor.label,
-      .kern: 0.5
+    text: [
+      NSAttributedString(
+      string: "Your personal details",
+      attributes: [
+        .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
+        .foregroundColor: UIColor.label,
+        .kern: 0.5
+      ])
     ],
     spacingAfter: 20
   )
 
   static let subtitle = FormTextItem.Configuration(
-    text: "Insert your personal information to keep your profile up to date.",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-      .foregroundColor: UIColor.secondaryLabel,
-      .kern: 0.2
+    text: [
+      NSAttributedString(
+        string: "Insert your personal information to keep your profile up to date.",
+        attributes: [
+          .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
+          .foregroundColor: UIColor.secondaryLabel,
+          .kern: 0.2
+        ])
     ],
     spacingAfter: 20
   )

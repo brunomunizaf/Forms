@@ -40,21 +40,27 @@ final class TermsScreenView: UIView {
 
 private extension FormTextItem.Configuration {
   static let termsTitle = FormTextItem.Configuration(
-    text: "Review Our Terms & Conditions",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-      .foregroundColor: UIColor.label,
-      .kern: 0.5
+    text: [
+      NSAttributedString(
+        string: "Review Our Terms & Conditions",
+        attributes: [
+          .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
+          .foregroundColor: UIColor.label,
+          .kern: 0.5
+        ])
     ],
     spacingAfter: 20
   )
 
   static let termsSubtitle = FormTextItem.Configuration(
-    text: "Please read carefully to understand your rights and obligations while using our services.",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-      .foregroundColor: UIColor.secondaryLabel,
-      .kern: 0.2
+    text: [
+      NSAttributedString(
+        string: "Please read carefully to understand your rights and obligations while using our services.",
+        attributes: [
+          .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
+          .foregroundColor: UIColor.secondaryLabel,
+          .kern: 0.2
+        ])
     ],
     spacingAfter: 20
   )

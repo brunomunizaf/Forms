@@ -14,22 +14,18 @@ open class FormTextItem: UIView, FormItem {
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the text item in the form.
   public struct Configuration {
-    let text: String
-    let attributes: [NSAttributedString.Key: Any]
+    let text: [NSAttributedString]
     let spacingAfter: CGFloat
 
-    /// Initializes a new instance of `FormCheckboxItem.Configuration`.
+    /// Initializes a new instance of `FormTextItem.Configuration`.
     /// - Parameters:
-    ///   - text: The content of the text item.
-    ///   - attributes: A dictionary with the attributes for the text.
+    ///   - text: A collection of attributed strings that will compose the item.
     ///   - spacingAfter: The space after the text item in the form.
     public init(
-      text: String,
-      attributes: [NSAttributedString.Key : Any],
+      text: [NSAttributedString],
       spacingAfter: CGFloat
     ) {
       self.text = text
-      self.attributes = attributes
       self.spacingAfter = spacingAfter
     }
   }
@@ -41,15 +37,12 @@ open class FormTextItem: UIView, FormItem {
 
   /// Initializes a new instance of `FormTextItem` with the provided text attributes.
   /// - Parameters:
-  ///   - text: The text of the item.
-  ///   - attributes: The attributes to apply to the text.
-  ///   - spacingAfter: The space after the text item in the form.
+  ///   - configuration: The model containing all the attributes of the text item.
   public init(configuration: Configuration) {
     textLabel.numberOfLines = 0
-    textLabel.attributedText = NSAttributedString(
-      string: configuration.text,
-      attributes: configuration.attributes
-    )
+    textLabel.attributedText = configuration.text.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
     spacingAfter = configuration.spacingAfter
 
     super.init(frame: .zero)

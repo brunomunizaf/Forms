@@ -33,11 +33,14 @@ final class FinishedScreenView: UIView {
 
 private extension FormTextItem.Configuration {
   static let title = FormTextItem.Configuration(
-    text: "Horray! You finished the onboarding. 🎉",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-DemiBold", size: 30)!,
-      .foregroundColor: UIColor.label,
-      .kern: 0.5,
+    text: [
+      NSAttributedString(
+        string: "Horray! You finished the onboarding. 🎉",
+        attributes: [
+          .font: UIFont(name: "AvenirNext-DemiBold", size: 30)!,
+          .foregroundColor: UIColor.label,
+          .kern: 0.5,
+        ])
     ],
     spacingAfter: 20
   )
