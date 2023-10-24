@@ -20,8 +20,8 @@ open class FormTextItem: UIView, FormItem {
 
     /// Initializes a new instance of `FormCheckboxItem.Configuration`.
     /// - Parameters:
-    ///   - title: The title of the text item.
-    ///   - attributes: A dictionary with the attributes for the title label.
+    ///   - text: The content of the text item.
+    ///   - attributes: A dictionary with the attributes for the text.
     ///   - spacingAfter: The space after the text item in the form.
     public init(
       text: String,

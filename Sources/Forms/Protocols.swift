@@ -8,12 +8,15 @@ public protocol FormItem: UIView {
 
 /// A protocol that defines a FormItem with input value.
 public protocol FormInputType: FormItem {
+  associatedtype Value: Equatable
+
   /// A String value representing the input value of the FormItem.
-  var value: String? { get }
+  var value: Value { get }
 }
 
 /// A protocol that defines a validatable FormItem.
-public protocol Validatable: FormItem {
-  /// A Boolean value indicating whether the FormItem is valid.
+public protocol Validatable: FormInputType {
+
+  /// A Boolean value indicating whether the item value is valid.
   var isValid: Bool { get }
 }

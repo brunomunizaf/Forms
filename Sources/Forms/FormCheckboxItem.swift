@@ -8,7 +8,7 @@ import UIKit
 /// provides extensive customization options.
 ///
 /// - Note: This class conforms to the `FormItem` protocol.
-open class FormCheckboxItem: UIView, FormItem {
+open class FormCheckboxItem: UIView, FormInputType {
 
   /// A structure used to configure a `FormCheckboxItem`.
   ///
@@ -109,6 +109,11 @@ open class FormCheckboxItem: UIView, FormItem {
       controlView.isSelected = newValue
       isSelectedSubject.send(newValue)
     }
+  }
+
+  /// The current value in the checkbox.
+  public var value: Bool {
+    isSelected
   }
 
   /// A closure that is invoked when the checkbox is tapped.

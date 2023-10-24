@@ -10,7 +10,9 @@ open class FormView: UIView {
 
   /// A Boolean value indicating whether all validatable `FormItem`s are valid.
   public var isValid: Bool {
-    elements.compactMap { $0 as? Validatable }.allSatisfy { $0.isValid }
+    elements
+      .compactMap { $0 as? (any Validatable) }
+      .allSatisfy { $0.isValid }
   }
 
   /// Initializes a new `FormView` with the given `FormItem`s.

@@ -9,7 +9,7 @@ import UIKit
 /// and color schemes, enabling the creation of visually cohesive and user-friendly form items.
 ///
 /// - Note: This class conforms to the `FormItem` protocol.
-open class FormSwitchItem: UIView, FormItem {
+open class FormSwitchItem: UIView, FormInputType {
 
   /// A structure used to configure a `FormSwitchItem`.
   ///
@@ -17,45 +17,37 @@ open class FormSwitchItem: UIView, FormItem {
   /// and spacing information for the switch item in the form.
   public struct Configuration {
     let title: String
-    let titleFont: UIFont
-    let titleColor: UIColor
+    let titleAttributes: [NSAttributedString.Key: Any]
     let subtitle: String?
-    let subtitleFont: UIFont
-    let subtitleColor: UIColor
-    let onColor: UIColor
+    let subtitleAttributes: [NSAttributedString.Key: Any]?
     let isOn: Bool
+    let onColor: UIColor
     let spacingAfter: CGFloat
 
     /// Initializes a new instance of `FormSwitchItem.Configuration`.
     /// - Parameters:
     ///   - title: The title of the switcher item.
-    ///   - titleFont: The font of the title label.
-    ///   - titleColor: The text color of the title label.
+    ///   - titleAttributes: The attributes to apply to the title text.
     ///   - subtitle: The subtitle of the switcher item.
-    ///   - subtitleFont: The font of the subtitle label.
-    ///   - subtitleColor: The text color of the subtitle label.
-    ///   - onColor: The tint color when the switch is toggled on.
+    ///   - subtitleAttributes: The attributes to apply to the subtitle text.
     ///   - isOn: The initial state of the switch item.
+    ///   - onColor: The tint color when the switch is toggled on.
     ///   - spacingAfter: The space after the switch item in the form.
     public init(
       title: String,
-      titleFont: UIFont,
-      titleColor: UIColor,
+      titleAttributes: [NSAttributedString.Key: Any],
       subtitle: String?,
-      subtitleFont: UIFont,
-      subtitleColor: UIColor,
+      subtitleAttributes: [NSAttributedString.Key: Any]?,
       onColor: UIColor,
       isOn: Bool,
       spacingAfter: CGFloat
     ) {
       self.title = title
-      self.titleFont = titleFont
-      self.titleColor = titleColor
+      self.titleAttributes = titleAttributes
       self.subtitle = subtitle
-      self.subtitleFont = subtitleFont
-      self.subtitleColor = subtitleColor
-      self.onColor = onColor
+      self.subtitleAttributes = subtitleAttributes
       self.isOn = isOn
+      self.onColor = onColor
       self.spacingAfter = spacingAfter
     }
   }
@@ -81,18 +73,27 @@ open class FormSwitchItem: UIView, FormItem {
   /// A closure that is invoked when the switch is toggled.
   public var didToggle: ((Bool) -> Void)?
 
+  /// The current value in the switcher.
+  public var value: Bool {
+    switchView.isOn
+  }
+
   /// Initializes a new instance of `FormSwitchItem`.
   /// - Parameters:
   ///   - configuration: The model containing all the attributes of the switch item.
   public init(configuration: Configuration) {
-    titleLabel.text = configuration.title
     titleLabel.numberOfLines = 0
     subtitleLabel.numberOfLines = 0
-    titleLabel.font = configuration.titleFont
-    titleLabel.textColor = configuration.titleColor
-    subtitleLabel.text = configuration.subtitle
-    subtitleLabel.font = configuration.subtitleFont
-    subtitleLabel.textColor = configuration.subtitleColor
+    titleLabel.attributedText = NSAttributedString(
+      string: configuration.title,
+      attributes: configuration.titleAttributes
+    )
+    if let subtitle = configuration.subtitle {
+      subtitleLabel.attributedText = NSAttributedString(
+        string: subtitle,
+        attributes: configuration.subtitleAttributes
+      )
+    }
     onColor = configuration.onColor
     switchView.isOn = configuration.isOn
     switchView.onTintColor = configuration.onColor
