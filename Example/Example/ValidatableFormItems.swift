@@ -36,6 +36,15 @@ final class RegexFormInputItem: FormInputItem, Validatable {
 /// `RequiredFormCheckboxItem` is a subclass of `FormCheckboxItem` and conforms to `Validatable`.
 /// It considers the item valid if it is selected.
 final class RequiredFormCheckboxItem: FormCheckboxItem, Validatable {
-  /// A computed property to check if the checkbox item is selected and therefore valid.
-  var isValid: Bool { isSelected }
+
+  /// A computed property to check if the value is valid.
+  var isValid: Bool { value == true }
+}
+
+/// `RequiredFormSwitchItem` is a subclass of `FormSwitchItem` and conforms to `Validatable`.
+/// It considers the item valid if it is enabled.
+final class RequiredFormSwitchItem: FormSwitchItem, Validatable {
+
+  /// A computed property to check if the value is valid.
+  var isValid: Bool { value == true }
 }

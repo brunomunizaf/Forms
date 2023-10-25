@@ -9,53 +9,37 @@ import UIKit
 /// and color schemes, enabling the creation of visually cohesive and user-friendly form items.
 ///
 /// - Note: This class conforms to the `FormItem` protocol.
-open class FormSwitchItem: UIView, FormItem {
+open class FormSwitchItem: UIView, FormInputType {
 
   /// A structure used to configure a `FormSwitchItem`.
   ///
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the switch item in the form.
   public struct Configuration {
-    let title: String
-    let titleFont: UIFont
-    let titleColor: UIColor
-    let subtitle: String?
-    let subtitleFont: UIFont
-    let subtitleColor: UIColor
-    let onColor: UIColor
+    let title: [NSAttributedString]
+    let subtitle: [NSAttributedString]?
     let isOn: Bool
+    let onColor: UIColor
     let spacingAfter: CGFloat
 
     /// Initializes a new instance of `FormSwitchItem.Configuration`.
     /// - Parameters:
-    ///   - title: The title of the switcher item.
-    ///   - titleFont: The font of the title label.
-    ///   - titleColor: The text color of the title label.
-    ///   - subtitle: The subtitle of the switcher item.
-    ///   - subtitleFont: The font of the subtitle label.
-    ///   - subtitleColor: The text color of the subtitle label.
-    ///   - onColor: The tint color when the switch is toggled on.
+    ///   - title: A collection of attributed strings that will compose the title of the switcher item.
+    ///   - subtitle: A collection of attributed strings that will compose the subtitle of the switcher item.
     ///   - isOn: The initial state of the switch item.
+    ///   - onColor: The tint color when the switch is toggled on.
     ///   - spacingAfter: The space after the switch item in the form.
     public init(
-      title: String,
-      titleFont: UIFont,
-      titleColor: UIColor,
-      subtitle: String?,
-      subtitleFont: UIFont,
-      subtitleColor: UIColor,
+      title: [NSAttributedString],
+      subtitle: [NSAttributedString]?,
       onColor: UIColor,
       isOn: Bool,
       spacingAfter: CGFloat
     ) {
       self.title = title
-      self.titleFont = titleFont
-      self.titleColor = titleColor
       self.subtitle = subtitle
-      self.subtitleFont = subtitleFont
-      self.subtitleColor = subtitleColor
-      self.onColor = onColor
       self.isOn = isOn
+      self.onColor = onColor
       self.spacingAfter = spacingAfter
     }
   }
@@ -81,18 +65,25 @@ open class FormSwitchItem: UIView, FormItem {
   /// A closure that is invoked when the switch is toggled.
   public var didToggle: ((Bool) -> Void)?
 
+  /// The current value in the switcher.
+  public var value: Bool {
+    switchView.isOn
+  }
+
   /// Initializes a new instance of `FormSwitchItem`.
   /// - Parameters:
   ///   - configuration: The model containing all the attributes of the switch item.
   public init(configuration: Configuration) {
-    titleLabel.text = configuration.title
     titleLabel.numberOfLines = 0
     subtitleLabel.numberOfLines = 0
-    titleLabel.font = configuration.titleFont
-    titleLabel.textColor = configuration.titleColor
-    subtitleLabel.text = configuration.subtitle
-    subtitleLabel.font = configuration.subtitleFont
-    subtitleLabel.textColor = configuration.subtitleColor
+    titleLabel.attributedText = configuration.title.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
+    if let subtitle = configuration.subtitle {
+      subtitleLabel.attributedText = subtitle.reduce(
+        into: NSMutableAttributedString()
+      ) { $0.append($1) }
+    }
     onColor = configuration.onColor
     switchView.isOn = configuration.isOn
     switchView.onTintColor = configuration.onColor
@@ -146,7 +137,11 @@ open class FormSwitchItem: UIView, FormItem {
     titleLabel.accessibilityLabel = titleLabel.text
     titleLabel.accessibilityTraits = .header
     switchView.accessibilityLabel = "Switch"
-    switchView.accessibilityTraits = .button // N.B: `.toggleButton` is only available on iOS 17
+    if #available(iOS 17.0, *) {
+      switchView.accessibilityTraits = .toggleButton
+    } else {
+      switchView.accessibilityTraits = .button
+    }
   }
 
   @objc private func didToggleSwitch() {

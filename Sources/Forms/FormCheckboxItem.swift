@@ -8,19 +8,15 @@ import UIKit
 /// provides extensive customization options.
 ///
 /// - Note: This class conforms to the `FormItem` protocol.
-open class FormCheckboxItem: UIView, FormItem {
+open class FormCheckboxItem: UIView, FormInputType {
 
   /// A structure used to configure a `FormCheckboxItem`.
   ///
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the checkbox item in the form.
   public struct Configuration {
-    let title: String
-    let titleFont: UIFont
-    let titleColor: UIColor
-    let subtitle: String?
-    let subtitleFont: UIFont
-    let subtitleColor: UIColor
+    let title: [NSAttributedString]
+    let subtitle: [NSAttributedString]?
     let checkedColor: UIColor
     let uncheckedColor: UIColor
     let borderWidth: CGFloat
@@ -32,12 +28,8 @@ open class FormCheckboxItem: UIView, FormItem {
 
     /// Initializes a new instance of `FormCheckboxItem.Configuration`.
     /// - Parameters:
-    ///   - title: The title of the checkbox item.
-    ///   - titleFont: The font of the title label.
-    ///   - titleColor: The text color of the title label.
-    ///   - subtitle: The subtitle of the checkbox item.
-    ///   - subtitleFont: The font of the subtitle label.
-    ///   - subtitleColor: The text color of the subtitle label.
+    ///   - title: A collection of attributed strings that will compose the title of the checkbox item.
+    ///   - subtitle: A collection of attributed strings that will compose the subtitle of the checkbox item.
     ///   - checkedColor: The background color when the checkbox is selected.
     ///   - uncheckedColor: The background color when the checkbox is not selected.
     ///   - borderWidth: The width of the border of the checkbox.
@@ -47,12 +39,8 @@ open class FormCheckboxItem: UIView, FormItem {
     ///   - spacingAfter: The space after the checkbox item in the form.
     ///   - shouldBeSelected: The initial state of the component item.
     public init(
-      title: String,
-      titleFont: UIFont,
-      titleColor: UIColor,
-      subtitle: String?,
-      subtitleFont: UIFont,
-      subtitleColor: UIColor,
+      title: [NSAttributedString],
+      subtitle: [NSAttributedString]?,
       checkedColor: UIColor,
       uncheckedColor: UIColor,
       borderWidth: CGFloat,
@@ -63,11 +51,7 @@ open class FormCheckboxItem: UIView, FormItem {
       shouldBeSelected: Bool
     ) {
       self.title = title
-      self.titleFont = titleFont
-      self.titleColor = titleColor
       self.subtitle = subtitle
-      self.subtitleFont = subtitleFont
-      self.subtitleColor = subtitleColor
       self.checkedColor = checkedColor
       self.uncheckedColor = uncheckedColor
       self.borderWidth = borderWidth
@@ -111,6 +95,11 @@ open class FormCheckboxItem: UIView, FormItem {
     }
   }
 
+  /// The current value in the checkbox.
+  public var value: Bool {
+    isSelected
+  }
+
   /// A closure that is invoked when the checkbox is tapped.
   public var didSelect: (() -> Void)?
 
@@ -118,14 +107,16 @@ open class FormCheckboxItem: UIView, FormItem {
   /// - Parameters:
   ///   - configuration: The model containing all the attributes of the checkbox item.
   public init(configuration: Configuration) {
-    titleLabel.text = configuration.title
-    titleLabel.font = configuration.titleFont
     titleLabel.numberOfLines = 0
-    titleLabel.textColor = configuration.titleColor
-    subtitleLabel.text = configuration.subtitle
     subtitleLabel.numberOfLines = 0
-    subtitleLabel.font = configuration.subtitleFont
-    subtitleLabel.textColor = configuration.subtitleColor
+    titleLabel.attributedText = configuration.title.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
+    if let subtitle = configuration.subtitle {
+      subtitleLabel.attributedText = subtitle.reduce(
+        into: NSMutableAttributedString()
+      ) { $0.append($1) }
+    }
     filledColor = configuration.checkedColor
     emptyColor = configuration.uncheckedColor
     controlView.isSelected = configuration.isChecked

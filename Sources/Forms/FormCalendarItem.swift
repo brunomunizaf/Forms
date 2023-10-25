@@ -49,7 +49,7 @@ open class FormCalendarItem: UIView, FormItem {
       }
     }
 
-    let title: String
+    let title: [NSAttributedString]
     let calendar: Calendar
     let delegate: UICalendarViewDelegate?
     let tintColor: UIColor
@@ -57,11 +57,10 @@ open class FormCalendarItem: UIView, FormItem {
     let availableRange: DateInterval?
     let selectionMultiDate: SelectionMultiDate?
     let selectionSingleDate: SelectionSingleDate?
-    let titleAttributes: [NSAttributedString.Key: Any]
 
     /// Initializes a new instance of `FormCalendarItem.Configuration`.
     /// - Parameters:
-    ///   - title: The title of the calendar item.
+    ///   - title: A collection of attributed strings that will compose the title of the calendar item.
     ///   - calendar: The calendar that the calendar item illustrates.
     ///   - tintColor: The tint color of the calendar view.
     ///   - spacingAfter: The space after the calendar item in the form.
@@ -69,17 +68,15 @@ open class FormCalendarItem: UIView, FormItem {
     ///   - delegate: The object that acts as the delegate of the calendar view.
     ///   - selectionMultiDate: Configuration for the selection of multiple dates.
     ///   - selectionSingleDate: Configuration for the selection of a single date.
-    ///   - titleAttributes: A dictionary with the attributes for the title label.
     public init(
-      title: String,
+      title: [NSAttributedString],
       calendar: Calendar,
       tintColor: UIColor,
       spacingAfter: CGFloat,
       availableRange: DateInterval?,
       delegate: UICalendarViewDelegate?,
       selectionMultiDate: SelectionMultiDate?,
-      selectionSingleDate: SelectionSingleDate?,
-      titleAttributes: [NSAttributedString.Key : Any]
+      selectionSingleDate: SelectionSingleDate?
     ) {
       self.title = title
       self.calendar = calendar
@@ -87,15 +84,14 @@ open class FormCalendarItem: UIView, FormItem {
       self.tintColor = tintColor
       self.spacingAfter = spacingAfter
       self.availableRange = availableRange
-      self.titleAttributes = titleAttributes
       self.selectionMultiDate = selectionMultiDate
       self.selectionSingleDate = selectionSingleDate
     }
   }
 
-  private let titleLabel = UILabel()
   private let stackView = UIStackView()
-  private let calendarView = UICalendarView()
+  private(set) var titleLabel = UILabel()
+  private(set) var calendarView = UICalendarView()
 
   /// The space after the calendar item in the form.
   public var spacingAfter: CGFloat
@@ -107,10 +103,9 @@ open class FormCalendarItem: UIView, FormItem {
     calendarView.tintColor = configuration.tintColor
 
     titleLabel.numberOfLines = 0
-    titleLabel.attributedText = NSAttributedString(
-      string: configuration.title,
-      attributes: configuration.titleAttributes
-    )
+    titleLabel.attributedText = configuration.title.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
 
     if let availableRange = configuration.availableRange {
       calendarView.availableDateRange = availableRange
@@ -132,9 +127,7 @@ open class FormCalendarItem: UIView, FormItem {
     setupViews()
   }
 
-  required public init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder: NSCoder) { nil }
 
   private func setupViews() {
     addSubview(stackView)

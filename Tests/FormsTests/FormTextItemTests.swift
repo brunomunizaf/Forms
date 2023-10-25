@@ -10,9 +10,12 @@ final class FormTextItemTests: XCTestCase {
       .foregroundColor: UIColor.red
     ]
     let item = FormTextItem(
-      configuration: .init(
-        text: text,
-        attributes: attributes,
+      configuration: FormTextItem.Configuration(
+        text: [
+          NSAttributedString(
+            string: text,
+            attributes: attributes
+          )],
         spacingAfter: spacing
       )
     )
@@ -32,11 +35,14 @@ final class FormTextItemTests: XCTestCase {
     let font = UIFont.systemFont(ofSize: 16)
     let spacing: CGFloat = 15
     let item = FormTextItem(
-      configuration: .init(
-        text: text,
-        attributes: [
-          .foregroundColor: color,
-          .font: font
+      configuration: FormTextItem.Configuration(
+        text: [
+          NSAttributedString(
+            string: text,
+            attributes: [
+              .font: font,
+              .foregroundColor: color
+            ])
         ],
         spacingAfter: spacing
       )
@@ -127,15 +133,16 @@ private extension FormTextItem {
     _ string: String,
     _ spacingAfter: CGFloat = 10
   ) -> FormTextItem {
-    FormTextItem(
-      configuration: .init(
-        text: string,
-        attributes: [
-          .foregroundColor: UIColor.black,
-          .font: UIFont.systemFont(ofSize: 12)
-        ],
-        spacingAfter: spacingAfter
-      )
-    )
+    FormTextItem(configuration: .init(
+      text: [
+        NSAttributedString(
+          string: string,
+          attributes: [
+            .foregroundColor: UIColor.black,
+            .font: UIFont.systemFont(ofSize: 12)
+          ])
+      ],
+      spacingAfter: spacingAfter
+    ))
   }
 }

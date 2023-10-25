@@ -41,28 +41,44 @@ final class PermissionsViewController: UIViewController {
     /// Subscribes to `.valueChangedPublisher` from custom extension
     /// located at `UIControl+Publishers.swift`
     screenView
-      .firstSwitchItem
+      .locationSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
-      .sink { print(">>> 1st FormSwitchItem \($0 ? "on" : "off")") }
+      .sink { [unowned self] in
+        print(">>> 1st FormSwitchItem \($0 ? "on" : "off")")
+        validateForm()
+      }
       .store(in: &cancellables)
 
     /// Subscribes to `.valueChangedPublisher` from custom extension
     /// located at `UIControl+Publishers.swift`
     screenView
-      .secondSwitchItem
+      .notificationsSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
-      .sink { print(">>> 2nd FormSwitchItem \($0 ? "on" : "off")") }
+      .sink { [unowned self] in
+        print(">>> 2nd FormSwitchItem \($0 ? "on" : "off")")
+        validateForm()
+      }
       .store(in: &cancellables)
 
     /// Subscribes to `.valueChangedPublisher` from custom extension
     /// located at `UIControl+Publishers.swift`
     screenView
-      .thirdSwitchItem
+      .cameraSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
-      .sink { print(">>> 3rd FormSwitchItem \($0 ? "on" : "off")") }
+      .sink { [unowned self] in
+        print(">>> 3rd FormSwitchItem \($0 ? "on" : "off")")
+        validateForm()
+      }
       .store(in: &cancellables)
+  }
+
+  // MARK: - Validation
+
+  /// Validates the form and updates the UI accordingly.
+  func validateForm() {
+    screenView.buttonItem.isEnabled = screenView.formView.isValid
   }
 }
