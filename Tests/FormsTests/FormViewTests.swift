@@ -109,6 +109,8 @@ final class FormViewTests: XCTestCase {
 }
 
 private final class FormItemMock: UIView, FormItem, Validatable {
+  var value: String { fatalError() }
+
   var spacingAfter: CGFloat
   var isValid: Bool
 

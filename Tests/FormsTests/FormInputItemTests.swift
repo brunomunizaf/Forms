@@ -8,10 +8,9 @@ final class FormInputItemTests: XCTestCase {
     let initialText = "Initial Text"
     let item = FormInputItem(
       configuration: .init(
-        title: title,
-        titleAttributes: [:],
+        title: [NSAttributedString(string: title)],
         initialText: initialText,
-        placeholder: placeholder,
+        placeholder: [NSAttributedString(string: placeholder)],
         isSecure: false,
         autocorrectionType: .no,
         autocapitalizationType: .none,

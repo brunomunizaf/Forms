@@ -5,15 +5,14 @@ import XCTest
 final class FormCalendarItemTests: XCTestCase {
   func testProperInitialization() {
     let configuration = FormCalendarItem.Configuration(
-      title: "mock_title",
+      title: [NSAttributedString(string: "mock_title")],
       calendar: .init(identifier: .chinese),
       tintColor: .red,
       spacingAfter: 12,
       availableRange: .none,
       delegate: nil,
       selectionMultiDate: nil,
-      selectionSingleDate: nil,
-      titleAttributes: [:]
+      selectionSingleDate: nil
     )
     let calendarItem = FormCalendarItem(configuration: configuration)
 
@@ -41,25 +40,6 @@ final class FormCalendarItemTests: XCTestCase {
 
   func testSelectionSingleDateDelegate() {
     let singleDelegate = MockSelectionSingleDateDelegate()
-    let calendarItem = FormCalendarItem(configuration: .init(
-      title: "",
-      calendar: .current,
-      tintColor: .blue,
-      spacingAfter: 0,
-      availableRange: nil,
-      delegate: nil,
-      selectionMultiDate: nil,
-      selectionSingleDate: .init(
-        delegate: singleDelegate,
-        selectedDate: DateComponents(
-          year: 2023,
-          month: 10,
-          day: 19
-        )
-      ),
-      titleAttributes: [:]
-    ))
-
     singleDelegate.dateSelection(
       UICalendarSelectionSingleDate(delegate: nil),
       didSelectDate: DateComponents(
