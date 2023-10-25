@@ -15,10 +15,9 @@ open class FormInputItem: UIView, FormInputType {
   /// It holds all the customizable parameters, which include visual attributes
   /// and spacing information for the input item in the form.
   public struct Configuration {
-    let title: String?
-    let titleAttributes: [NSAttributedString.Key: Any]
+    let title: [NSAttributedString]
+    let placeholder: [NSAttributedString]
     let initialText: String?
-    let placeholder: String?
     let isSecure: Bool
     let autocorrectionType: UITextAutocorrectionType
     let autocapitalizationType: UITextAutocapitalizationType
@@ -32,10 +31,9 @@ open class FormInputItem: UIView, FormInputType {
 
     /// Initializes a new instance of `FormInputItem.Configuration`.
     /// - Parameters:
-    ///   - title: The title of the input item.
-    ///   - attributes: A dictionary with the attributes for the title label.
+    ///   - title: A collection of attributed strings that will compose the title of the input item.
     ///   - initialText: The initial text in the text field.
-    ///   - placeholder: The placeholder text in the text field.
+    ///   - placeholder: A collection of attributed strings that will compose the placeholder of the input item.
     ///   - font: The font of the text field.
     ///   - textColor: The text color of the text field.
     ///   - cornerRadius: The corner radius of the container view.
@@ -43,10 +41,9 @@ open class FormInputItem: UIView, FormInputType {
     ///   - borderColor: The color of the border of the container view.
     ///   - spacingAfter: The space after the input item in the form.
     public init(
-      title: String?, 
-      titleAttributes: [NSAttributedString.Key: Any],
+      title: [NSAttributedString],
       initialText: String?,
-      placeholder: String?,
+      placeholder: [NSAttributedString],
       isSecure: Bool,
       autocorrectionType: UITextAutocorrectionType,
       autocapitalizationType: UITextAutocapitalizationType,
@@ -59,7 +56,6 @@ open class FormInputItem: UIView, FormInputType {
       didChange: ((String?) -> Void)?
     ) {
       self.title = title
-      self.titleAttributes = titleAttributes
       self.initialText = initialText
       self.placeholder = placeholder
       self.isSecure = isSecure
@@ -101,14 +97,17 @@ open class FormInputItem: UIView, FormInputType {
   ///   - configuration: The model containing all the attributes of the input item.
   public init(configuration: Configuration) {
     titleLabel.numberOfLines = 0
-    titleLabel.attributedText = NSAttributedString(
-      string: configuration.title ?? "",
-      attributes: configuration.titleAttributes
-    )
+    titleLabel.attributedText = configuration.title.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
+
     textField.font = configuration.font
     textField.text = configuration.initialText
     textField.textColor = configuration.textColor
-    textField.placeholder = configuration.placeholder
+    textField.attributedPlaceholder = configuration.placeholder.reduce(
+      into: NSMutableAttributedString()
+    ) { $0.append($1) }
+
     textField.isSecureTextEntry = configuration.isSecure
     textField.autocorrectionType = configuration.autocorrectionType
     textField.autocapitalizationType = configuration.autocapitalizationType

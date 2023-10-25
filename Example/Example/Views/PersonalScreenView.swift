@@ -13,22 +13,35 @@ final class PersonalScreenView: UIView {
   // MARK: - Properties
 
   lazy var formView = FormView(elements: [
-    FormTextItem(configuration: .title),
-    FormTextItem(configuration: .subtitle),
-    requiredInputItem,
-    numbersInputItem,
-    inputItem,
+    FormTextItem(configuration: .h1(Strings.Personal.title)),
+    FormTextItem(configuration: .h2(Strings.Personal.subtitle)),
+    nameItem,
+    phoneItem,
+    addressItem,
     calendarItem,
     FormSpacingItem(),
     buttonItem
   ])
 
   let scrollView = UIScrollView()
-  let inputItem = FormInputItem(configuration: .first)
-  let requiredInputItem = MinimumFormInputItem(configuration: .second)
-  let numbersInputItem = RegexFormInputItem(configuration: .third)
-  let buttonItem = FormButtonItem(configuration: .personal)
-  lazy var calendarItem = FormCalendarItem(configuration: .personal(delegate: self))
+  let addressItem = FormInputItem(configuration: .with(
+    title: Strings.Personal.addressTitle,
+    placeholder: Strings.Personal.addressPlaceholder
+  ))
+  let nameItem = MinimumFormInputItem(configuration: .with(
+    title: Strings.Personal.nameTitle,
+    placeholder: Strings.Personal.namePlaceholder
+  ))
+  let phoneItem = RegexFormInputItem(configuration: .with(
+    title: Strings.Personal.phoneTitle,
+    placeholder: Strings.Personal.phonePlaceholder
+  ))
+  lazy var calendarItem = FormCalendarItem(
+    configuration: .personal(delegate: self)
+  )
+  let buttonItem = FormButtonItem(
+    configuration: .withTitle(Strings.Personal.button)
+  )
 
   init() {
     super.init(frame: .zero)
@@ -117,132 +130,26 @@ extension PersonalScreenView: UICalendarViewDelegate {
   }
 }
 
-// MARK: - FormItem.Configuration
-
-private extension FormTextItem.Configuration {
-  static let title = FormTextItem.Configuration(
-    text: [
-      NSAttributedString(
-      string: "Your personal details",
-      attributes: [
-        .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-        .foregroundColor: UIColor.label,
-        .kern: 0.5
-      ])
-    ],
-    spacingAfter: 20
-  )
-
-  static let subtitle = FormTextItem.Configuration(
-    text: [
-      NSAttributedString(
-        string: "Insert your personal information to keep your profile up to date.",
-        attributes: [
-          .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-          .foregroundColor: UIColor.secondaryLabel,
-          .kern: 0.2
-        ])
-    ],
-    spacingAfter: 20
-  )
-}
-
-private extension FormInputItem.Configuration {
-  static let first = FormInputItem.Configuration(
-    title: "Street Address",
-    titleAttributes: [
-      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.label
-    ],
-    initialText: nil,
-    placeholder: "e.g. 5912 5th Avenue, New York, NY",
-    isSecure: false,
-    autocorrectionType: .no,
-    autocapitalizationType: .none,
-    font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.label,
-    cornerRadius: 8,
-    borderWidth: 1.0,
-    borderColor: UIColor.systemGray,
-    spacingAfter: 15,
-    didChange: nil
-  )
-
-  static let second = FormInputItem.Configuration(
-    title: "Full Name",
-    titleAttributes: [
-      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.label
-    ],
-    initialText: nil,
-    placeholder: "Required",
-    isSecure: false,
-    autocorrectionType: .default,
-    autocapitalizationType: .words,
-    font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.label,
-    cornerRadius: 8,
-    borderWidth: 1.0,
-    borderColor: UIColor.lightGray,
-    spacingAfter: 15,
-    didChange: nil
-  )
-
-  static let third = FormInputItem.Configuration(
-    title: "Phone Number",
-    titleAttributes: [
-      .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-      .foregroundColor: UIColor.label
-    ],
-    initialText: nil,
-    placeholder: "Only numbers allowed",
-    isSecure: false,
-    autocorrectionType: .no,
-    autocapitalizationType: .none,
-    font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-    textColor: UIColor.label,
-    cornerRadius: 8,
-    borderWidth: 1.0,
-    borderColor: UIColor.lightGray,
-    spacingAfter: 15,
-    didChange: nil
-  )
-}
-
-private extension FormButtonItem.Configuration {
-  static let personal = FormButtonItem.Configuration(
-    title: "Continue to Permissions",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-DemiBold", size: 18)!,
-      .foregroundColor: UIColor.white
-    ],
-    enabledColor: .systemBlue,
-    disabledColor: .systemGray3,
-    borderWidth: 1.5,
-    borderColor: .systemBlue,
-    cornerRadius: 20.0,
-    spacingAfter: 20,
-    shouldBeEnabled: false
-  )
-}
-
 private extension FormCalendarItem.Configuration {
   static func personal(
     delegate: CalendarDelegate
   ) -> FormCalendarItem.Configuration {
     FormCalendarItem.Configuration(
-      title: "Date of Birth",
+      title: [
+        NSAttributedString(
+          string: Strings.Personal.calendarTitle,
+          attributes: [
+            .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
+            .foregroundColor: UIColor.label
+          ])
+      ],
       calendar: .init(identifier: .gregorian),
       tintColor: .label,
       spacingAfter: 20,
       availableRange: DateInterval(start: .distantPast, end: .now),
       delegate: delegate,
       selectionMultiDate: nil,
-      selectionSingleDate: .selectionSingleDate(delegate: delegate),
-      titleAttributes: [
-        .font: UIFont(name: "AvenirNext-Medium", size: 16)!,
-        .foregroundColor: UIColor.label
-      ]
+      selectionSingleDate: .selectionSingleDate(delegate: delegate)
     )
   }
 }

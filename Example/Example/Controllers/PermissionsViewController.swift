@@ -41,7 +41,7 @@ final class PermissionsViewController: UIViewController {
     /// Subscribes to `.valueChangedPublisher` from custom extension
     /// located at `UIControl+Publishers.swift`
     screenView
-      .firstSwitchItem
+      .locationSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
       .sink { [unowned self] in
@@ -53,7 +53,7 @@ final class PermissionsViewController: UIViewController {
     /// Subscribes to `.valueChangedPublisher` from custom extension
     /// located at `UIControl+Publishers.swift`
     screenView
-      .secondSwitchItem
+      .notificationsSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
       .sink { [unowned self] in
@@ -65,7 +65,7 @@ final class PermissionsViewController: UIViewController {
     /// Subscribes to `.valueChangedPublisher` from custom extension
     /// located at `UIControl+Publishers.swift`
     screenView
-      .thirdSwitchItem
+      .cameraSwitchItem
       .isOnPublisher
       .receive(on: DispatchQueue.main)
       .sink { [unowned self] in

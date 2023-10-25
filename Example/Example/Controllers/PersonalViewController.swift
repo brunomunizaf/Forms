@@ -29,21 +29,21 @@ final class PersonalViewController: UIViewController {
 
   /// Sets up target-action for buttons and other UI components.
   private func setupActions() {
-    screenView.inputItem.didChange = { [weak self] in
+    screenView.addressItem.didChange = { [weak self] in
       if let text = $0 {
-        print(">>> 'inputItem' = \(text)")
+        print(">>> 'addressItem' = \(text)")
       }
       self?.validateForm()
     }
-    screenView.numbersInputItem.didChange = { [weak self] in
+    screenView.phoneItem.didChange = { [weak self] in
       if let text = $0 {
-        print(">>> 'numbersInputItem' = \(text)")
+        print(">>> 'phoneItem' = \(text)")
       }
       self?.validateForm()
     }
-    screenView.requiredInputItem.didChange = { [weak self] in
+    screenView.nameItem.didChange = { [weak self] in
       if let text = $0 {
-        print(">>> 'requiredInputItem' = \(text)")
+        print(">>> 'nameItem' = \(text)")
       }
       self?.validateForm()
     }

@@ -8,7 +8,7 @@ final class FinishedScreenView: UIView {
   // MARK: - Properties
 
   let formView = FormView(elements: [
-    FormTextItem(configuration: .title)
+    FormTextItem(configuration: .h1(Strings.Finished.title))
   ])
 
   init() {
@@ -27,21 +27,4 @@ final class FinishedScreenView: UIView {
   }
 
   required init?(coder: NSCoder) { nil }
-}
-
-// MARK: - FormItem.Configuration
-
-private extension FormTextItem.Configuration {
-  static let title = FormTextItem.Configuration(
-    text: [
-      NSAttributedString(
-        string: "Horray! You finished the onboarding. 🎉",
-        attributes: [
-          .font: UIFont(name: "AvenirNext-DemiBold", size: 30)!,
-          .foregroundColor: UIColor.label,
-          .kern: 0.5,
-        ])
-    ],
-    spacingAfter: 20
-  )
 }

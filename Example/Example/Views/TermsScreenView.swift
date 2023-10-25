@@ -8,15 +8,23 @@ final class TermsScreenView: UIView {
   // MARK: - Properties
 
   lazy var formView = FormView(elements: [
-    FormTextItem(configuration: .termsTitle),
-    FormTextItem(configuration: .termsSubtitle),
+    FormTextItem(configuration: .h1(Strings.Terms.title)),
+    FormTextItem(configuration: .h2(Strings.Terms.subtitle)),
     FormSpacingItem(),
     checkboxItem,
     buttonItem
   ])
 
-  let buttonItem = FormButtonItem(configuration: .terms)
-  let checkboxItem = RequiredFormCheckboxItem(configuration: .terms)
+  let checkboxItem = RequiredFormCheckboxItem(
+    configuration: .with(
+      title: Strings.Terms.checkboxTitle,
+      subtitle: Strings.Terms.checkboxSubtitle,
+      highlightedSubtitle: Strings.Terms.checkboxSubtitleHighlighted
+    )
+  )
+  let buttonItem = FormButtonItem(
+    configuration: .withTitle(Strings.Terms.button)
+  )
 
   init() {
     super.init(frame: .zero)
@@ -34,70 +42,4 @@ final class TermsScreenView: UIView {
   }
 
   required init?(coder: NSCoder) { nil }
-}
-
-// MARK: - FormItem.Configuration
-
-private extension FormTextItem.Configuration {
-  static let termsTitle = FormTextItem.Configuration(
-    text: [
-      NSAttributedString(
-        string: "Review Our Terms & Conditions",
-        attributes: [
-          .font: UIFont(name: "AvenirNext-DemiBold", size: 24)!,
-          .foregroundColor: UIColor.label,
-          .kern: 0.5
-        ])
-    ],
-    spacingAfter: 20
-  )
-
-  static let termsSubtitle = FormTextItem.Configuration(
-    text: [
-      NSAttributedString(
-        string: "Please read carefully to understand your rights and obligations while using our services.",
-        attributes: [
-          .font: UIFont(name: "AvenirNext-Regular", size: 16)!,
-          .foregroundColor: UIColor.secondaryLabel,
-          .kern: 0.2
-        ])
-    ],
-    spacingAfter: 20
-  )
-}
-
-private extension FormCheckboxItem.Configuration {
-  static let terms = FormCheckboxItem.Configuration(
-    title: "Acceptance of Terms & Conditions",
-    titleFont: UIFont(name: "AvenirNext-Medium", size: 18)!,
-    titleColor: UIColor.label,
-    subtitle: "By checking this box, you acknowledge that you have read, understood, and agree to abide by the terms and conditions outlined above.",
-    subtitleFont: UIFont(name: "AvenirNext-Regular", size: 14)!,
-    subtitleColor: UIColor.secondaryLabel,
-    checkedColor: UIColor.systemGreen,
-    uncheckedColor: UIColor.white,
-    borderWidth: 1.0,
-    borderColor: UIColor.lightGray,
-    cornerRadius: 5.0,
-    isChecked: false,
-    spacingAfter: 20.0,
-    shouldBeSelected: false
-  )
-}
-
-private extension FormButtonItem.Configuration {
-  static let terms = FormButtonItem.Configuration(
-    title: "Continue to Registration",
-    attributes: [
-      .font: UIFont(name: "AvenirNext-Bold", size: 20)!,
-      .foregroundColor: UIColor.white
-    ],
-    enabledColor: UIColor.systemBlue,
-    disabledColor: UIColor.systemGray,
-    borderWidth: 1.0,
-    borderColor: UIColor.clear,
-    cornerRadius: 10.0,
-    spacingAfter: 0,
-    shouldBeEnabled: false
-  )
 }
